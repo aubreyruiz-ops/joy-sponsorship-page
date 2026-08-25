@@ -1,0 +1,13 @@
+{
+  "name": "joy-sponsor-network",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Joy Sponsor Network landing page + application form, deployed as a static site with a Vercel serverless function backed by Postgres.",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0"
+  }
+}
