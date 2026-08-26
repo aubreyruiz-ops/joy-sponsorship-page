@@ -2,10 +2,9 @@
 // Uses the "Create a Contact" endpoint, which also updates the existing
 // contact when the email already exists in the account.
 //
-// NOTE: verify this against Apollo's current API docs the first time you use
-// a real APOLLO_API_KEY — Apollo has changed auth/request shape across API
-// versions before. If a sync fails, the raw Apollo error is surfaced to the
-// CRM UI to make that easy to spot and adjust here.
+// Apollo now requires the API key as an `X-Api-Key` header rather than in
+// the JSON body (the body-based `api_key` field is rejected with "API key
+// must be passed in the X-Api-Key header").
 
 const APOLLO_CONTACTS_URL = 'https://api.apollo.io/v1/contacts';
 
@@ -27,9 +26,11 @@ export async function upsertApolloContact({ email, name, company, website }) {
 
   const response = await fetch(APOLLO_CONTACTS_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Api-Key': process.env.APOLLO_API_KEY,
+    },
     body: JSON.stringify({
-      api_key: process.env.APOLLO_API_KEY,
       email,
       first_name,
       last_name,
