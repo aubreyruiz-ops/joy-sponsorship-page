@@ -2,10 +2,11 @@
 // Receives the sponsor application form payload from sponsor-network-application.html
 // and inserts it into the Postgres database created via schema.sql.
 //
-// Requires the POSTGRES_URL env var, which Vercel sets automatically once you
-// attach a Postgres/Neon database to this project (Storage tab in the Vercel dashboard).
+// Requires a Postgres connection string env var — see api/_lib/db.js for
+// which ones it checks (STORAGE_POSTGRES_URL for the Supabase integration,
+// or POSTGRES_URL for Vercel's own Postgres/Neon storage).
 
-import { sql } from '@vercel/postgres';
+import { sql } from './_lib/db.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

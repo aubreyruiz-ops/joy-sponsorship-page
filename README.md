@@ -12,7 +12,8 @@ serverless function that writes submissions into Postgres.
 - `crm.html` / `crm-templates.html` / `crm-login.html` — internal CRM (`/crm`, `/crm-templates`, `/crm-login`)
 - `api/auth/*` — username/password login/logout/me for the CRM
 - `api/applications*`, `api/templates*` — CRM data endpoints (all require a signed-in CRM session)
-- `api/_lib/` — shared session signing, auth guard, and Apollo API helpers
+- `api/_lib/db.js` — the shared Postgres client every route imports (see below for why it's plain `pg`, not `@vercel/postgres`)
+- `api/_lib/` — also shared session signing, auth guard, and Apollo API helpers
 - `schema.sql` — creates `sponsor_applications` plus the CRM's `email_templates` / `application_template_sends` tables
 - `vercel.json` — clean URLs (drops `.html`) and a root redirect to the landing page
 - `.env.example` — required env vars (Postgres, CRM login, session secret, Apollo)
@@ -42,17 +43,25 @@ guessable — this is a low-effort deterrent, not hardened auth.
 
 1. Push this folder to a GitHub repo.
 2. In Vercel, **Add New Project** and import that repo. No build settings needed — it's static
-   HTML plus one serverless function, Vercel detects both automatically.
-3. Attach a database: in the project's **Storage** tab, create a Postgres database (Vercel
-   Postgres or the Neon integration both work) and connect it to this project. This sets the
-   `POSTGRES_URL` env var for you automatically.
-4. Run `schema.sql` once against that database — easiest is pasting it into the **Query** tab
-   under Storage, or `psql "$POSTGRES_URL" -f schema.sql` from a terminal.
+   HTML plus serverless functions, Vercel detects both automatically.
+3. Attach a database: in the project's **Storage** tab, connect a Postgres database. Both
+   providers work, but they set different env vars, and the code checks both:
+   - **Supabase** (via the Vercel Storage marketplace integration) sets `STORAGE_POSTGRES_URL`
+     (and friends, all `STORAGE_`-prefixed).
+   - **Vercel Postgres / Neon** sets a plain `POSTGRES_URL`.
+
+   Either way, `api/_lib/db.js` connects with plain `pg` over standard TCP/SSL — this matters
+   because `@vercel/postgres` (the package Vercel's own quickstarts suggest) is built on Neon's
+   serverless driver, which only works against Neon-hosted databases; it can't reach a Supabase
+   database at all, even with the right env var name.
+4. Run `schema.sql` once against that database — easiest is pasting it into the **SQL Editor**
+   (Supabase) or **Query** tab (Vercel Storage), or `psql "$STORAGE_POSTGRES_URL" -f schema.sql`
+   (or `$POSTGRES_URL`) from a terminal.
 5. Deploy. The form at `/sponsor-network-application` will now write real rows into
    `sponsor_applications`.
 
-For local development: `vercel env pull .env.local` to grab `POSTGRES_URL`, then `npm install`
-and `vercel dev`.
+For local development: `vercel env pull .env.local` to grab the database env vars, then
+`npm install` and `vercel dev`.
 
 ## Notes for whoever picks this up next (Claude Code)
 

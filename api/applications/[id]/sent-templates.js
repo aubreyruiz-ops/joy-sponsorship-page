@@ -3,7 +3,7 @@
 // — no email is actually sent here, this only records that it happened
 // elsewhere (Apollo, Intercom, etc).
 
-import { sql } from '@vercel/postgres';
+import { sql } from '../../_lib/db.js';
 import { requireAuth } from '../../_lib/requireAuth.js';
 
 export default async function handler(req, res) {

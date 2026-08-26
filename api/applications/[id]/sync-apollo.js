@@ -2,7 +2,7 @@
 // email) and records the resulting apollo_contact_id/apollo_synced_at.
 // On-demand only — never triggered by the public application form.
 
-import { sql } from '@vercel/postgres';
+import { sql } from '../../_lib/db.js';
 import { requireAuth } from '../../_lib/requireAuth.js';
 import { upsertApolloContact } from '../../_lib/apollo.js';
 

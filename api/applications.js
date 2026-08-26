@@ -1,7 +1,7 @@
 // Protected: lists sponsor_applications as CRM "contacts", each with the ids
 // of the email templates that have been marked sent to them.
 
-import { sql } from '@vercel/postgres';
+import { sql } from './_lib/db.js';
 import { requireAuth } from './_lib/requireAuth.js';
 
 export default async function handler(req, res) {
