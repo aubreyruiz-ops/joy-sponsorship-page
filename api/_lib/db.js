@@ -23,11 +23,25 @@ if (!connectionString) {
   );
 }
 
+// Supabase's connection string includes `sslmode=require`. pg-connection-string
+// now treats that as full certificate verification and derives its own ssl
+// config from it, which wins over an `ssl` option passed alongside
+// `connectionString` — so `ssl: { rejectUnauthorized: false }` below gets
+// silently overridden and the connection fails with "self-signed certificate
+// in certificate chain" (Supabase's CA isn't in Node's default trust store).
+// Stripping sslmode from the query string (leaving the rest of the URL,
+// including the user/password, untouched) lets our explicit ssl option apply.
+function withoutSslMode(connStr) {
+  const [base, query] = connStr.split('?');
+  if (!query) return connStr;
+  const params = new URLSearchParams(query);
+  params.delete('sslmode');
+  const rest = params.toString();
+  return rest ? `${base}?${rest}` : base;
+}
+
 const pool = new pg.Pool({
-  connectionString,
-  // Supabase's Postgres requires SSL; its cert chain isn't always in Node's
-  // default trust store, so we don't strictly verify it here. This is the
-  // standard approach for connecting to Supabase from serverless functions.
+  connectionString: withoutSslMode(connectionString),
   ssl: { rejectUnauthorized: false },
 });
 
