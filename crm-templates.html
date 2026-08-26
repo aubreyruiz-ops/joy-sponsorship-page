@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joy | Email Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161F;
+    --body-text:#565D6D;
+    --muted:#8890A0;
+    --blue:#3355F0;
+    --blue-dark:#1E33C7;
+    --bg-light:#F6F7FB;
+    --border:#E7E9F0;
+    --radius-lg:16px;
+    --radius-sm:10px;
+    --shadow-sm:0 4px 14px rgba(20,22,60,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--body-text);
+    background:var(--bg-light);
+    line-height:1.5;
+  }
+  h1,h2{
+    font-family:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--ink);
+    margin:0;
+    font-weight:700;
+    letter-spacing:-0.01em;
+  }
+  a{color:var(--blue);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:900px;margin:0 auto;padding:0 28px;}
+
+  header.topbar{background:#fff;border-bottom:1px solid var(--border);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1280px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:24px;}
+  .brand h1{font-size:18px;}
+  nav.tabs{display:flex;gap:4px;}
+  nav.tabs a{padding:8px 14px;border-radius:var(--radius-sm);font-weight:600;font-size:14px;color:var(--body-text);}
+  nav.tabs a.active{background:var(--bg-light);color:var(--blue);}
+  .user{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted);}
+  .user img{width:28px;height:28px;border-radius:50%;}
+  .user a{color:var(--muted);font-weight:600;}
+
+  main{padding:32px 0 64px;}
+  .panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);}
+  .panel-head{padding:20px 24px;border-bottom:1px solid var(--border);}
+  .panel-body{padding:24px;}
+
+  .template-row{
+    display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);
+  }
+  .template-row:last-child{border-bottom:none;}
+  .template-row .info{flex:1;min-width:0;}
+  .template-row .name{font-weight:600;color:var(--ink);}
+  .template-row .url{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .template-row .actions{display:flex;gap:8px;flex-shrink:0;}
+
+  form.add-form{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+  form.add-form input{
+    flex:1;min-width:180px;font-family:inherit;font-size:14px;padding:9px 12px;
+    border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--ink);
+  }
+  form.add-form input:focus{outline:none;border-color:var(--blue);}
+
+  button{
+    font-family:inherit;cursor:pointer;border:1px solid var(--border);background:#fff;
+    border-radius:var(--radius-sm);padding:8px 14px;font-size:13px;font-weight:600;color:var(--ink);
+  }
+  button:hover{border-color:var(--blue);color:var(--blue);}
+  button.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+  button.primary:hover{background:var(--blue-dark);}
+  button.danger:hover{border-color:#D64545;color:#D64545;}
+
+  .state{padding:40px 24px;text-align:center;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <h1>Joy CRM</h1>
+      <nav class="tabs">
+        <a href="/crm">Contacts</a>
+        <a href="/crm-templates" class="active">Templates</a>
+      </nav>
+    </div>
+    <div class="user" id="userBox"></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Email templates</h2>
+      </div>
+      <div class="panel-body">
+        <div id="list" class="state">Loading&hellip;</div>
+        <form class="add-form" id="addForm">
+          <input type="text" id="newName" placeholder="Template name" required>
+          <input type="url" id="newUrl" placeholder="https://... link to the template" required>
+          <button type="submit" class="primary">Add template</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  var templates = [];
+
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  async function api(path, opts){
+    var res = await fetch(path, Object.assign({ headers: { 'Content-Type': 'application/json' } }, opts));
+    if(res.status === 401){
+      window.location.href = '/api/auth/login';
+      throw new Error('Not signed in');
+    }
+    return res;
+  }
+
+  function renderUser(session){
+    var box = document.getElementById('userBox');
+    box.innerHTML =
+      (session.picture ? '<img src="' + esc(session.picture) + '" alt="">' : '') +
+      '<span>' + esc(session.name || session.email) + '</span>' +
+      '<a href="/api/auth/logout">Log out</a>';
+  }
+
+  function renderList(){
+    var list = document.getElementById('list');
+    if(templates.length === 0){
+      list.className = 'state';
+      list.textContent = 'No templates yet — add a link below.';
+      return;
+    }
+    list.className = '';
+    list.innerHTML = templates.map(function(t){
+      return (
+        '<div class="template-row">' +
+          '<div class="info">' +
+            '<div class="name">' + esc(t.name) + '</div>' +
+            '<a class="url" href="' + esc(t.url) + '" target="_blank" rel="noopener">' + esc(t.url) + '</a>' +
+          '</div>' +
+          '<div class="actions">' +
+            '<button type="button" data-edit="' + t.id + '">Edit</button>' +
+            '<button type="button" class="danger" data-delete="' + t.id + '">Delete</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+  }
+
+  document.getElementById('list').addEventListener('click', async function(e){
+    var editBtn = e.target.closest && e.target.closest('[data-edit]');
+    if(editBtn){
+      var id = Number(editBtn.getAttribute('data-edit'));
+      var t = templates.find(function(x){ return x.id === id; });
+      var name = prompt('Template name', t.name);
+      if(name === null) return;
+      var url = prompt('Template URL', t.url);
+      if(url === null) return;
+      try {
+        var res = await api('/api/templates/' + id, { method: 'PUT', body: JSON.stringify({ name: name.trim(), url: url.trim() }) });
+        var data = await res.json();
+        if(!res.ok) throw new Error(data.error);
+        Object.assign(t, data.template);
+        renderList();
+      } catch(err){ alert('Could not update: ' + err.message); }
+      return;
+    }
+
+    var delBtn = e.target.closest && e.target.closest('[data-delete]');
+    if(delBtn){
+      var delId = Number(delBtn.getAttribute('data-delete'));
+      if(!confirm('Delete this template link?')) return;
+      try {
+        await api('/api/templates/' + delId, { method: 'DELETE' });
+        templates = templates.filter(function(x){ return x.id !== delId; });
+        renderList();
+      } catch(err){ alert('Could not delete: ' + err.message); }
+    }
+  });
+
+  document.getElementById('addForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    var nameInput = document.getElementById('newName');
+    var urlInput = document.getElementById('newUrl');
+    var name = nameInput.value.trim();
+    var url = urlInput.value.trim();
+    if(!name || !url) return;
+    try {
+      var res = await api('/api/templates', { method: 'POST', body: JSON.stringify({ name: name, url: url }) });
+      var data = await res.json();
+      if(!res.ok) throw new Error(data.error);
+      templates.unshift(data.template);
+      renderList();
+      nameInput.value = '';
+      urlInput.value = '';
+    } catch(err){ alert('Could not add template: ' + err.message); }
+  });
+
+  async function init(){
+    try {
+      var meRes = await api('/api/auth/me');
+      renderUser(await meRes.json());
+      var res = await api('/api/templates');
+      var data = await res.json();
+      templates = data.templates || [];
+      renderList();
+    } catch(err){
+      console.error(err);
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>

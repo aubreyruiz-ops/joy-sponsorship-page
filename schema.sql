@@ -21,3 +21,26 @@ create table if not exists sponsor_applications (
 
 create index if not exists idx_sponsor_applications_email on sponsor_applications (email);
 create index if not exists idx_sponsor_applications_created_at on sponsor_applications (created_at desc);
+
+-- Internal CRM additions: withjoy.com-only login (auth itself needs no tables —
+-- sessions are stateless signed cookies), Apollo sync tracking, and a registry of
+-- email-template links with per-contact "sent" tracking.
+
+alter table sponsor_applications add column if not exists apollo_contact_id text;
+alter table sponsor_applications add column if not exists apollo_synced_at timestamptz;
+
+create table if not exists email_templates (
+  id          bigserial primary key,
+  name        text not null,
+  url         text not null,
+  created_by  text,
+  created_at  timestamptz not null default now()
+);
+
+create table if not exists application_template_sends (
+  application_id  bigint not null references sponsor_applications(id) on delete cascade,
+  template_id     bigint not null references email_templates(id) on delete cascade,
+  sent_by         text,
+  sent_at         timestamptz not null default now(),
+  primary key (application_id, template_id)
+);

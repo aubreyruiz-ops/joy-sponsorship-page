@@ -9,9 +9,33 @@ serverless function that writes submissions into Postgres.
 - `sponsor-network-application.html` — the application form (`/sponsor-network-application`)
 - `logos/` — sponsor logo assets used in the landing page marquee
 - `api/submit-application.js` — serverless function the form POSTs to; validates and inserts into Postgres
-- `schema.sql` — creates the `sponsor_applications` table
+- `crm.html` / `crm-templates.html` — internal CRM (`/crm`, `/crm-templates`), login-gated to `@withjoy.com`
+- `api/auth/*` — Google OAuth login/callback/logout/me for the CRM
+- `api/applications*`, `api/templates*` — CRM data endpoints (all require a signed-in `@withjoy.com` session)
+- `api/_lib/` — shared session signing, auth guard, and Apollo API helpers
+- `schema.sql` — creates `sponsor_applications` plus the CRM's `email_templates` / `application_template_sends` tables
 - `vercel.json` — clean URLs (drops `.html`) and a root redirect to the landing page
-- `.env.example` — the one env var this needs (`POSTGRES_URL`)
+- `.env.example` — required env vars (Postgres, Google OAuth, session secret, Apollo)
+
+## Internal CRM (`/crm`)
+
+Login-gated to `@withjoy.com` Google accounts (a "Team Login" link sits in the landing page footer).
+Lists sponsor applications as contacts with their full survey answers, lets you push a contact into
+Apollo on demand ("Sync to Apollo"), and tracks — via a manual multi-select per contact — which
+templates from the `/crm-templates` link registry have already been sent. No email is sent by this
+system; templates are just links to wherever you actually write/send them (Apollo, Intercom, etc.),
+and sending itself stays a manual step there.
+
+Setup:
+1. In Google Cloud Console, create an OAuth 2.0 **Web application** client. Add an authorized
+   redirect URI for each environment you'll use, e.g. `https://your-domain.com/api/auth/callback`
+   and `http://localhost:3000/api/auth/callback` for local dev.
+2. Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REDIRECT_URI` (matching the exact URI
+   you added above) in the Vercel dashboard's Environment Variables.
+3. Set `SESSION_SECRET` to a random string (`openssl rand -base64 32`).
+4. Set `APOLLO_API_KEY` from your Apollo.io account (Settings -> Integrations -> API).
+5. Re-run `schema.sql` against your database — it's idempotent (`create table if not exists` /
+   `add column if not exists`), safe to run again even if `sponsor_applications` already exists.
 
 ## Deploy to Vercel
 
@@ -33,8 +57,6 @@ and `vercel dev`.
 
 - The confirmation screen still has a placeholder testimonial quote — swap it in once real
   testimonials come in (`sponsor-network-application.html`, search for "Placeholder quote").
-- There's no admin view yet for reading submissions back out of `sponsor_applications` — that's
-  a natural next step (a simple authenticated page or API route that queries the table).
 - The "Forward this page along" link on the confirmation screen opens a `mailto:` with a
   pre-filled subject/body pointing at the live landing page URL; no further wiring needed there.
 - Sponsor logos in `logos/` are the real assets provided; there's no Atomicwork logo file, so

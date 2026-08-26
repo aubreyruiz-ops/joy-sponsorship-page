@@ -8,6 +8,8 @@
     "dev": "vercel dev"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0"
+    "@vercel/postgres": "^0.10.0",
+    "cookie": "^0.7.1",
+    "jose": "^5.9.6"
   }
 }
