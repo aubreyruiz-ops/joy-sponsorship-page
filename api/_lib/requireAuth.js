@@ -6,7 +6,7 @@ import { readSession } from './session.js';
 
 export async function requireAuth(req, res) {
   const session = await readSession(req);
-  if (!session || !session.email || !session.email.toLowerCase().endsWith('@withjoy.com')) {
+  if (!session || !session.username) {
     res.status(401).json({ error: 'Not signed in.' });
     return null;
   }

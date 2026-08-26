@@ -1,6 +1,6 @@
-// Shared session helpers used by every /api/auth/* route and every protected
-// route (via requireAuth.js). Sessions are stateless: a signed JWT stored in an
-// httpOnly cookie, no server-side session store needed.
+// Shared session helpers used by /api/auth/* and every protected route (via
+// requireAuth.js). Sessions are stateless: a signed JWT stored in an httpOnly
+// cookie, no server-side session store needed.
 
 import { SignJWT, jwtVerify } from 'jose';
 import { serialize, parse } from 'cookie';
@@ -49,35 +49,8 @@ export async function readSession(req) {
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, secretKey());
-    return { email: payload.email, name: payload.name, picture: payload.picture };
+    return { username: payload.username };
   } catch {
     return null;
   }
-}
-
-export const STATE_COOKIE_NAME = 'joy_oauth_state';
-
-export function stateCookie(state) {
-  return serialize(STATE_COOKIE_NAME, state, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax',
-    path: '/',
-    maxAge: 600, // 10 minutes, enough to complete the OAuth round trip
-  });
-}
-
-export function clearStateCookie() {
-  return serialize(STATE_COOKIE_NAME, '', {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax',
-    path: '/',
-    maxAge: 0,
-  });
-}
-
-export function readStateCookie(req) {
-  const cookies = parse(req.headers.cookie || '');
-  return cookies[STATE_COOKIE_NAME] || null;
 }

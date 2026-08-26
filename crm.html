@@ -154,7 +154,7 @@
   async function api(path, opts){
     var res = await fetch(path, Object.assign({ headers: { 'Content-Type': 'application/json' } }, opts));
     if(res.status === 401){
-      window.location.href = '/api/auth/login';
+      window.location.href = '/crm-login';
       throw new Error('Not signed in');
     }
     return res;
@@ -163,8 +163,7 @@
   function renderUser(session){
     var box = document.getElementById('userBox');
     box.innerHTML =
-      (session.picture ? '<img src="' + esc(session.picture) + '" alt="">' : '') +
-      '<span>' + esc(session.name || session.email) + '</span>' +
+      '<span>' + esc(session.username) + '</span>' +
       '<a href="/api/auth/logout">Log out</a>';
   }
 

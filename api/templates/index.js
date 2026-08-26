@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     try {
       const { rows } = await sql`
         insert into email_templates (name, url, created_by)
-        values (${name}, ${url}, ${session.email})
+        values (${name}, ${url}, ${session.username})
         returning *
       `;
       return res.status(201).json({ template: rows[0] });

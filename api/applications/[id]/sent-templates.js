@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     for (const templateId of templateIds) {
       await sql`
         insert into application_template_sends (application_id, template_id, sent_by)
-        values (${applicationId}, ${templateId}, ${session.email})
+        values (${applicationId}, ${templateId}, ${session.username})
         on conflict (application_id, template_id) do nothing
       `;
     }

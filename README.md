@@ -9,33 +9,34 @@ serverless function that writes submissions into Postgres.
 - `sponsor-network-application.html` — the application form (`/sponsor-network-application`)
 - `logos/` — sponsor logo assets used in the landing page marquee
 - `api/submit-application.js` — serverless function the form POSTs to; validates and inserts into Postgres
-- `crm.html` / `crm-templates.html` — internal CRM (`/crm`, `/crm-templates`), login-gated to `@withjoy.com`
-- `api/auth/*` — Google OAuth login/callback/logout/me for the CRM
-- `api/applications*`, `api/templates*` — CRM data endpoints (all require a signed-in `@withjoy.com` session)
+- `crm.html` / `crm-templates.html` / `crm-login.html` — internal CRM (`/crm`, `/crm-templates`, `/crm-login`)
+- `api/auth/*` — username/password login/logout/me for the CRM
+- `api/applications*`, `api/templates*` — CRM data endpoints (all require a signed-in CRM session)
 - `api/_lib/` — shared session signing, auth guard, and Apollo API helpers
 - `schema.sql` — creates `sponsor_applications` plus the CRM's `email_templates` / `application_template_sends` tables
 - `vercel.json` — clean URLs (drops `.html`) and a root redirect to the landing page
-- `.env.example` — required env vars (Postgres, Google OAuth, session secret, Apollo)
+- `.env.example` — required env vars (Postgres, CRM login, session secret, Apollo)
 
 ## Internal CRM (`/crm`)
 
-Login-gated to `@withjoy.com` Google accounts (a "Team Login" link sits in the landing page footer).
-Lists sponsor applications as contacts with their full survey answers, lets you push a contact into
-Apollo on demand ("Sync to Apollo"), and tracks — via a manual multi-select per contact — which
-templates from the `/crm-templates` link registry have already been sent. No email is sent by this
-system; templates are just links to wherever you actually write/send them (Apollo, Intercom, etc.),
-and sending itself stays a manual step there.
+Login-gated by a single username/password pair you set yourself (a "Team Login" link sits in the
+landing page footer, pointing at `/crm-login`). Lists sponsor applications as contacts with their
+full survey answers, lets you push a contact into Apollo on demand ("Sync to Apollo"), and tracks —
+via a manual multi-select per contact — which templates from the `/crm-templates` link registry have
+already been sent. No email is sent by this system; templates are just links to wherever you actually
+write/send them (Apollo, Intercom, etc.), and sending itself stays a manual step there.
 
 Setup:
-1. In Google Cloud Console, create an OAuth 2.0 **Web application** client. Add an authorized
-   redirect URI for each environment you'll use, e.g. `https://your-domain.com/api/auth/callback`
-   and `http://localhost:3000/api/auth/callback` for local dev.
-2. Set `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REDIRECT_URI` (matching the exact URI
-   you added above) in the Vercel dashboard's Environment Variables.
-3. Set `SESSION_SECRET` to a random string (`openssl rand -base64 32`).
-4. Set `APOLLO_API_KEY` from your Apollo.io account (Settings -> Integrations -> API).
-5. Re-run `schema.sql` against your database — it's idempotent (`create table if not exists` /
+1. Set `CRM_USERNAME` and `CRM_PASSWORD` to whatever credentials you want in the Vercel dashboard's
+   Environment Variables (and in `.env.local` for local dev). There's a single shared login — no
+   per-person accounts, no signup flow.
+2. Set `SESSION_SECRET` to a random string (`openssl rand -base64 32`).
+3. Set `APOLLO_API_KEY` from your Apollo.io account (Settings -> Integrations -> API).
+4. Re-run `schema.sql` against your database — it's idempotent (`create table if not exists` /
    `add column if not exists`), safe to run again even if `sponsor_applications` already exists.
+
+There's no lockout/rate-limiting on failed login attempts, so pick a real password, not something
+guessable — this is a low-effort deterrent, not hardened auth.
 
 ## Deploy to Vercel
 

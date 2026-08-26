@@ -1,30 +1,42 @@
-// Redirects to Google's OAuth consent screen. hd=withjoy.com is only a UI
-// hint (pre-fills/filters the account chooser) — the actual domain check
-// happens server-side in callback.js, since hd can't be trusted on its own.
+// Simple username/password login for the CRM (no OAuth). The one allowed
+// credential pair lives entirely in env vars (CRM_USERNAME / CRM_PASSWORD),
+// set in the Vercel dashboard — never in code.
 
-import { randomBytes } from 'node:crypto';
-import { stateCookie } from '../_lib/session.js';
+import { createHash, timingSafeEqual } from 'node:crypto';
+import { signSession, sessionCookie } from '../_lib/session.js';
 
-export default function handler(req, res) {
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const redirectUri = process.env.GOOGLE_REDIRECT_URI;
-  if (!clientId || !redirectUri) {
-    return res.status(500).send('Google OAuth is not configured (missing GOOGLE_CLIENT_ID / GOOGLE_REDIRECT_URI).');
+function constantTimeEquals(a, b) {
+  // Hash both first so we're always comparing equal-length buffers —
+  // timingSafeEqual throws on mismatched lengths, which would otherwise
+  // leak whether the guess had the right length.
+  const hashA = createHash('sha256').update(String(a)).digest();
+  const hashB = createHash('sha256').update(String(b)).digest();
+  return timingSafeEqual(hashA, hashB);
+}
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const state = randomBytes(16).toString('hex');
+  const expectedUsername = process.env.CRM_USERNAME;
+  const expectedPassword = process.env.CRM_PASSWORD;
+  if (!expectedUsername || !expectedPassword) {
+    return res.status(500).json({ error: 'CRM login is not configured.' });
+  }
 
-  const params = new URLSearchParams({
-    client_id: clientId,
-    redirect_uri: redirectUri,
-    response_type: 'code',
-    scope: 'openid email profile',
-    hd: 'withjoy.com',
-    prompt: 'select_account',
-    state,
-  });
+  const username = String(req.body?.username || '');
+  const password = String(req.body?.password || '');
 
-  res.setHeader('Set-Cookie', stateCookie(state));
-  res.writeHead(302, { Location: `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}` });
-  res.end();
+  const usernameOk = constantTimeEquals(username, expectedUsername);
+  const passwordOk = constantTimeEquals(password, expectedPassword);
+
+  if (!usernameOk || !passwordOk) {
+    return res.status(401).json({ error: 'Invalid username or password.' });
+  }
+
+  const token = await signSession({ username: expectedUsername });
+  res.setHeader('Set-Cookie', sessionCookie(token));
+  return res.status(200).json({ ok: true });
 }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joy | CRM Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161F;
+    --body-text:#565D6D;
+    --muted:#8890A0;
+    --blue:#3355F0;
+    --blue-dark:#1E33C7;
+    --bg-light:#F6F7FB;
+    --border:#E7E9F0;
+    --radius-lg:16px;
+    --radius-sm:10px;
+    --shadow-sm:0 10px 30px rgba(20,22,60,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--body-text);background:var(--bg-light);
+  }
+  h1{
+    font-family:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--ink);margin:0 0 6px;font-weight:700;font-size:22px;letter-spacing:-0.01em;
+  }
+  .card{
+    width:100%;max-width:360px;background:#fff;border:1px solid var(--border);
+    border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:32px;
+  }
+  p.sub{margin:0 0 24px;font-size:14px;color:var(--muted);}
+  label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+  .field{margin-bottom:16px;}
+  input{
+    width:100%;font-family:inherit;font-size:14px;padding:10px 12px;
+    border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--ink);
+  }
+  input:focus{outline:none;border-color:var(--blue);}
+  button{
+    width:100%;font-family:inherit;cursor:pointer;border:none;
+    background:var(--blue);color:#fff;border-radius:var(--radius-sm);
+    padding:11px 14px;font-size:14px;font-weight:700;margin-top:4px;
+  }
+  button:hover{background:var(--blue-dark);}
+  button:disabled{opacity:0.6;cursor:default;}
+  .error{
+    display:none;background:#FDECEC;color:#B3261E;font-size:13px;font-weight:600;
+    padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:16px;
+  }
+  .error.show{display:block;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Joy CRM</h1>
+    <p class="sub">Sign in to view sponsor contacts and email templates.</p>
+    <div class="error" id="errorBox"></div>
+    <form id="loginForm">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" id="submitBtn">Sign in</button>
+    </form>
+  </div>
+
+<script>
+  var form = document.getElementById('loginForm');
+  var errorBox = document.getElementById('errorBox');
+  var submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    errorBox.className = 'error';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Signing in…';
+
+    try {
+      var res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value,
+        }),
+      });
+      var data = await res.json();
+      if(!res.ok){
+        errorBox.textContent = data.error || 'Sign in failed.';
+        errorBox.className = 'error show';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign in';
+        return;
+      }
+      window.location.href = '/crm';
+    } catch(err){
+      errorBox.textContent = 'Something went wrong. Please try again.';
+      errorBox.className = 'error show';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Sign in';
+    }
+  });
+</script>
+</body>
+</html>
