@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ template: rows[0] });
     } catch (err) {
       console.error('template update error:', err);
-      return res.status(500).json({ error: 'Something went wrong.' });
+      return res.status(500).json({ error: 'Something went wrong: ' + err.message });
     }
   }
 
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true });
     } catch (err) {
       console.error('template delete error:', err);
-      return res.status(500).json({ error: 'Something went wrong.' });
+      return res.status(500).json({ error: 'Something went wrong: ' + err.message });
     }
   }
 

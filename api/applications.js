@@ -29,6 +29,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ applications: rows });
   } catch (err) {
     console.error('applications list error:', err);
-    return res.status(500).json({ error: 'Something went wrong.' });
+    return res.status(500).json({ error: 'Something went wrong: ' + err.message });
   }
 }
