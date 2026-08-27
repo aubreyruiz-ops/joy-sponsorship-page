@@ -12,6 +12,17 @@
 
 import pg from 'pg';
 
+// pg returns bigint/bigserial columns (OID 20) as JS strings by default, to
+// avoid precision loss on values bigger than Number.MAX_SAFE_INTEGER. Every
+// id/foreign-key column in this schema is bigserial/bigint, and the CRM
+// frontend compares those ids with === after Number(...) conversions —
+// mixing "3" and 3 makes those comparisons silently fail (couldn't find a
+// template to edit, delete appearing to do nothing, checkboxes not
+// reflecting saved state). Our ids are nowhere near unsafe-integer range, so
+// parsing them as numbers here is safe and fixes that whole class of bug in
+// one place instead of patching every comparison site.
+pg.types.setTypeParser(20, (val) => parseInt(val, 10));
+
 const connectionString =
   process.env.STORAGE_POSTGRES_URL ||
   process.env.POSTGRES_URL ||
