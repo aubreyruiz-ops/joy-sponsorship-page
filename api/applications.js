@@ -1,5 +1,6 @@
-// Protected: lists sponsor_applications as CRM "contacts", each with the ids
-// of the email templates that have been marked sent to them.
+// Protected: lists sponsor_applications as CRM "contacts", each with the
+// email templates that have been sent to them — either marked manually or
+// auto-detected from Apollo (source: 'manual' | 'apollo').
 
 import { sql } from './_lib/db.js';
 import { requireAuth } from './_lib/requireAuth.js';
@@ -18,9 +19,10 @@ export default async function handler(req, res) {
       select
         a.*,
         coalesce(
-          (select jsonb_agg(t.template_id) from application_template_sends t where t.application_id = a.id),
+          (select jsonb_agg(jsonb_build_object('template_id', t.template_id, 'source', t.source))
+           from application_template_sends t where t.application_id = a.id),
           '[]'::jsonb
-        ) as sent_template_ids
+        ) as sent_templates
       from sponsor_applications a
       order by a.created_at desc
     `;

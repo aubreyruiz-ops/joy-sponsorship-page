@@ -32,15 +32,20 @@ alter table sponsor_applications add column if not exists apollo_synced_at times
 create table if not exists email_templates (
   id          bigserial primary key,
   name        text not null,
-  url         text not null,
+  url         text,
+  subject     text,
+  body_html   text,
   created_by  text,
   created_at  timestamptz not null default now()
 );
+alter table email_templates alter column url drop not null;
 
 create table if not exists application_template_sends (
   application_id  bigint not null references sponsor_applications(id) on delete cascade,
   template_id     bigint not null references email_templates(id) on delete cascade,
   sent_by         text,
   sent_at         timestamptz not null default now(),
+  source          text not null default 'manual',
   primary key (application_id, template_id)
 );
+alter table application_template_sends add column if not exists source text not null default 'manual';

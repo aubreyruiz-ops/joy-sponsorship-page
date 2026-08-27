@@ -3,5 +3,8 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/", "destination": "/sponsor-network-landing" }
+  ],
+  "crons": [
+    { "path": "/api/cron/sync-apollo-status", "schedule": "0 13 * * *" }
   ]
 }

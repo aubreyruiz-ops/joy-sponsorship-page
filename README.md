@@ -11,9 +11,11 @@ serverless function that writes submissions into Postgres.
 - `api/submit-application.js` — serverless function the form POSTs to; validates and inserts into Postgres
 - `crm.html` / `crm-templates.html` / `crm-login.html` — internal CRM (`/crm`, `/crm-templates`, `/crm-login`)
 - `api/auth/*` — username/password login/logout/me for the CRM
-- `api/applications*`, `api/templates*` — CRM data endpoints (all require a signed-in CRM session)
+- `api/applications*`, `api/templates*`, `api/refresh-apollo-status.js` — CRM data endpoints (all require a signed-in CRM session)
+- `api/cron/sync-apollo-status.js` — daily Vercel Cron job, see "Apollo sent-status sync" below
 - `api/_lib/db.js` — the shared Postgres client every route imports (see below for why it's plain `pg`, not `@vercel/postgres`)
-- `api/_lib/` — also shared session signing, auth guard, and Apollo API helpers
+- `api/_lib/apolloSync.js` — polls Apollo for sent emails and matches them to CRM templates/contacts
+- `api/_lib/` — also shared session signing, auth guard, and Apollo contact-sync helpers
 - `schema.sql` — creates `sponsor_applications` plus the CRM's `email_templates` / `application_template_sends` tables
 - `vercel.json` — clean URLs (drops `.html`) and a root redirect to the landing page
 - `.env.example` — required env vars (Postgres, CRM login, session secret, Apollo)
@@ -23,9 +25,10 @@ serverless function that writes submissions into Postgres.
 Login-gated by a single username/password pair you set yourself (a "Team Login" link sits in the
 landing page footer, pointing at `/crm-login`). Lists sponsor applications as contacts with their
 full survey answers, lets you push a contact into Apollo on demand ("Sync to Apollo"), and tracks —
-via a manual multi-select per contact — which templates from the `/crm-templates` link registry have
-already been sent. No email is sent by this system; templates are just links to wherever you actually
-write/send them (Apollo, Intercom, etc.), and sending itself stays a manual step there.
+via a per-contact multi-select — which `/crm-templates` templates have been sent to them. Sending
+itself still happens in Apollo, not here; templates store the actual name/subject/HTML body so you
+can copy them into an Apollo email, and the "sent" status can fill in on its own (see below) once
+Apollo shows the send.
 
 Setup:
 1. Set `CRM_USERNAME` and `CRM_PASSWORD` to whatever credentials you want in the Vercel dashboard's
@@ -38,6 +41,26 @@ Setup:
 
 There's no lockout/rate-limiting on failed login attempts, so pick a real password, not something
 guessable — this is a low-effort deterrent, not hardened auth.
+
+### Apollo sent-status sync
+
+Apollo has no webhook for "email sent," so detecting it means polling `GET /emailer_messages/search`
+and matching by **subject line**: a template counts as sent to a contact once Apollo shows a
+*completed* email to that contact's address whose subject exactly matches the template's subject
+(case-insensitive). This means the subject typed into Apollo when actually sending has to match the
+CRM template's subject field exactly, or the match won't happen. Only contacts already synced to
+Apollo (`apollo_contact_id` set) are checked.
+
+This runs two ways:
+- **Daily**, via the Vercel Cron job in `vercel.json` (`api/cron/sync-apollo-status.js`). Vercel's
+  Hobby plan caps cron jobs at once per day with up to ~1hr of scheduling slop — see
+  [Vercel's cron docs](https://vercel.com/docs/cron-jobs/usage-and-pricing). Upgrade to Pro for
+  per-minute scheduling if you need it faster.
+- **On demand**, via the "Refresh from Apollo" button on `/crm`, which runs the exact same sync
+  immediately (`api/refresh-apollo-status.js`).
+
+Set `CRON_SECRET` (random string) so the cron endpoint can verify requests actually came from Vercel
+Cron — Vercel sends it automatically as `Authorization: Bearer $CRON_SECRET` once the env var exists.
 
 ## Deploy to Vercel
 

@@ -28,7 +28,7 @@
     background:var(--bg-light);
     line-height:1.5;
   }
-  h1,h2{
+  h1,h2,h3{
     font-family:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;
     color:var(--ink);
     margin:0;
@@ -37,7 +37,7 @@
   }
   a{color:var(--blue);text-decoration:none;}
   a:hover{text-decoration:underline;}
-  .wrap{max-width:900px;margin:0 auto;padding:0 28px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
 
   header.topbar{background:#fff;border-bottom:1px solid var(--border);}
   .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1280px;margin:0 auto;}
@@ -51,25 +51,30 @@
   .user a{color:var(--muted);font-weight:600;}
 
   main{padding:32px 0 64px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+  @media (max-width:840px){ .grid{grid-template-columns:1fr;} }
+
   .panel{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);}
-  .panel-head{padding:20px 24px;border-bottom:1px solid var(--border);}
-  .panel-body{padding:24px;}
+  .panel-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .panel-body{padding:20px 24px;}
 
-  .template-row{
-    display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);
-  }
+  .template-row{padding:14px 0;border-bottom:1px solid var(--border);}
   .template-row:last-child{border-bottom:none;}
-  .template-row .info{flex:1;min-width:0;}
   .template-row .name{font-weight:600;color:var(--ink);}
-  .template-row .url{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .template-row .actions{display:flex;gap:8px;flex-shrink:0;}
+  .template-row .subject{font-size:13px;color:var(--muted);margin-top:2px;}
+  .template-row .actions{display:flex;gap:8px;margin-top:10px;}
 
-  form.add-form{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
-  form.add-form input{
-    flex:1;min-width:180px;font-family:inherit;font-size:14px;padding:9px 12px;
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+  .field .hint{font-weight:400;color:var(--muted);}
+  .field input, .field textarea{
+    width:100%;font-family:inherit;font-size:14px;padding:9px 12px;
     border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--ink);
   }
-  form.add-form input:focus{outline:none;border-color:var(--blue);}
+  .field textarea{font-family:'SFMono-Regular',Consolas,monospace;font-size:12.5px;resize:vertical;min-height:220px;line-height:1.5;}
+  .field input:focus, .field textarea:focus{outline:none;border-color:var(--blue);}
+
+  .form-actions{display:flex;gap:10px;align-items:center;}
 
   button{
     font-family:inherit;cursor:pointer;border:1px solid var(--border);background:#fff;
@@ -99,18 +104,39 @@
 </header>
 
 <main>
-  <div class="wrap">
+  <div class="wrap grid">
     <div class="panel">
       <div class="panel-head">
-        <h2>Email templates</h2>
+        <h2 id="formTitle">New template</h2>
+        <button type="button" id="cancelEditBtn" style="display:none;">Cancel</button>
+      </div>
+      <div class="panel-body">
+        <form id="templateForm">
+          <div class="field">
+            <label for="f_name">Name</label>
+            <input type="text" id="f_name" placeholder="e.g. Fall sponsor outreach" required>
+          </div>
+          <div class="field">
+            <label for="f_subject">Subject line <span class="hint">— must exactly match what's sent in Apollo, so we can auto-detect it as sent</span></label>
+            <input type="text" id="f_subject" placeholder="e.g. A sponsorship opportunity for you" required>
+          </div>
+          <div class="field">
+            <label for="f_body">HTML body</label>
+            <textarea id="f_body" placeholder="&lt;p&gt;Hi {{name}}, ...&lt;/p&gt;" required></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="primary" id="submitBtn">Add template</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Templates</h2>
       </div>
       <div class="panel-body">
         <div id="list" class="state">Loading&hellip;</div>
-        <form class="add-form" id="addForm">
-          <input type="text" id="newName" placeholder="Template name" required>
-          <input type="url" id="newUrl" placeholder="https://... link to the template" required>
-          <button type="submit" class="primary">Add template</button>
-        </form>
       </div>
     </div>
   </div>
@@ -118,6 +144,7 @@
 
 <script>
   var templates = [];
+  var editingId = null;
 
   function esc(s){
     return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
@@ -145,17 +172,15 @@
     var list = document.getElementById('list');
     if(templates.length === 0){
       list.className = 'state';
-      list.textContent = 'No templates yet — add a link below.';
+      list.textContent = 'No templates yet — add one on the left.';
       return;
     }
     list.className = '';
     list.innerHTML = templates.map(function(t){
       return (
         '<div class="template-row">' +
-          '<div class="info">' +
-            '<div class="name">' + esc(t.name) + '</div>' +
-            '<a class="url" href="' + esc(t.url) + '" target="_blank" rel="noopener">' + esc(t.url) + '</a>' +
-          '</div>' +
+          '<div class="name">' + esc(t.name) + '</div>' +
+          '<div class="subject">' + esc(t.subject || '') + '</div>' +
           '<div class="actions">' +
             '<button type="button" data-edit="' + t.id + '">Edit</button>' +
             '<button type="button" class="danger" data-delete="' + t.id + '">Delete</button>' +
@@ -165,53 +190,84 @@
     }).join('');
   }
 
+  function startEdit(t){
+    editingId = t.id;
+    document.getElementById('f_name').value = t.name || '';
+    document.getElementById('f_subject').value = t.subject || '';
+    document.getElementById('f_body').value = t.body_html || '';
+    document.getElementById('formTitle').textContent = 'Edit template';
+    document.getElementById('submitBtn').textContent = 'Save changes';
+    document.getElementById('cancelEditBtn').style.display = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetForm(){
+    editingId = null;
+    document.getElementById('templateForm').reset();
+    document.getElementById('formTitle').textContent = 'New template';
+    document.getElementById('submitBtn').textContent = 'Add template';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+  }
+
+  document.getElementById('cancelEditBtn').addEventListener('click', resetForm);
+
   document.getElementById('list').addEventListener('click', async function(e){
     var editBtn = e.target.closest && e.target.closest('[data-edit]');
     if(editBtn){
-      var id = Number(editBtn.getAttribute('data-edit'));
-      var t = templates.find(function(x){ return x.id === id; });
-      var name = prompt('Template name', t.name);
-      if(name === null) return;
-      var url = prompt('Template URL', t.url);
-      if(url === null) return;
-      try {
-        var res = await api('/api/templates/' + id, { method: 'PUT', body: JSON.stringify({ name: name.trim(), url: url.trim() }) });
-        var data = await res.json();
-        if(!res.ok) throw new Error(data.error);
-        Object.assign(t, data.template);
-        renderList();
-      } catch(err){ alert('Could not update: ' + err.message); }
+      var t = templates.find(function(x){ return x.id === Number(editBtn.getAttribute('data-edit')); });
+      if(t) startEdit(t);
       return;
     }
 
     var delBtn = e.target.closest && e.target.closest('[data-delete]');
     if(delBtn){
       var delId = Number(delBtn.getAttribute('data-delete'));
-      if(!confirm('Delete this template link?')) return;
+      if(!confirm('Delete this template?')) return;
       try {
         await api('/api/templates/' + delId, { method: 'DELETE' });
         templates = templates.filter(function(x){ return x.id !== delId; });
+        if(editingId === delId) resetForm();
         renderList();
       } catch(err){ alert('Could not delete: ' + err.message); }
     }
   });
 
-  document.getElementById('addForm').addEventListener('submit', async function(e){
+  document.getElementById('templateForm').addEventListener('submit', async function(e){
     e.preventDefault();
-    var nameInput = document.getElementById('newName');
-    var urlInput = document.getElementById('newUrl');
-    var name = nameInput.value.trim();
-    var url = urlInput.value.trim();
-    if(!name || !url) return;
+    var name = document.getElementById('f_name').value.trim();
+    var subject = document.getElementById('f_subject').value.trim();
+    var bodyHtml = document.getElementById('f_body').value.trim();
+    if(!name || !subject || !bodyHtml) return;
+
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+
     try {
-      var res = await api('/api/templates', { method: 'POST', body: JSON.stringify({ name: name, url: url }) });
-      var data = await res.json();
-      if(!res.ok) throw new Error(data.error);
-      templates.unshift(data.template);
+      if(editingId){
+        var res = await api('/api/templates/' + editingId, {
+          method: 'PUT',
+          body: JSON.stringify({ name: name, subject: subject, body_html: bodyHtml }),
+        });
+        var data = await res.json();
+        if(!res.ok) throw new Error(data.error);
+        var existing = templates.find(function(x){ return x.id === editingId; });
+        Object.assign(existing, data.template);
+      } else {
+        var res2 = await api('/api/templates', {
+          method: 'POST',
+          body: JSON.stringify({ name: name, subject: subject, body_html: bodyHtml }),
+        });
+        var data2 = await res2.json();
+        if(!res2.ok) throw new Error(data2.error);
+        templates.unshift(data2.template);
+      }
       renderList();
-      nameInput.value = '';
-      urlInput.value = '';
-    } catch(err){ alert('Could not add template: ' + err.message); }
+      resetForm();
+    } catch(err){
+      alert('Could not save template: ' + err.message);
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 
   async function init(){

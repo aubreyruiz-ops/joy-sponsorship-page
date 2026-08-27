@@ -138,7 +138,10 @@
     <div class="panel">
       <div class="panel-head">
         <h2>Sponsor contacts</h2>
-        <span class="muted" id="countLabel"></span>
+        <div style="display:flex;align-items:center;gap:14px;">
+          <span class="muted" id="countLabel"></span>
+          <button type="button" id="refreshApolloBtn">Refresh from Apollo</button>
+        </div>
       </div>
       <div id="content" class="state">Loading&hellip;</div>
     </div>
@@ -197,15 +200,19 @@
       '<a href="/api/auth/logout">Log out</a>';
   }
 
-  function sentTemplateIds(app){
+  function sentTemplates(app){
     try {
-      return Array.isArray(app.sent_template_ids) ? app.sent_template_ids : JSON.parse(app.sent_template_ids || '[]');
+      var list = Array.isArray(app.sent_templates) ? app.sent_templates : JSON.parse(app.sent_templates || '[]');
+      return list.filter(Boolean);
     } catch(e) { return []; }
   }
 
   function renderDropdown(app){
-    var selected = sentTemplateIds(app).map(Number);
-    var count = selected.length;
+    var sent = sentTemplates(app);
+    var selectedIds = sent.map(function(s){ return Number(s.template_id); });
+    var sourceByTemplateId = {};
+    sent.forEach(function(s){ sourceByTemplateId[s.template_id] = s.source; });
+    var count = selectedIds.length;
     var label = count === 0 ? 'None sent' : (count + ' sent');
 
     if(templates.length === 0){
@@ -213,8 +220,10 @@
     }
 
     var items = templates.map(function(t){
-      var checked = selected.indexOf(t.id) !== -1 ? 'checked' : '';
-      return '<label><input type="checkbox" data-app="' + app.id + '" data-template="' + t.id + '" ' + checked + '> ' + esc(t.name) + '</label>';
+      var checked = selectedIds.indexOf(t.id) !== -1 ? 'checked' : '';
+      var viaApollo = checked && sourceByTemplateId[t.id] === 'apollo'
+        ? ' <span class="muted" style="font-weight:400;font-size:11px;">(via Apollo)</span>' : '';
+      return '<label><input type="checkbox" data-app="' + app.id + '" data-template="' + t.id + '" ' + checked + '> ' + esc(t.name) + viaApollo + '</label>';
     }).join('');
 
     return (
@@ -305,13 +314,35 @@
     try {
       await api('/api/applications/' + appId + '/sent-templates', { method: 'PUT', body: JSON.stringify({ templateIds: ids }) });
       var app = applications.find(function(a){ return a.id === appId; });
-      if(app) app.sent_template_ids = ids;
+      if(app) app.sent_templates = ids.map(function(id){ return { template_id: id, source: 'manual' }; });
       renderTable();
       document.querySelector('.dropdown[data-dropdown="' + appId + '"]').classList.add('open');
     } catch(err){
       alert('Could not save: ' + err.message);
     }
   }
+
+  async function refreshFromApollo(){
+    var btn = document.getElementById('refreshApolloBtn');
+    btn.disabled = true;
+    btn.textContent = 'Checking Apollo…';
+    try {
+      var res = await api('/api/refresh-apollo-status', { method: 'POST' });
+      var data = await res.json();
+      if(!res.ok) throw new Error(data.error || 'Refresh failed');
+      var appsRes = await api('/api/applications');
+      var appsData = await appsRes.json();
+      applications = appsData.applications || [];
+      renderTable();
+      btn.textContent = data.matched > 0 ? (data.matched + ' update' + (data.matched === 1 ? '' : 's') + ' found') : 'Up to date';
+      setTimeout(function(){ btn.textContent = 'Refresh from Apollo'; btn.disabled = false; }, 2500);
+    } catch(err){
+      alert('Apollo refresh failed: ' + err.message);
+      btn.textContent = 'Refresh from Apollo';
+      btn.disabled = false;
+    }
+  }
+  document.getElementById('refreshApolloBtn').addEventListener('click', refreshFromApollo);
 
   async function syncToApollo(appId, btn){
     btn.disabled = true;

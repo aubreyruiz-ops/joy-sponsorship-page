@@ -12,13 +12,17 @@ export default async function handler(req, res) {
 
   if (req.method === 'PUT') {
     const name = (req.body?.name || '').trim();
-    const url = (req.body?.url || '').trim();
-    if (!name || !url) {
-      return res.status(400).json({ error: 'Name and URL are required.' });
+    const subject = (req.body?.subject || '').trim();
+    const bodyHtml = (req.body?.body_html || '').trim();
+    if (!name || !subject || !bodyHtml) {
+      return res.status(400).json({ error: 'Name, subject, and HTML body are required.' });
     }
     try {
       const { rows } = await sql`
-        update email_templates set name = ${name}, url = ${url} where id = ${templateId} returning *
+        update email_templates
+        set name = ${name}, subject = ${subject}, body_html = ${bodyHtml}
+        where id = ${templateId}
+        returning *
       `;
       if (!rows[0]) return res.status(404).json({ error: 'Template not found.' });
       return res.status(200).json({ template: rows[0] });

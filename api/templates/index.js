@@ -1,6 +1,6 @@
-// Protected: the email-template link registry. Templates live wherever the
-// team actually writes them (Apollo, Intercom, Google Docs, ...) — this just
-// stores a name + link so the CRM can reference them.
+// Protected: the email-template registry (name, subject, HTML body). The
+// subject is also the matching key used by api/_lib/apolloSync.js to detect
+// when this template has actually been sent to a contact via Apollo.
 
 import { sql } from '../_lib/db.js';
 import { requireAuth } from '../_lib/requireAuth.js';
@@ -21,14 +21,15 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     const name = (req.body?.name || '').trim();
-    const url = (req.body?.url || '').trim();
-    if (!name || !url) {
-      return res.status(400).json({ error: 'Name and URL are required.' });
+    const subject = (req.body?.subject || '').trim();
+    const bodyHtml = (req.body?.body_html || '').trim();
+    if (!name || !subject || !bodyHtml) {
+      return res.status(400).json({ error: 'Name, subject, and HTML body are required.' });
     }
     try {
       const { rows } = await sql`
-        insert into email_templates (name, url, created_by)
-        values (${name}, ${url}, ${session.username})
+        insert into email_templates (name, subject, body_html, created_by)
+        values (${name}, ${subject}, ${bodyHtml}, ${session.username})
         returning *
       `;
       return res.status(201).json({ template: rows[0] });
