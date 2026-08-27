@@ -73,8 +73,39 @@
     width:100%;font-family:inherit;font-size:14px;padding:9px 12px;
     border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--ink);
   }
-  .field textarea{font-family:'SFMono-Regular',Consolas,monospace;font-size:12.5px;resize:vertical;min-height:220px;line-height:1.5;}
   .field input:focus, .field textarea:focus{outline:none;border-color:var(--blue);}
+
+  .editor-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+  .mode-toggle{display:flex;gap:2px;background:var(--bg-light);border-radius:var(--radius-sm);padding:2px;}
+  .mode-toggle button{border:none;background:transparent;padding:5px 10px;font-size:12px;border-radius:8px;}
+  .mode-toggle button:hover{border-color:transparent;color:var(--ink);}
+  .mode-toggle button.active{background:#fff;color:var(--blue);box-shadow:var(--shadow-sm);}
+
+  .rt-toolbar{
+    display:flex;gap:2px;padding:6px;border:1px solid var(--border);border-bottom:none;
+    border-radius:var(--radius-sm) var(--radius-sm) 0 0;background:var(--bg-light);flex-wrap:wrap;
+  }
+  .rt-toolbar button{
+    border:none;background:transparent;width:30px;height:30px;padding:0;
+    font-size:13px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  }
+  .rt-toolbar button:hover{background:#fff;border-color:transparent;color:var(--blue);}
+  .rt-toolbar button[data-cmd="bold"]{font-weight:800;}
+  .rt-toolbar button[data-cmd="italic"]{font-style:italic;}
+  .rt-toolbar button[data-cmd="underline"]{text-decoration:underline;}
+  .rt-toolbar .sep{width:1px;background:var(--border);margin:4px 4px;}
+
+  #f_body_rich{
+    width:100%;min-height:220px;font-family:inherit;font-size:14px;padding:12px;
+    border:1px solid var(--border);border-radius:0 0 var(--radius-sm) var(--radius-sm);color:var(--ink);
+    line-height:1.6;overflow-y:auto;
+  }
+  #f_body_rich:focus{outline:none;border-color:var(--blue);}
+  #f_body_rich a{color:var(--blue);}
+  #f_body_rich ul, #f_body_rich ol{padding-left:22px;}
+  #f_body_rich:empty:before{content:attr(data-placeholder);color:var(--muted);}
+
+  #f_body_source{font-family:'SFMono-Regular',Consolas,monospace;font-size:12.5px;resize:vertical;min-height:220px;line-height:1.5;}
 
   .form-actions{display:flex;gap:10px;align-items:center;}
 
@@ -126,8 +157,29 @@
             <input type="text" id="f_subject" placeholder="e.g. A sponsorship opportunity for you" required>
           </div>
           <div class="field">
-            <label for="f_body">HTML body</label>
-            <textarea id="f_body" placeholder="&lt;p&gt;Hi {{name}}, ...&lt;/p&gt;" required></textarea>
+            <div class="editor-head">
+              <label style="margin:0;">Body</label>
+              <div class="mode-toggle">
+                <button type="button" id="modeRichBtn" class="active">Rich text</button>
+                <button type="button" id="modeSourceBtn">HTML source</button>
+              </div>
+            </div>
+
+            <div id="richEditor">
+              <div class="rt-toolbar">
+                <button type="button" data-cmd="bold" title="Bold">B</button>
+                <button type="button" data-cmd="italic" title="Italic">I</button>
+                <button type="button" data-cmd="underline" title="Underline">U</button>
+                <span class="sep"></span>
+                <button type="button" data-cmd="insertUnorderedList" title="Bullet list">&bull; List</button>
+                <button type="button" data-cmd="insertOrderedList" title="Numbered list">1. List</button>
+                <span class="sep"></span>
+                <button type="button" data-cmd="link" title="Insert link">Link</button>
+                <button type="button" data-cmd="removeFormat" title="Clear formatting">Clear</button>
+              </div>
+              <div id="f_body_rich" contenteditable="true" data-placeholder="Hi {{name}}, ..."></div>
+            </div>
+            <textarea id="f_body_source" placeholder="&lt;p&gt;Hi {{name}}, ...&lt;/p&gt;" style="display:none;"></textarea>
           </div>
           <div class="form-actions">
             <button type="submit" class="primary" id="submitBtn">Add template</button>
@@ -195,11 +247,63 @@
     }).join('');
   }
 
+  // ---- Body editor: rich text (contenteditable) or raw HTML source, both
+  // backed by the same HTML string. Content syncs between the two only when
+  // switching modes, so typing in either doesn't fight cursor position.
+  var bodyMode = 'rich';
+  var richEl = document.getElementById('f_body_rich');
+  var sourceEl = document.getElementById('f_body_source');
+
+  function getBodyHtml(){
+    return (bodyMode === 'rich' ? richEl.innerHTML : sourceEl.value).trim();
+  }
+
+  function setBodyHtml(html){
+    richEl.innerHTML = html || '';
+    sourceEl.value = html || '';
+  }
+
+  function setBodyMode(mode){
+    if(mode === bodyMode) return;
+    if(mode === 'source'){
+      sourceEl.value = richEl.innerHTML;
+    } else {
+      richEl.innerHTML = sourceEl.value;
+    }
+    bodyMode = mode;
+    document.getElementById('richEditor').style.display = mode === 'rich' ? '' : 'none';
+    sourceEl.style.display = mode === 'source' ? '' : 'none';
+    document.getElementById('modeRichBtn').classList.toggle('active', mode === 'rich');
+    document.getElementById('modeSourceBtn').classList.toggle('active', mode === 'source');
+  }
+
+  document.getElementById('modeRichBtn').addEventListener('click', function(){ setBodyMode('rich'); });
+  document.getElementById('modeSourceBtn').addEventListener('click', function(){ setBodyMode('source'); });
+
+  // mousedown + preventDefault keeps the current selection inside f_body_rich
+  // intact — otherwise clicking the button first steals focus, and
+  // execCommand ends up with nothing selected.
+  document.querySelector('.rt-toolbar').addEventListener('mousedown', function(e){
+    if(e.target.closest('[data-cmd]')) e.preventDefault();
+  });
+  document.querySelector('.rt-toolbar').addEventListener('click', function(e){
+    var btn = e.target.closest('[data-cmd]');
+    if(!btn) return;
+    var cmd = btn.getAttribute('data-cmd');
+    if(cmd === 'link'){
+      var url = prompt('Link URL');
+      if(url) document.execCommand('createLink', false, url);
+    } else {
+      document.execCommand(cmd);
+    }
+  });
+
   function startEdit(t){
     editingId = t.id;
     document.getElementById('f_name').value = t.name || '';
     document.getElementById('f_subject').value = t.subject || '';
-    document.getElementById('f_body').value = t.body_html || '';
+    setBodyMode('rich');
+    setBodyHtml(t.body_html || '');
     document.getElementById('formTitle').textContent = 'Edit template';
     document.getElementById('submitBtn').textContent = 'Save changes';
     document.getElementById('cancelEditBtn').style.display = '';
@@ -209,6 +313,8 @@
   function resetForm(){
     editingId = null;
     document.getElementById('templateForm').reset();
+    setBodyMode('rich');
+    setBodyHtml('');
     document.getElementById('formTitle').textContent = 'New template';
     document.getElementById('submitBtn').textContent = 'Add template';
     document.getElementById('cancelEditBtn').style.display = 'none';
@@ -241,8 +347,11 @@
     e.preventDefault();
     var name = document.getElementById('f_name').value.trim();
     var subject = document.getElementById('f_subject').value.trim();
-    var bodyHtml = document.getElementById('f_body').value.trim();
-    if(!name || !subject || !bodyHtml) return;
+    var bodyHtml = getBodyHtml();
+    if(!name || !subject || !bodyHtml){
+      alert('Name, subject, and a body are all required.');
+      return;
+    }
 
     var submitBtn = document.getElementById('submitBtn');
     submitBtn.disabled = true;
