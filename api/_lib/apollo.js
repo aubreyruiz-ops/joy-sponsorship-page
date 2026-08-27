@@ -8,6 +8,10 @@
 
 const APOLLO_CONTACTS_URL = 'https://api.apollo.io/v1/contacts';
 
+// Applied as an Apollo label/list on every contact synced from the CRM, so
+// the team can filter to "who came from the sponsor CRM" inside Apollo.
+const CRM_SYNC_LABEL = 'Joy Sponsor CRM';
+
 function splitName(fullName) {
   const trimmed = (fullName || '').trim();
   if (!trimmed) return { first_name: '', last_name: '' };
@@ -36,6 +40,7 @@ export async function upsertApolloContact({ email, name, company, website }) {
       last_name,
       organization_name: company || undefined,
       website_url: website || undefined,
+      label_names: [CRM_SYNC_LABEL],
     }),
   });
 
