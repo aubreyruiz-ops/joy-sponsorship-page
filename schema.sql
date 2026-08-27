@@ -33,12 +33,12 @@ create table if not exists email_templates (
   id          bigserial primary key,
   name        text not null,
   url         text,
-  subject     text,
-  body_html   text,
   created_by  text,
   created_at  timestamptz not null default now()
 );
 alter table email_templates alter column url drop not null;
+alter table email_templates add column if not exists subject text;
+alter table email_templates add column if not exists body_html text;
 
 create table if not exists application_template_sends (
   application_id  bigint not null references sponsor_applications(id) on delete cascade,
