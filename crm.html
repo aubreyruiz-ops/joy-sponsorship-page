@@ -77,6 +77,21 @@
   }
   .pill.ok{background:#E6F7ED;color:#12805A;}
 
+  .tag-list{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{
+    display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;
+    white-space:nowrap;line-height:1.4;
+  }
+  .tag-0{background:#E8ECFD;color:#3355F0;}
+  .tag-1{background:#FCE8F3;color:#C2277D;}
+  .tag-2{background:#E6F7ED;color:#12805A;}
+  .tag-3{background:#FEF3E0;color:#B4720A;}
+  .tag-4{background:#F1E8FD;color:#7A2FD6;}
+  .tag-5{background:#E0F7FA;color:#0A7EA4;}
+  .tag-6{background:#FDEAE8;color:#C23D2E;}
+  .tag-7{background:#EAF0E0;color:#5B7A1F;}
+  .tag-other{background:transparent;color:var(--muted);border:1px dashed var(--border);}
+
   button{
     font-family:inherit;cursor:pointer;border:1px solid var(--border);background:#fff;
     border-radius:var(--radius-sm);padding:7px 12px;font-size:13px;font-weight:600;color:var(--ink);
@@ -146,9 +161,24 @@
     return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
   }
 
-  function fmtList(v){
-    if(Array.isArray(v)) return v.join(', ');
-    return v || '';
+  var TAG_COLOR_COUNT = 8;
+
+  function tagColorIndex(s){
+    var hash = 0;
+    for(var i = 0; i < s.length; i++){ hash = (hash * 31 + s.charCodeAt(i)) | 0; }
+    return Math.abs(hash) % TAG_COLOR_COUNT;
+  }
+
+  function renderTags(list, otherValue){
+    var values = Array.isArray(list) ? list : [];
+    if(values.length === 0 && !otherValue) return '<span class="muted">—</span>';
+    var tags = values.map(function(v){
+      return '<span class="tag tag-' + tagColorIndex(v) + '">' + esc(v) + '</span>';
+    });
+    if(otherValue){
+      tags.push('<span class="tag tag-other">' + esc(otherValue) + '</span>');
+    }
+    return '<div class="tag-list">' + tags.join('') + '</div>';
   }
 
   async function api(path, opts){
@@ -222,8 +252,8 @@
           '<td>' + esc(app.email) + '</td>' +
           '<td>' + esc(app.company) + '</td>' +
           '<td>' + esc(app.budget) + '</td>' +
-          '<td class="wrap-cell">' + esc(fmtList(app.audience)) + (app.audience_other ? ' (' + esc(app.audience_other) + ')' : '') + '</td>' +
-          '<td class="wrap-cell">' + esc(fmtList(app.event_format)) + '</td>' +
+          '<td class="wrap-cell">' + renderTags(app.audience, app.audience_other) + '</td>' +
+          '<td class="wrap-cell">' + renderTags(app.event_format) + '</td>' +
           '<td>' + esc(fmtDate(app.created_at)) + '</td>' +
           '<td>' + renderApolloCell(app) + '</td>' +
           '<td>' + renderDropdown(app) + '</td>' +
