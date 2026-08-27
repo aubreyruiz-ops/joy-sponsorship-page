@@ -22,11 +22,20 @@ function splitName(fullName) {
   };
 }
 
-export async function upsertApolloContact({ email, name, company, website }) {
+export async function upsertApolloContact({ email, name, company, website, audience, format }) {
   if (!process.env.APOLLO_API_KEY) {
     throw new Error('APOLLO_API_KEY env var is not set.');
   }
   const { first_name, last_name } = splitName(name);
+
+  // Each survey answer becomes its own Apollo label so contacts can be
+  // filtered/segmented in Apollo by what they picked (e.g. everyone who
+  // selected "Webinar" for an event-format-specific send).
+  const labels = [
+    CRM_SYNC_LABEL,
+    ...(Array.isArray(audience) ? audience.map((a) => `Audience: ${a}`) : []),
+    ...(Array.isArray(format) ? format.map((f) => `Format: ${f}`) : []),
+  ];
 
   const response = await fetch(APOLLO_CONTACTS_URL, {
     method: 'POST',
@@ -40,7 +49,7 @@ export async function upsertApolloContact({ email, name, company, website }) {
       last_name,
       organization_name: company || undefined,
       website_url: website || undefined,
-      label_names: [CRM_SYNC_LABEL],
+      label_names: labels,
     }),
   });
 

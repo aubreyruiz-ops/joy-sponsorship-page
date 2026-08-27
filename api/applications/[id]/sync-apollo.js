@@ -32,6 +32,8 @@ export default async function handler(req, res) {
       name: application.name,
       company: application.company,
       website: application.website,
+      audience: application.audience,
+      format: application.event_format,
     });
 
     const { rows: updated } = await sql`
