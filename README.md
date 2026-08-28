@@ -6,9 +6,18 @@ serverless function that writes submissions into Postgres.
 ## What's in here
 
 - `sponsor-network-landing.html` — public marketing page (`/sponsor-network-landing`, and `/` redirects here)
-- `sponsor-network-application.html` — the application form (`/sponsor-network-application`)
+- `sponsor-network-application.html` — the general application form (`/sponsor-network-application`), USD budget tiers
+- `after-hours-london.html` — event-specific landing page for After Hours: London (`/after-hours-london`),
+  linked from the "Coming up" tile on the main landing page. Has its own "Become a Sponsor" CTA plus a
+  "Register as Attendee" CTA that links out to the withjoy.com event registration page.
+- `after-hours-london-application.html` — sponsor application form scoped to that event
+  (`/after-hours-london-application`): name, email, company, company website, GBP sponsorship tier,
+  audience type, and network-agreement consent. On submit it tags the row `event: 'after-hours-london'`
+  and shows an inline Calendly embed (see `.env.example`-adjacent note below) so sponsors can book an
+  intro call directly.
 - `logos/` — sponsor logo assets used in the landing page marquee
-- `api/submit-application.js` — serverless function the form POSTs to; validates and inserts into Postgres
+- `api/submit-application.js` — serverless function both forms POST to; validates and inserts into
+  Postgres. Event-specific forms (`event !== 'general'`) require a `tier` instead of `budget`/`event_format`.
 - `crm.html` / `crm-templates.html` / `crm-login.html` — internal CRM (`/crm`, `/crm-templates`, `/crm-login`)
 - `api/auth/*` — username/password login/logout/me for the CRM
 - `api/applications*`, `api/templates*`, `api/refresh-apollo-status.js` — CRM data endpoints (all require a signed-in CRM session)
@@ -16,7 +25,8 @@ serverless function that writes submissions into Postgres.
 - `api/_lib/db.js` — the shared Postgres client every route imports (see below for why it's plain `pg`, not `@vercel/postgres`)
 - `api/_lib/apolloSync.js` — polls Apollo for sent emails and matches them to CRM templates/contacts
 - `api/_lib/` — also shared session signing, auth guard, and Apollo contact-sync helpers
-- `schema.sql` — creates `sponsor_applications` plus the CRM's `email_templates` / `application_template_sends` tables
+- `schema.sql` — creates `sponsor_applications` (with an `event` tag column, default `'general'`, and a
+  `tier` column for event-specific sponsor forms) plus the CRM's `email_templates` / `application_template_sends` tables
 - `vercel.json` — clean URLs (drops `.html`) and a root redirect to the landing page
 - `.env.example` — required env vars (Postgres, CRM login, session secret, Apollo)
 
@@ -94,3 +104,10 @@ For local development: `vercel env pull .env.local` to grab the database env var
   pre-filled subject/body pointing at the live landing page URL; no further wiring needed there.
 - Sponsor logos in `logos/` are the real assets provided; there's no Atomicwork logo file, so
   that one sponsor still renders as a text wordmark on the landing page.
+- The After Hours: London GBP tier amounts (£1,000 / £2,000 / £3,000) and their perks are a
+  reasonable placeholder built from the £1,000–£3,000 range already quoted on the main landing
+  page's "Coming up" tile — confirm real tier names/pricing/perks before this goes live.
+- The Calendly embed on `after-hours-london-application.html`'s confirmation screen points at
+  `https://calendly.com/d/dv56-ttm-f5j/joy-sponsor-network`. It's a plain `<script src="https://assets.calendly.com/assets/external/widget.js">`
+  + `.calendly-inline-widget` div (standard Calendly inline embed), so it needs a real browser to
+  render — it won't show anything in a sandboxed preview that blocks third-party iframes.

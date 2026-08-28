@@ -25,9 +25,15 @@ export default async function handler(req, res) {
     const budget = (body.budget || '').trim();
     const format = Array.isArray(body.format) ? body.format : [];
     const consent = body.consent === true;
+    const event = (body.event || 'general').trim() || 'general';
+    const tier = (body.tier || '').trim();
+
+    // Event-specific sponsor forms (e.g. after-hours-london) collect a tier
+    // instead of a free-text budget and event format list.
+    const isEventForm = event !== 'general';
 
     // Required-field validation mirrors the required questions on the form.
-    if (!name || !email || !company || !website || !budget) {
+    if (!name || !email || !company || !website) {
       return res.status(400).json({ error: 'Missing required fields.' });
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -36,8 +42,17 @@ export default async function handler(req, res) {
     if (audience.length === 0) {
       return res.status(400).json({ error: 'Please select at least one audience.' });
     }
-    if (format.length === 0) {
-      return res.status(400).json({ error: 'Please select at least one event format.' });
+    if (isEventForm) {
+      if (!tier) {
+        return res.status(400).json({ error: 'Please select a sponsorship tier.' });
+      }
+    } else {
+      if (!budget) {
+        return res.status(400).json({ error: 'Missing required fields.' });
+      }
+      if (format.length === 0) {
+        return res.status(400).json({ error: 'Please select at least one event format.' });
+      }
     }
     if (!consent) {
       return res.status(400).json({ error: 'Email consent is required.' });
@@ -45,10 +60,10 @@ export default async function handler(req, res) {
 
     await sql`
       INSERT INTO sponsor_applications
-        (name, email, company, website, audience, audience_other, budget, event_format, consent)
+        (name, email, company, website, audience, audience_other, budget, event_format, consent, event, tier)
       VALUES
         (${name}, ${email}, ${company}, ${website}, ${JSON.stringify(audience)}::jsonb,
-         ${audienceOther}, ${budget}, ${JSON.stringify(format)}::jsonb, ${consent})
+         ${audienceOther}, ${budget}, ${JSON.stringify(format)}::jsonb, ${consent}, ${event}, ${tier})
     `;
 
     return res.status(200).json({ ok: true });

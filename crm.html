@@ -260,12 +260,14 @@
     }
 
     var rows = applications.map(function(app){
+      var eventLabel = app.event && app.event !== 'general' ? app.event : 'general';
       return (
         '<tr>' +
           '<td>' + esc(app.name) + '</td>' +
           '<td>' + esc(app.email) + '</td>' +
           '<td>' + esc(app.company) + '</td>' +
-          '<td>' + esc(app.budget) + '</td>' +
+          '<td><span class="tag tag-' + tagColorIndex(eventLabel) + '">' + esc(eventLabel) + '</span></td>' +
+          '<td>' + esc(app.tier || app.budget) + '</td>' +
           '<td class="wrap-cell">' + renderTags(app.audience, app.audience_other) + '</td>' +
           '<td class="wrap-cell">' + renderTags(app.event_format) + '</td>' +
           '<td>' + esc(fmtDate(app.created_at)) + '</td>' +
@@ -279,7 +281,7 @@
     content.innerHTML =
       '<table>' +
         '<thead><tr>' +
-          '<th>Name</th><th>Email</th><th>Company</th><th>Budget</th><th>Audience</th><th>Format</th><th>Submitted</th><th>Apollo</th><th>Emails sent</th>' +
+          '<th>Name</th><th>Email</th><th>Company</th><th>Event</th><th>Budget / Tier</th><th>Audience</th><th>Format</th><th>Submitted</th><th>Apollo</th><th>Emails sent</th>' +
         '</tr></thead>' +
         '<tbody>' + rows + '</tbody>' +
       '</table>';

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sponsor After Hours: London | Joy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14161F;
+    --ink-soft:#1D1D1F;
+    --body-text:#565D6D;
+    --muted:#8890A0;
+    --accent:#3355F0;
+    --accent-light:#3355F0;
+    --cyan:#58E1FF;
+    --bg-lavender:#F0F3FE;
+    --bg-cream:#F6F7FB;
+    --border:#E7E9F0;
+    --radius-lg:20px;
+    --radius-pill:999px;
+    --shadow:0 10px 30px rgba(20,22,60,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+    color:var(--body-text);
+    background:linear-gradient(180deg,#FAFBFD 0%,#F0F3FE 100%);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  h1,h2,h3{font-family:'Inter Tight',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink);margin:0;font-weight:700;letter-spacing:-0.02em;}
+  .topbar{padding:24px 32px;display:flex;align-items:center;justify-content:space-between;}
+  .joy-mark{display:inline-flex;align-items:center;text-decoration:none;color:var(--ink-soft);}
+  .joy-mark svg{height:24px;width:auto;color:inherit;flex-shrink:0;display:block;}
+  .back-link{font-size:13px;color:var(--muted);text-decoration:none;font-weight:500;}
+  .back-link:hover{color:var(--accent);}
+
+  .progress-track{height:4px;background:#E2E1F5;width:100%;}
+  .progress-fill{height:100%;background:var(--accent);width:0%;transition:width .3s ease;}
+
+  main{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 24px;
+  }
+  .form-shell{
+    width:100%;
+    max-width:560px;
+  }
+  .form-shell.wide{max-width:640px;}
+  .step-count{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:16px;
+    display:none;
+  }
+  .step{display:none;animation:fadeIn .25s ease;}
+  .step.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .step h2{font-size:28px;line-height:1.3;margin-bottom:10px;}
+  .step .hint{font-size:14px;color:var(--muted);margin-bottom:28px;}
+
+  input[type=text], input[type=email], input[type=url]{
+    width:100%;
+    font-family:'Inter',sans-serif;
+    font-size:18px;
+    padding:14px 4px;
+    border:none;
+    border-bottom:2px solid var(--border);
+    background:transparent;
+    color:var(--ink);
+    outline:none;
+    transition:border-color .2s ease;
+  }
+  input:focus{border-bottom-color:var(--accent);}
+  input::placeholder{color:#B7BDCC;}
+
+  .options{display:flex;flex-direction:column;gap:12px;margin-top:8px;}
+  .option{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:#fff;
+    border:1.5px solid var(--border);
+    border-radius:14px;
+    padding:16px 18px;
+    cursor:pointer;
+    font-size:15px;
+    color:var(--ink-soft);
+    font-weight:500;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .option:hover{border-color:#A9B4EA;}
+  .option input{position:absolute;opacity:0;width:0;height:0;}
+  .option .box{
+    width:20px;height:20px;flex-shrink:0;
+    border:2px solid #A9B4EA;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:12px;
+    transition:all .15s ease;
+  }
+  .option.radio .box{border-radius:50%;}
+  .option.checkbox .box{border-radius:6px;}
+  .option input:checked + .box{background:var(--accent);border-color:var(--accent);}
+  .option input:checked + .box::after{content:'✓';}
+  .option:has(input:checked){border-color:var(--accent);background:#F0F3FE;}
+  .option .tier-sub{display:block;font-size:13px;font-weight:400;color:var(--muted);margin-top:2px;}
+
+  .other-input{margin-top:10px;}
+
+  .option.consent-check{align-items:flex-start;margin-top:8px;}
+  .option.consent-check .box{margin-top:1px;}
+
+  .btn-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:36px;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+    font-weight:600;
+    font-size:15px;
+    font-family:'Inter',sans-serif;
+    padding:14px 30px;
+    border-radius:var(--radius-pill);
+    border:none;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(79,70,229,0.24);
+  }
+  .btn-primary:disabled{opacity:0.45;cursor:not-allowed;box-shadow:none;}
+  .btn-secondary{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:14px;
+    font-weight:500;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .btn-secondary:hover{color:var(--ink-soft);}
+  .press-enter{font-size:12px;color:var(--muted);margin-left:4px;}
+
+  /* Intro + final screens */
+  .center-card{
+    background:#fff;
+    border-radius:28px;
+    padding:56px 44px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    border:1px solid var(--border);
+  }
+  .center-card.calendly-card{padding:44px 32px;}
+  .center-card .joy-mark{justify-content:center;margin-bottom:22px;}
+  .center-card .joy-mark svg{height:42px;}
+  .center-card h1{font-size:26px;margin-bottom:14px;}
+  .center-card p{font-size:15px;max-width:440px;margin:0 auto 26px;}
+  .meta-time{font-size:13px;color:var(--muted);margin-top:16px;}
+
+  .event-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--accent);
+    background:var(--bg-lavender);
+    padding:8px 16px;
+    border-radius:var(--radius-pill);
+    margin-bottom:18px;
+  }
+
+  .calendly-inline-widget{width:100%;min-width:280px;height:660px;}
+
+  .error-msg{color:#B91C1C;font-size:13px;margin-top:10px;display:none;}
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="/after-hours-london" class="joy-mark">
+      <svg viewBox="0 0 148 93" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.6032 71.2595C18.6881 71.0957 18.8298 70.9693 19.0012 70.9043C23.777 68.6141 27.8447 61.652 32.0576 43.6969C32.2661 42.7953 32.9924 39.5851 33.8962 35.5906C35.7475 27.4081 38.3434 15.9345 38.7583 14.2725C42.6262 -2.96803 55.9186 -0.439658 60.0952 1.11767C60.2092 1.16059 60.3111 1.23106 60.3918 1.3229C60.4726 1.41474 60.5298 1.52516 60.5585 1.64449C60.5872 1.76382 60.5864 1.88842 60.5563 2.00739C60.5262 2.12635 60.4676 2.23605 60.3857 2.32689C58.9875 3.92086 57.335 7.89663 55.0833 17.3689C53.8848 22.4073 49.5266 40.5272 47.9468 47.0863C43.3525 66.3423 28.7889 71.6555 19.3644 72.3517C19.183 72.3769 18.9987 72.3337 18.8468 72.2304C18.695 72.1271 18.5862 71.971 18.5412 71.7919C18.4963 71.6128 18.5184 71.4232 18.6032 71.2595Z" fill="currentColor"/><path d="M142.428 19.9888C148.221 21.8576 148.149 28.087 147.295 32.0994C145.796 38.3947 143.399 44.4368 140.177 50.0361C140.09 50.1923 139.951 50.3121 139.785 50.3741C139.619 50.4362 139.436 50.4362 139.27 50.3744C139.103 50.3126 138.964 50.1928 138.877 50.0368C138.791 49.8807 138.762 49.6986 138.797 49.5231C139.807 43.039 138.521 36.4029 135.165 30.7802C130.552 23.1585 138.306 18.6514 142.428 19.9888Z" fill="currentColor"/><path d="M102.751 25.6501C107.145 21.2896 121.945 12.9533 127.302 35.3789C129.423 43.8205 129.315 52.6756 126.989 61.0622C124.664 69.4488 120.201 77.0744 114.046 83.1797C113.926 83.2871 113.775 83.3537 113.616 83.3699C113.456 83.3862 113.296 83.3512 113.157 83.27C113.018 83.1889 112.908 83.0656 112.843 82.9178C112.778 82.77 112.76 82.6052 112.793 82.4468C117.078 66.1956 114.409 27.2991 103.205 26.9326C103.064 26.9194 102.929 26.8657 102.817 26.778C102.705 26.6902 102.62 26.5721 102.573 26.4373C102.525 26.3026 102.517 26.157 102.548 26.0175C102.58 25.8781 102.65 25.7506 102.751 25.6501Z" fill="currentColor"/><path d="M106.165 88.0715C106.336 88.035 106.515 88.0608 106.67 88.1442C106.824 88.2276 106.944 88.3634 107.01 88.5276C107.075 88.6917 107.08 88.8738 107.025 89.0417C106.97 89.2097 106.859 89.3527 106.71 89.4456C103.381 91.9224 99.3102 93.1707 95.1785 92.9817C84.2831 92.487 83.8291 83.8209 87.0251 79.7535C88.7446 77.7368 91.0516 76.3196 93.6168 75.7045C93.7383 75.6907 93.8613 75.7073 93.975 75.7529C94.0886 75.7985 94.1893 75.8716 94.2683 75.9657C94.3473 76.0599 94.402 76.1722 94.4278 76.2928C94.4535 76.4134 94.4494 76.5386 94.4159 76.6572C92.9813 81.4757 96.6676 89.7754 106.165 88.0715Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M61.3845 28.7281C67.3615 23.5257 74.9733 20.6303 82.8667 20.5567C95.1967 20.5567 104.04 28.5083 104.04 40.7104C103.886 45.2095 102.82 49.6292 100.909 53.6971C98.9978 57.765 96.2813 61.395 92.9268 64.3635C87.1036 69.534 79.6194 72.3982 71.8623 72.4249C59.1147 72.4249 50.362 64.3635 50.362 52.0514C50.5649 47.6186 51.6446 43.2716 53.5376 39.2661C55.4306 35.2606 58.0986 31.6777 61.3845 28.7281ZM74.2048 67.6797C80.9237 64.107 85.4635 46.7382 86.208 43.8617C87.1704 40.5272 90.0577 20.4651 80.4334 25.1921C73.9602 28.4489 69.549 44.7978 68.5208 48.6084L68.4121 49.0101C67.1954 53.8469 64.4897 72.7364 74.2048 67.6797Z" fill="currentColor"/><path d="M2.60361 66.0857C2.69221 66.2091 2.81591 66.3024 2.95829 66.3532C3.10066 66.404 3.25498 66.4099 3.40076 66.3701C3.54655 66.3304 3.6769 66.2468 3.77453 66.1306C3.87216 66.0144 3.93244 65.8709 3.94738 65.7193C4.12897 62.6046 7.45208 58.8487 13.1359 59.2701C17.149 59.5816 19.201 53.1507 15.8779 49.7613C11.7739 45.5656 5.67249 47.2146 2.60361 51.5934C-1.64561 57.6578 0.00686236 62.8245 2.60361 66.0857Z" fill="currentColor"/></svg>
+    </a>
+    <a href="/after-hours-london" class="back-link">← Back to event page</a>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <main>
+    <div class="form-shell" id="formShell">
+
+      <!-- Intro -->
+      <div class="step active" data-step="intro">
+        <div class="center-card">
+          <span class="event-badge">After Hours: London &middot; Sep 30, 2026</span>
+          <span class="joy-mark">
+            <svg viewBox="0 0 148 93" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.6032 71.2595C18.6881 71.0957 18.8298 70.9693 19.0012 70.9043C23.777 68.6141 27.8447 61.652 32.0576 43.6969C32.2661 42.7953 32.9924 39.5851 33.8962 35.5906C35.7475 27.4081 38.3434 15.9345 38.7583 14.2725C42.6262 -2.96803 55.9186 -0.439658 60.0952 1.11767C60.2092 1.16059 60.3111 1.23106 60.3918 1.3229C60.4726 1.41474 60.5298 1.52516 60.5585 1.64449C60.5872 1.76382 60.5864 1.88842 60.5563 2.00739C60.5262 2.12635 60.4676 2.23605 60.3857 2.32689C58.9875 3.92086 57.335 7.89663 55.0833 17.3689C53.8848 22.4073 49.5266 40.5272 47.9468 47.0863C43.3525 66.3423 28.7889 71.6555 19.3644 72.3517C19.183 72.3769 18.9987 72.3337 18.8468 72.2304C18.695 72.1271 18.5862 71.971 18.5412 71.7919C18.4963 71.6128 18.5184 71.4232 18.6032 71.2595Z" fill="currentColor"/><path d="M142.428 19.9888C148.221 21.8576 148.149 28.087 147.295 32.0994C145.796 38.3947 143.399 44.4368 140.177 50.0361C140.09 50.1923 139.951 50.3121 139.785 50.3741C139.619 50.4362 139.436 50.4362 139.27 50.3744C139.103 50.3126 138.964 50.1928 138.877 50.0368C138.791 49.8807 138.762 49.6986 138.797 49.5231C139.807 43.039 138.521 36.4029 135.165 30.7802C130.552 23.1585 138.306 18.6514 142.428 19.9888Z" fill="currentColor"/><path d="M102.751 25.6501C107.145 21.2896 121.945 12.9533 127.302 35.3789C129.423 43.8205 129.315 52.6756 126.989 61.0622C124.664 69.4488 120.201 77.0744 114.046 83.1797C113.926 83.2871 113.775 83.3537 113.616 83.3699C113.456 83.3862 113.296 83.3512 113.157 83.27C113.018 83.1889 112.908 83.0656 112.843 82.9178C112.778 82.77 112.76 82.6052 112.793 82.4468C117.078 66.1956 114.409 27.2991 103.205 26.9326C103.064 26.9194 102.929 26.8657 102.817 26.778C102.705 26.6902 102.62 26.5721 102.573 26.4373C102.525 26.3026 102.517 26.157 102.548 26.0175C102.58 25.8781 102.65 25.7506 102.751 25.6501Z" fill="currentColor"/><path d="M106.165 88.0715C106.336 88.035 106.515 88.0608 106.67 88.1442C106.824 88.2276 106.944 88.3634 107.01 88.5276C107.075 88.6917 107.08 88.8738 107.025 89.0417C106.97 89.2097 106.859 89.3527 106.71 89.4456C103.381 91.9224 99.3102 93.1707 95.1785 92.9817C84.2831 92.487 83.8291 83.8209 87.0251 79.7535C88.7446 77.7368 91.0516 76.3196 93.6168 75.7045C93.7383 75.6907 93.8613 75.7073 93.975 75.7529C94.0886 75.7985 94.1893 75.8716 94.2683 75.9657C94.3473 76.0599 94.402 76.1722 94.4278 76.2928C94.4535 76.4134 94.4494 76.5386 94.4159 76.6572C92.9813 81.4757 96.6676 89.7754 106.165 88.0715Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M61.3845 28.7281C67.3615 23.5257 74.9733 20.6303 82.8667 20.5567C95.1967 20.5567 104.04 28.5083 104.04 40.7104C103.886 45.2095 102.82 49.6292 100.909 53.6971C98.9978 57.765 96.2813 61.395 92.9268 64.3635C87.1036 69.534 79.6194 72.3982 71.8623 72.4249C59.1147 72.4249 50.362 64.3635 50.362 52.0514C50.5649 47.6186 51.6446 43.2716 53.5376 39.2661C55.4306 35.2606 58.0986 31.6777 61.3845 28.7281ZM74.2048 67.6797C80.9237 64.107 85.4635 46.7382 86.208 43.8617C87.1704 40.5272 90.0577 20.4651 80.4334 25.1921C73.9602 28.4489 69.549 44.7978 68.5208 48.6084L68.4121 49.0101C67.1954 53.8469 64.4897 72.7364 74.2048 67.6797Z" fill="currentColor"/><path d="M2.60361 66.0857C2.69221 66.2091 2.81591 66.3024 2.95829 66.3532C3.10066 66.404 3.25498 66.4099 3.40076 66.3701C3.54655 66.3304 3.6769 66.2468 3.77453 66.1306C3.87216 66.0144 3.93244 65.8709 3.94738 65.7193C4.12897 62.6046 7.45208 58.8487 13.1359 59.2701C17.149 59.5816 19.201 53.1507 15.8779 49.7613C11.7739 45.5656 5.67249 47.2146 2.60361 51.5934C-1.64561 57.6578 0.00686236 62.8245 2.60361 66.0857Z" fill="currentColor"/></svg>
+          </span>
+          <h1>Sponsor After Hours: London</h1>
+          <p>A few quick questions, then we'll get a call on the calendar to talk through the details before the event.</p>
+          <button type="button" class="btn-primary" id="startBtn">Start Application</button>
+          <div class="meta-time">⏱ Takes about 2 minutes</div>
+        </div>
+      </div>
+
+      <!-- Q1 Full name -->
+      <div class="step" data-step="1">
+        <span class="step-count">Question 1 of 6</span>
+        <h2>What's your full name?</h2>
+        <input type="text" id="q_name" placeholder="Jane Smith" autocomplete="name">
+        <div class="btn-row">
+          <button type="button" class="btn-primary" data-next disabled>Next</button>
+          <span class="press-enter">press Enter ↵</span>
+        </div>
+      </div>
+
+      <!-- Q2 Work email -->
+      <div class="step" data-step="2">
+        <span class="step-count">Question 2 of 6</span>
+        <h2>What's your work email?</h2>
+        <input type="email" id="q_email" placeholder="jane@company.com" autocomplete="email">
+        <div class="error-msg" id="emailError">Please enter a valid work email.</div>
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" data-back>Back</button>
+          <button type="button" class="btn-primary" data-next disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Q3 Company + website -->
+      <div class="step" data-step="3">
+        <span class="step-count">Question 3 of 6</span>
+        <h2>What company are you with?</h2>
+        <input type="text" id="q_company" placeholder="Company name" autocomplete="organization" style="margin-bottom:22px;">
+        <div class="hint" style="margin-bottom:8px;">Company website</div>
+        <input type="text" id="q_website" placeholder="company.com" autocomplete="url">
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" data-back>Back</button>
+          <button type="button" class="btn-primary" data-next disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Q4 Tier -->
+      <div class="step" data-step="4">
+        <span class="step-count">Question 4 of 6</span>
+        <h2>Which sponsorship tier interests you?</h2>
+        <div class="options" id="tierOptions">
+          <label class="option radio"><input type="radio" name="tier" value="Friend – £1,000"><span class="box"></span>Friend <span class="tier-sub">£1,000 — logo on signage, 2 guest tickets</span></label>
+          <label class="option radio"><input type="radio" name="tier" value="Supporter – £2,000"><span class="box"></span>Supporter <span class="tier-sub">£2,000 — branded bar moment, 4 guest tickets</span></label>
+          <label class="option radio"><input type="radio" name="tier" value="Presenting Sponsor – £3,000"><span class="box"></span>Presenting Sponsor <span class="tier-sub">£3,000 — speaking moment, 8 guest tickets</span></label>
+          <label class="option radio"><input type="radio" name="tier" value="Not sure yet – want to discuss"><span class="box"></span>Not sure yet <span class="tier-sub">Let's talk it through on a call</span></label>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" data-back>Back</button>
+          <button type="button" class="btn-primary" data-next disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Q5 Audience -->
+      <div class="step" data-step="5">
+        <span class="step-count">Question 5 of 6</span>
+        <h2>Who are you trying to reach?</h2>
+        <div class="hint">Select all that apply.</div>
+        <div class="options" id="audienceOptions">
+          <label class="option checkbox"><input type="checkbox" name="audience" value="Startup founders / VCs"><span class="box"></span>Startup founders / VCs</label>
+          <label class="option checkbox"><input type="checkbox" name="audience" value="CIOs / IT executives"><span class="box"></span>CIOs / IT executives</label>
+          <label class="option checkbox"><input type="checkbox" name="audience" value="CISOs / cybersecurity leaders"><span class="box"></span>CISOs / cybersecurity leaders</label>
+          <label class="option checkbox"><input type="checkbox" name="audience" value="Engineering & product leaders"><span class="box"></span>Engineering &amp; product leaders</label>
+          <label class="option checkbox"><input type="checkbox" name="audience" value="AI/ML builders & buyers"><span class="box"></span>AI/ML builders &amp; buyers</label>
+          <label class="option checkbox"><input type="checkbox" name="audience" value="Enterprise IT buyers / procurement"><span class="box"></span>Enterprise IT buyers / procurement</label>
+          <label class="option checkbox"><input type="checkbox" name="audience" value="General business executives (C-suite)"><span class="box"></span>General business executives (C-suite)</label>
+          <label class="option checkbox"><input type="checkbox" name="audience" value="Other"><span class="box"></span>Other</label>
+        </div>
+        <input type="text" id="q_audience_other" class="other-input" placeholder="Tell us more..." style="display:none;">
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" data-back>Back</button>
+          <button type="button" class="btn-primary" data-next disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Q6 Agreement -->
+      <div class="step" data-step="6">
+        <span class="step-count">Question 6 of 6</span>
+        <h2>One last thing</h2>
+        <label class="option checkbox consent-check">
+          <input type="checkbox" id="q_consent">
+          <span class="box"></span>
+          I agree to join the Joy Sponsor Network and receive emails from Joy about relevant sponsorship opportunities, including this event. I can unsubscribe at any time.
+        </label>
+        <div class="error-msg" id="submitError">Something went wrong submitting your application. Please try again.</div>
+        <div class="btn-row">
+          <button type="button" class="btn-secondary" data-back>Back</button>
+          <button type="button" class="btn-primary" id="submitBtn" disabled>Submit application</button>
+        </div>
+      </div>
+
+      <!-- Final: confirmation + Calendly -->
+      <div class="step" data-step="final">
+        <div class="center-card calendly-card">
+          <h1>You're in — let's get some time on the calendar.</h1>
+          <p>We'll have a quick call first to talk through tiers and lock in the details for After Hours: London. Pick a time below.</p>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/d/dv56-ttm-f5j/joy-sponsor-network"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+  // ---- Form state ----
+  var formData = {
+    name: '', email: '', company: '', website: '',
+    tier: '', audience: [], audience_other: '', consent: false
+  };
+
+  var steps = ['intro','1','2','3','4','5','6','final'];
+  var currentIndex = 0;
+
+  function showStep(index){
+    currentIndex = index;
+    document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+    var target = document.querySelector('.step[data-step="'+steps[index]+'"]');
+    target.classList.add('active');
+    var pct = Math.round((index / (steps.length - 1)) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    if(steps[index] === 'final'){
+      document.getElementById('formShell').classList.add('wide');
+    }
+  }
+
+  function goNext(){ if(currentIndex < steps.length - 1) showStep(currentIndex + 1); }
+  function goBack(){ if(currentIndex > 0) showStep(currentIndex - 1); }
+
+  document.getElementById('startBtn').addEventListener('click', goNext);
+  document.querySelectorAll('[data-back]').forEach(function(btn){ btn.addEventListener('click', goBack); });
+
+  // Text-input steps: enable Next only when filled, allow Enter to advance
+  function wireText(inputId, nextSelector, validateFn){
+    var input = document.getElementById(inputId);
+    var nextBtn = document.querySelector(nextSelector);
+    function check(){
+      var valid = validateFn ? validateFn(input.value) : input.value.trim().length > 0;
+      nextBtn.disabled = !valid;
+    }
+    input.addEventListener('input', check);
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && !nextBtn.disabled){ nextBtn.click(); }
+    });
+  }
+  wireText('q_name', '.step[data-step="1"] [data-next]');
+  wireText('q_email', '.step[data-step="2"] [data-next]', function(v){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  });
+  wireText('q_company', '.step[data-step="3"] [data-next]');
+
+  // Step 3 needs both company and website filled
+  function checkStep3(){
+    var company = document.getElementById('q_company').value.trim();
+    var website = document.getElementById('q_website').value.trim();
+    document.querySelector('.step[data-step="3"] [data-next]').disabled = !(company && website);
+  }
+  document.getElementById('q_company').addEventListener('input', checkStep3);
+  document.getElementById('q_website').addEventListener('input', checkStep3);
+  document.getElementById('q_website').addEventListener('keydown', function(e){
+    var nextBtn = document.querySelector('.step[data-step="3"] [data-next]');
+    if(e.key === 'Enter' && !nextBtn.disabled){ nextBtn.click(); }
+  });
+
+  document.querySelector('.step[data-step="1"] [data-next]').addEventListener('click', function(){ formData.name = document.getElementById('q_name').value.trim(); goNext(); });
+  document.querySelector('.step[data-step="2"] [data-next]').addEventListener('click', function(){ formData.email = document.getElementById('q_email').value.trim(); goNext(); });
+  document.querySelector('.step[data-step="3"] [data-next]').addEventListener('click', function(){
+    formData.company = document.getElementById('q_company').value.trim();
+    formData.website = document.getElementById('q_website').value.trim();
+    goNext();
+  });
+
+  // Tier (radio, required)
+  document.querySelectorAll('#tierOptions input[type=radio]').forEach(function(r){
+    r.addEventListener('change', function(){
+      document.querySelector('.step[data-step="4"] [data-next]').disabled = false;
+    });
+  });
+  document.querySelector('.step[data-step="4"] [data-next]').addEventListener('click', function(){
+    var sel = document.querySelector('#tierOptions input:checked');
+    formData.tier = sel ? sel.value : '';
+    goNext();
+  });
+
+  // Audience (checkbox, required, show "other" text field)
+  document.querySelectorAll('#audienceOptions input[type=checkbox]').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      if(cb.value === 'Other'){
+        document.getElementById('q_audience_other').style.display = cb.checked ? 'block' : 'none';
+      }
+      var anyChecked = document.querySelectorAll('#audienceOptions input:checked').length > 0;
+      document.querySelector('.step[data-step="5"] [data-next]').disabled = !anyChecked;
+    });
+  });
+  document.querySelector('.step[data-step="5"] [data-next]').addEventListener('click', function(){
+    formData.audience = Array.from(document.querySelectorAll('#audienceOptions input:checked')).map(function(i){ return i.value; });
+    formData.audience_other = document.getElementById('q_audience_other').value.trim();
+    goNext();
+  });
+
+  // Agreement (checkbox, required) + submit
+  document.getElementById('q_consent').addEventListener('change', function(){
+    document.getElementById('submitBtn').disabled = !this.checked;
+  });
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    formData.consent = document.getElementById('q_consent').checked;
+    submitApplication(formData);
+  });
+
+  // ---- Submit handler ----
+  // Posts to the /api/submit-application serverless function, tagged with
+  // event: 'after-hours-london' so it's tracked separately in the CRM.
+  var ENDPOINT_URL = '/api/submit-application';
+
+  function submitApplication(data){
+    var payload = Object.assign({}, data, { event: 'after-hours-london' });
+    console.log('London sponsor application submitted:', payload);
+    var submitBtn = document.getElementById('submitBtn');
+    var submitError = document.getElementById('submitError');
+
+    if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+    if(submitError){ submitError.style.display = 'none'; }
+
+    fetch(ENDPOINT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(res){
+      if(!res.ok) throw new Error('Request failed: ' + res.status);
+      showStep(steps.length - 1); // show confirmation + Calendly screen
+    }).catch(function(err){
+      console.error('Submission failed:', err);
+      if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = 'Submit application'; }
+      if(submitError){ submitError.style.display = 'block'; }
+    });
+  }
+</script>
+
+</body>
+</html>

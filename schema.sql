@@ -22,6 +22,12 @@ create table if not exists sponsor_applications (
 create index if not exists idx_sponsor_applications_email on sponsor_applications (email);
 create index if not exists idx_sponsor_applications_created_at on sponsor_applications (created_at desc);
 
+-- Tags which event/page an application came from (e.g. 'after-hours-london'),
+-- and, for event-specific sponsor forms, which sponsorship tier they picked.
+alter table sponsor_applications add column if not exists event text not null default 'general';
+alter table sponsor_applications add column if not exists tier text default '';
+create index if not exists idx_sponsor_applications_event on sponsor_applications (event);
+
 -- Internal CRM additions: withjoy.com-only login (auth itself needs no tables —
 -- sessions are stateless signed cookies), Apollo sync tracking, and a registry of
 -- email-template links with per-contact "sent" tracking.

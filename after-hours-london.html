@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Joy | Sponsor Network</title>
+<title>After Hours: London | Joy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -57,18 +57,14 @@
   }
   .eyebrow.on-dark{color:var(--cyan);}
 
-  /* Logo mark (uploaded Joy SVG is the full wordmark, no extra text needed) */
   .joy-mark{display:inline-flex;align-items:center;text-decoration:none;color:var(--ink-soft);}
   .joy-mark svg{height:28px;width:auto;color:inherit;flex-shrink:0;display:block;}
   .joy-mark.on-dark{color:#fff;}
 
-  /* Top bar */
-  .topbar{
-    padding:22px 0;
-  }
+  .topbar{padding:22px 0;}
   .topbar .wrap{display:flex;align-items:center;justify-content:space-between;}
-  .topbar-tag{font-size:14px;color:var(--muted);font-weight:500;}
-  .topbar-tag.on-dark{color:rgba(255,255,255,0.75);}
+  .back-link{font-size:13px;color:rgba(255,255,255,0.72);text-decoration:none;font-weight:500;}
+  .back-link:hover{color:#fff;}
 
   /* Hero */
   .hero{
@@ -77,7 +73,7 @@
       radial-gradient(circle at 18% 8%, rgba(255,255,255,0.16), transparent 45%),
       radial-gradient(circle at 86% 82%, rgba(88,225,255,0.20), transparent 42%),
       linear-gradient(135deg, var(--bg-hero-a) 0%, var(--bg-hero-b) 100%);
-    padding:0 0 128px;
+    padding:0 0 96px;
     overflow:hidden;
   }
   .hero::before{
@@ -93,41 +89,45 @@
   .hero .topbar,.hero .hero-grid{position:relative;z-index:1;}
   .hero-grid{
     display:grid;
-    grid-template-columns:1.08fr 0.92fr;
+    grid-template-columns:1.05fr 0.95fr;
     gap:64px;
     align-items:center;
-    padding-top:64px;
+    padding-top:44px;
   }
   .hero-content{max-width:580px;}
+  .event-meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .event-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:#fff;
+    background:rgba(255,255,255,0.10);
+    border:1px solid rgba(255,255,255,0.26);
+    padding:8px 15px;
+    border-radius:var(--radius-pill);
+    font-weight:600;
+  }
+  .event-chip svg{width:14px;height:14px;flex-shrink:0;color:var(--cyan);}
   .hero h1{
-    font-size:52px;
+    font-size:50px;
     line-height:1.14;
-    margin-bottom:26px;
+    margin-bottom:20px;
     color:#fff;
   }
-  .hero h1 .money{white-space:nowrap;color:var(--cyan);position:relative;}
+  .hero h1 .accent{color:var(--cyan);}
   .hero p.lead{
     font-size:17px;
     max-width:480px;
     margin-bottom:34px;
     color:rgba(255,255,255,0.82);
   }
-  .btn-primary{
-    display:inline-block;
-    background:var(--blue);
-    color:#fff;
-    font-weight:600;
-    font-size:15px;
-    font-family:'Inter',sans-serif;
-    padding:16px 30px;
-    border-radius:var(--radius-pill);
-    text-decoration:none;
-    box-shadow:0 8px 20px rgba(51,85,240,0.28);
-    border:none;
-    cursor:pointer;
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(51,85,240,0.34);}
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;}
   .btn-hero{
     display:inline-flex;
     align-items:center;
@@ -152,33 +152,24 @@
   }
   .btn-hero:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,0,0,0.26);}
   .btn-hero:hover::after{transform:translateX(3px);}
-  .badges{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;}
-  .badge{
+  .btn-hero-outline{
     display:inline-flex;
     align-items:center;
-    gap:7px;
-    font-size:13px;
+    gap:8px;
+    background:rgba(255,255,255,0.08);
     color:#fff;
-    background:rgba(255,255,255,0.10);
-    border:1px solid rgba(255,255,255,0.26);
-    padding:9px 16px 9px 13px;
+    font-weight:600;
+    font-size:15px;
+    font-family:'Inter',sans-serif;
+    padding:16px 28px;
     border-radius:var(--radius-pill);
-    font-weight:500;
+    text-decoration:none;
+    border:1.5px solid rgba(255,255,255,0.5);
+    cursor:pointer;
+    transition:transform .18s ease, background .18s ease;
   }
-  .badge::before{
-    content:'\2713';
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:15px;
-    height:15px;
-    flex-shrink:0;
-    border-radius:50%;
-    background:var(--cyan);
-    color:var(--bg-navy);
-    font-size:9px;
-    font-weight:800;
-  }
+  .btn-hero-outline:hover{transform:translateY(-2px);background:rgba(255,255,255,0.16);}
+
   .hero-photo-wrap{position:relative;}
   .hero-photo-wrap::before{
     content:'';
@@ -191,7 +182,7 @@
     border-radius:24px;
     z-index:0;
   }
-  .photo-carousel{
+  .hero-photo{
     position:relative;
     z-index:1;
     border-radius:24px;
@@ -201,6 +192,14 @@
     background:#1B34D6;
     border:1px solid rgba(255,255,255,0.25);
   }
+  .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero-photo::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(20,30,120,0.02) 0%, rgba(10,14,50,0.28) 100%);
+    pointer-events:none;
+  }
   .hero-stat-float{
     position:absolute;
     left:-20px;
@@ -208,69 +207,51 @@
     z-index:2;
     background:#fff;
     border-radius:16px;
-    padding:14px 20px;
+    padding:16px 22px;
     box-shadow:0 18px 40px rgba(10,19,64,0.32);
   }
-  .hstat-location{
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
+  .hstat-location{display:flex;align-items:center;gap:8px;}
   .hstat-location svg{width:14px;height:14px;flex-shrink:0;color:var(--blue);}
-  .hstat-location .loc-text{
-    font-family:'Inter Tight',sans-serif;
-    font-weight:700;
-    font-size:14px;
-    color:var(--ink);
-    white-space:nowrap;
-  }
-  .photo-carousel .slide{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    opacity:0;
-    transition:opacity 1.1s ease;
-  }
-  .photo-carousel .slide.active{opacity:1;}
-  .photo-carousel::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:linear-gradient(180deg, rgba(20,30,120,0.02) 0%, rgba(10,14,50,0.28) 100%);
-    pointer-events:none;
-    z-index:1;
-  }
-  .photo-carousel .dots{
-    position:absolute;
-    bottom:16px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    gap:6px;
-    z-index:2;
-  }
-  .photo-carousel .dots span{
-    width:6px;
-    height:6px;
-    border-radius:3px;
-    background:rgba(255,255,255,0.45);
-    transition:all .3s ease;
-  }
-  .photo-carousel .dots span.active{background:#fff;width:18px;}
+  .hstat-location .loc-text{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap;}
 
-  /* Section spacing */
-  section{padding:88px 0;}
+  section{padding:80px 0;}
   .section-light{background:var(--bg-light);}
   .section-white{background:#fff;}
   .section-navy{background:var(--bg-navy);}
 
-  h2.section-title{font-size:36px;line-height:1.2;max-width:640px;}
+  h2.section-title{font-size:34px;line-height:1.2;max-width:640px;}
   .section-navy h2.section-title, .section-navy .eyebrow{color:#fff;}
   .section-navy p{color:rgba(255,255,255,0.68);}
 
-  /* Why join cards */
+  /* About / details grid */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:56px;
+    margin-top:40px;
+    align-items:start;
+  }
+  .about-grid p{font-size:15.5px;margin:0 0 16px;}
+  .detail-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:28px;
+    box-shadow:var(--shadow-sm);
+  }
+  .detail-row{
+    display:flex;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .detail-row:last-child{border-bottom:none;padding-bottom:0;}
+  .detail-row:first-child{padding-top:0;}
+  .detail-row svg{width:18px;height:18px;flex-shrink:0;color:var(--blue);margin-top:2px;}
+  .detail-row .label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
+  .detail-row .value{font-size:15px;font-weight:600;color:var(--ink-soft);}
+
+  /* Why sponsor cards */
   .cards3{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -296,6 +277,46 @@
   .card h3{font-size:20px;margin-bottom:10px;}
   .card p{font-size:15px;margin:0;color:var(--body-text);}
 
+  /* Tiers */
+  .tiers-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-top:48px;
+  }
+  .tier-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:32px 28px;
+    box-shadow:var(--shadow-sm);
+    display:flex;
+    flex-direction:column;
+  }
+  .tier-card.featured{border-color:var(--blue);box-shadow:0 14px 34px rgba(51,85,240,0.14);}
+  .tier-name{font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;}
+  .tier-price{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:32px;color:var(--ink);margin-bottom:14px;}
+  .tier-card ul{margin:0 0 24px;padding:0 0 0 20px;font-size:14.5px;color:var(--body-text);}
+  .tier-card li{margin-bottom:8px;}
+  .tier-card .btn-primary{margin-top:auto;text-align:center;}
+
+  .btn-primary{
+    display:inline-block;
+    background:var(--blue);
+    color:#fff;
+    font-weight:600;
+    font-size:15px;
+    font-family:'Inter',sans-serif;
+    padding:14px 26px;
+    border-radius:var(--radius-pill);
+    text-decoration:none;
+    box-shadow:0 8px 20px rgba(51,85,240,0.28);
+    border:none;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px rgba(51,85,240,0.34);}
+
   /* Stats */
   .stats-row{
     display:grid;
@@ -306,59 +327,13 @@
   .stat-num{
     font-family:'Inter Tight',sans-serif;
     font-weight:800;
-    font-size:52px;
+    font-size:48px;
     color:var(--cyan);
     line-height:1;
     margin-bottom:14px;
     letter-spacing:-0.02em;
   }
   .stat-label{font-size:15px;color:rgba(255,255,255,0.68);max-width:220px;}
-  .disclaimer{
-    font-family:'Inter',sans-serif;
-    font-size:13px;
-    color:var(--muted);
-    margin-top:44px;
-  }
-  .section-navy .disclaimer{color:rgba(255,255,255,0.45);}
-
-  /* Logo strip: animated marquee */
-  .logo-marquee{
-    margin-top:40px;
-    overflow:hidden;
-    -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-    mask-image:linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  }
-  .logo-track{
-    display:flex;
-    align-items:center;
-    gap:72px;
-    width:max-content;
-    animation:logo-scroll 36s linear infinite;
-  }
-  .logo-track:hover{animation-play-state:paused;}
-  .logo-item{
-    height:30px;
-    width:auto;
-    flex-shrink:0;
-    filter:grayscale(100%);
-    opacity:0.6;
-    transition:opacity .2s ease, filter .2s ease;
-  }
-  .logo-item:hover{filter:grayscale(0%);opacity:1;}
-  span.logo-item{
-    display:inline-flex;
-    align-items:center;
-    font-family:'Inter',sans-serif;
-    font-weight:700;
-    font-size:22px;
-    color:#3A3F4E;
-    letter-spacing:-0.01em;
-    height:auto;
-  }
-  @keyframes logo-scroll{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-  }
 
   /* Apply CTA card */
   .apply-card-wrap{max-width:640px;margin:48px auto 0;}
@@ -371,17 +346,14 @@
     box-shadow:var(--shadow);
   }
   .apply-card .joy-mark{justify-content:center;margin-bottom:22px;}
-  .apply-card .joy-mark svg{height:46px;}
+  .apply-card .joy-mark svg{height:40px;}
   .apply-card h3{font-size:24px;margin-bottom:14px;}
-  .apply-card p{font-size:15px;max-width:420px;margin:0 auto 28px;}
+  .apply-card p{font-size:15px;max-width:440px;margin:0 auto 28px;}
+  .apply-card .cta-row{justify-content:center;}
   .apply-card .meta{
-    margin-top:16px;
+    margin-top:20px;
     font-size:13px;
     color:var(--muted);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
   }
   .consent{
     font-size:13px;
@@ -390,70 +362,6 @@
     margin:24px auto 0;
     text-align:center;
     line-height:1.7;
-  }
-
-  /* Coming up */
-  .coming-list{
-    display:flex;
-    flex-direction:column;
-    gap:24px;
-    margin-top:8px;
-  }
-  .coming-card{
-    background:var(--bg-light);
-    border:1px solid var(--border);
-    border-radius:var(--radius-lg);
-    overflow:hidden;
-    display:grid;
-    grid-template-columns:1.2fr 1fr;
-    align-items:stretch;
-    text-decoration:none;
-    color:inherit;
-    cursor:pointer;
-    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-  }
-  .coming-card:hover{
-    transform:translateY(-4px);
-    box-shadow:var(--shadow);
-    border-color:var(--blue);
-  }
-  .coming-text{padding:40px 44px;align-self:center;}
-  .coming-text h2{font-size:26px;margin:10px 0 14px;}
-  .coming-text p{font-size:15px;max-width:480px;margin:0 0 20px;}
-  .coming-tier{
-    display:inline-block;
-    font-weight:600;
-    font-size:14px;
-    color:var(--blue);
-    margin-bottom:8px;
-  }
-  .coming-date{color:var(--muted);font-weight:500;font-size:14px;}
-  .coming-photo{
-    position:relative;
-    display:block;
-    min-height:260px;
-    overflow:hidden;
-  }
-  .coming-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    transition:transform .5s ease;
-  }
-  .coming-photo::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(10,19,64,0);
-    transition:background .3s ease;
-  }
-  .coming-card:hover .coming-photo img{transform:scale(1.08);}
-  .coming-card:hover .coming-photo::after{background:rgba(10,19,64,0.15);}
-  @media (max-width:860px){
-    .coming-card{grid-template-columns:1fr;}
-    .coming-text{padding:32px 28px;}
-    .coming-photo{min-height:200px;}
   }
 
   /* FAQ */
@@ -490,17 +398,8 @@
     margin-left:20px;
   }
   .faq-item.open .plus{transform:rotate(45deg);}
-  .faq-a{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .25s ease;
-  }
-  .faq-a p{
-    margin:0;
-    padding:0 28px 24px;
-    font-size:14.5px;
-    color:var(--body-text);
-  }
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{margin:0;padding:0 28px 24px;font-size:14.5px;color:var(--body-text);}
 
   /* Footer */
   footer{
@@ -509,31 +408,13 @@
     padding:72px 0 0;
     font-size:13px;
   }
-  .footer-top{
-    display:flex;
-    justify-content:space-between;
-    gap:40px;
-    flex-wrap:wrap;
-    padding-bottom:48px;
-  }
+  .footer-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:48px;}
   .footer-brand{max-width:340px;}
   .footer-brand .joy-mark svg{height:30px;}
   .footer-brand p{margin:18px 0 0;font-size:15px;color:rgba(255,255,255,0.68);line-height:1.6;}
   .footer-cols{display:flex;gap:72px;flex-wrap:wrap;}
-  .footer-col h4{
-    font-family:'Inter Tight',sans-serif;
-    font-weight:700;
-    font-size:14px;
-    color:var(--cyan);
-    margin:0 0 16px;
-  }
-  .footer-col a{
-    display:block;
-    font-size:15px;
-    color:rgba(255,255,255,0.82);
-    text-decoration:none;
-    margin-bottom:12px;
-  }
+  .footer-col h4{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:14px;color:var(--cyan);margin:0 0 16px;}
+  .footer-col a{display:block;font-size:15px;color:rgba(255,255,255,0.82);text-decoration:none;margin-bottom:12px;}
   .footer-col a:hover{color:#fff;}
   .footer-bottom{
     border-top:1px solid rgba(255,255,255,0.12);
@@ -547,19 +428,18 @@
   }
 
   @media (max-width:860px){
-    .hero{padding-bottom:64px;}
+    .hero{padding-bottom:56px;}
     .hero-grid{grid-template-columns:1fr;gap:44px;}
     .hero-content{max-width:100%;}
     .hero-photo-wrap::before{display:none;}
-    .photo-carousel{aspect-ratio:4/3;}
-    .hero-stat-float{left:12px;bottom:-16px;padding:11px 16px;}
-    .hero h1{font-size:38px;}
-    .cards3{grid-template-columns:1fr;}
+    .hero-stat-float{left:12px;bottom:-16px;padding:12px 18px;}
+    .hero h1{font-size:36px;}
+    .about-grid{grid-template-columns:1fr;gap:32px;}
+    .cards3, .tiers-grid{grid-template-columns:1fr;}
     .stats-row{grid-template-columns:1fr;gap:32px;}
     .wrap{padding:0 20px;}
-    h2.section-title{font-size:28px;}
+    h2.section-title{font-size:27px;}
     .footer-cols{gap:40px;}
-    .logo-track{animation-duration:22s;}
   }
 </style>
 </head>
@@ -568,36 +448,35 @@
   <div class="hero">
     <div class="topbar">
       <div class="wrap">
-        <a href="#" class="joy-mark on-dark">
+        <a href="/sponsor-network-landing" class="joy-mark on-dark">
           <svg viewBox="0 0 148 93" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.6032 71.2595C18.6881 71.0957 18.8298 70.9693 19.0012 70.9043C23.777 68.6141 27.8447 61.652 32.0576 43.6969C32.2661 42.7953 32.9924 39.5851 33.8962 35.5906C35.7475 27.4081 38.3434 15.9345 38.7583 14.2725C42.6262 -2.96803 55.9186 -0.439658 60.0952 1.11767C60.2092 1.16059 60.3111 1.23106 60.3918 1.3229C60.4726 1.41474 60.5298 1.52516 60.5585 1.64449C60.5872 1.76382 60.5864 1.88842 60.5563 2.00739C60.5262 2.12635 60.4676 2.23605 60.3857 2.32689C58.9875 3.92086 57.335 7.89663 55.0833 17.3689C53.8848 22.4073 49.5266 40.5272 47.9468 47.0863C43.3525 66.3423 28.7889 71.6555 19.3644 72.3517C19.183 72.3769 18.9987 72.3337 18.8468 72.2304C18.695 72.1271 18.5862 71.971 18.5412 71.7919C18.4963 71.6128 18.5184 71.4232 18.6032 71.2595Z" fill="currentColor"/><path d="M142.428 19.9888C148.221 21.8576 148.149 28.087 147.295 32.0994C145.796 38.3947 143.399 44.4368 140.177 50.0361C140.09 50.1923 139.951 50.3121 139.785 50.3741C139.619 50.4362 139.436 50.4362 139.27 50.3744C139.103 50.3126 138.964 50.1928 138.877 50.0368C138.791 49.8807 138.762 49.6986 138.797 49.5231C139.807 43.039 138.521 36.4029 135.165 30.7802C130.552 23.1585 138.306 18.6514 142.428 19.9888Z" fill="currentColor"/><path d="M102.751 25.6501C107.145 21.2896 121.945 12.9533 127.302 35.3789C129.423 43.8205 129.315 52.6756 126.989 61.0622C124.664 69.4488 120.201 77.0744 114.046 83.1797C113.926 83.2871 113.775 83.3537 113.616 83.3699C113.456 83.3862 113.296 83.3512 113.157 83.27C113.018 83.1889 112.908 83.0656 112.843 82.9178C112.778 82.77 112.76 82.6052 112.793 82.4468C117.078 66.1956 114.409 27.2991 103.205 26.9326C103.064 26.9194 102.929 26.8657 102.817 26.778C102.705 26.6902 102.62 26.5721 102.573 26.4373C102.525 26.3026 102.517 26.157 102.548 26.0175C102.58 25.8781 102.65 25.7506 102.751 25.6501Z" fill="currentColor"/><path d="M106.165 88.0715C106.336 88.035 106.515 88.0608 106.67 88.1442C106.824 88.2276 106.944 88.3634 107.01 88.5276C107.075 88.6917 107.08 88.8738 107.025 89.0417C106.97 89.2097 106.859 89.3527 106.71 89.4456C103.381 91.9224 99.3102 93.1707 95.1785 92.9817C84.2831 92.487 83.8291 83.8209 87.0251 79.7535C88.7446 77.7368 91.0516 76.3196 93.6168 75.7045C93.7383 75.6907 93.8613 75.7073 93.975 75.7529C94.0886 75.7985 94.1893 75.8716 94.2683 75.9657C94.3473 76.0599 94.402 76.1722 94.4278 76.2928C94.4535 76.4134 94.4494 76.5386 94.4159 76.6572C92.9813 81.4757 96.6676 89.7754 106.165 88.0715Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M61.3845 28.7281C67.3615 23.5257 74.9733 20.6303 82.8667 20.5567C95.1967 20.5567 104.04 28.5083 104.04 40.7104C103.886 45.2095 102.82 49.6292 100.909 53.6971C98.9978 57.765 96.2813 61.395 92.9268 64.3635C87.1036 69.534 79.6194 72.3982 71.8623 72.4249C59.1147 72.4249 50.362 64.3635 50.362 52.0514C50.5649 47.6186 51.6446 43.2716 53.5376 39.2661C55.4306 35.2606 58.0986 31.6777 61.3845 28.7281ZM74.2048 67.6797C80.9237 64.107 85.4635 46.7382 86.208 43.8617C87.1704 40.5272 90.0577 20.4651 80.4334 25.1921C73.9602 28.4489 69.549 44.7978 68.5208 48.6084L68.4121 49.0101C67.1954 53.8469 64.4897 72.7364 74.2048 67.6797Z" fill="currentColor"/><path d="M2.60361 66.0857C2.69221 66.2091 2.81591 66.3024 2.95829 66.3532C3.10066 66.404 3.25498 66.4099 3.40076 66.3701C3.54655 66.3304 3.6769 66.2468 3.77453 66.1306C3.87216 66.0144 3.93244 65.8709 3.94738 65.7193C4.12897 62.6046 7.45208 58.8487 13.1359 59.2701C17.149 59.5816 19.201 53.1507 15.8779 49.7613C11.7739 45.5656 5.67249 47.2146 2.60361 51.5934C-1.64561 57.6578 0.00686236 62.8245 2.60361 66.0857Z" fill="currentColor"/></svg>
         </a>
+        <a href="/sponsor-network-landing" class="back-link">&larr; Joy Sponsor Network</a>
       </div>
     </div>
 
     <div class="wrap hero-grid">
       <div class="hero-content">
-        <span class="eyebrow on-dark">Matching you to the world's most sought-after events</span>
-        <h1>The sponsor network behind <span class="money">$800K+</span> in event partnerships, before any of it goes to market.</h1>
-        <p class="lead">Joy plans corporate events year-round and connects them with sponsors. Join our sponsor network once, and we'll bring you the right opportunity when it's relevant: not a generic pitch, not a cold call.</p>
-        <a href="/sponsor-network-application" class="btn-hero">Become a Sponsor</a>
-        <div class="badges">
-          <span class="badge">Matched, not spammed</span>
-          <span class="badge">See what similar brands sponsor</span>
+        <div class="event-meta-row">
+          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>September 30, 2026</span>
+          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Greenwich Peninsula, London</span>
+        </div>
+        <span class="eyebrow on-dark">A Sifted Summit after-party</span>
+        <h1>After Hours: <span class="accent">London</span></h1>
+        <p class="lead">Cocktails and a founder fireside chat on Greenwich Peninsula, timed to Sifted Summit. An intimate evening with the founders, operators, and investors shaping Europe's tech scene &mdash; put your brand in the room.</p>
+        <div class="cta-row">
+          <a href="/after-hours-london-application" class="btn-hero">Become a Sponsor</a>
+          <a href="https://withjoy.com/after-hours-london/registration/7f138a5f-f4f5-4c64-9049-db8e7c86eac1?from=registration" class="btn-hero-outline" target="_blank" rel="noopener">Register as Attendee</a>
         </div>
       </div>
       <div class="hero-photo-wrap">
-        <div class="photo-carousel" id="eventPhotoCarousel">
-          <img class="slide active" src="https://res.cloudinary.com/irilxier/image/upload/v1787691685/Screenshot_2026-08-25_at_4.58.40_PM.png" alt="Joy sponsored event in San Francisco, CA" data-location="San Francisco, CA">
-          <img class="slide" src="https://res.cloudinary.com/irilxier/image/upload/v1787676596/SAN00168.jpg" alt="Joy sponsored event in Dubai, UAE" data-location="Dubai, UAE">
-          <img class="slide" src="https://res.cloudinary.com/irilxier/image/upload/v1787692302/Screenshot_2026-08-25_at_5.11.19_PM.png" alt="Joy sponsored event in Colombo, Sri Lanka" data-location="Colombo, Sri Lanka">
-          <div class="dots">
-            <span class="active"></span><span></span><span></span>
-          </div>
+        <div class="hero-photo">
+          <img src="https://res.cloudinary.com/irilxier/image/upload/v1787689623/benjamin-davies-Oja2ty_9ZLM-unsplash.jpg" alt="London skyline at night">
         </div>
         <div class="hero-stat-float">
-          <div class="hstat-location" id="locationTag">
+          <div class="hstat-location">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
-            <span class="loc-text">San Francisco, CA</span>
+            <span class="loc-text">London, UK</span>
           </div>
         </div>
       </div>
@@ -606,24 +485,95 @@
 
   <section class="section-white">
     <div class="wrap">
-      <span class="eyebrow">Past sponsors &amp; partners</span>
-      <h2 class="section-title">From Fortune 500s to fast-growing startups.</h2>
-      <div class="logo-marquee">
-        <div class="logo-track">
-          <img class="logo-item" src="logos/aws.svg" alt="AWS">
-          <img class="logo-item" src="logos/okta.svg" alt="Okta">
-          <img class="logo-item" src="logos/zuora.svg" alt="Zuora">
-          <img class="logo-item" src="logos/alteryx.svg" alt="Alteryx">
-          <img class="logo-item" src="logos/devrev.svg" alt="DevRev">
-          <span class="logo-item wordmark">Atomicwork</span>
-          <img class="logo-item" src="logos/nanonets.png" alt="Nanonets">
-          <img class="logo-item" src="logos/aws.svg" alt="AWS" aria-hidden="true">
-          <img class="logo-item" src="logos/okta.svg" alt="Okta" aria-hidden="true">
-          <img class="logo-item" src="logos/zuora.svg" alt="Zuora" aria-hidden="true">
-          <img class="logo-item" src="logos/alteryx.svg" alt="Alteryx" aria-hidden="true">
-          <img class="logo-item" src="logos/devrev.svg" alt="DevRev" aria-hidden="true">
-          <span class="logo-item wordmark" aria-hidden="true">Atomicwork</span>
-          <img class="logo-item" src="logos/nanonets.png" alt="Nanonets" aria-hidden="true">
+      <div class="about-grid">
+        <div>
+          <span class="eyebrow">About the event</span>
+          <h2 class="section-title">An after-party built for the Sifted Summit crowd.</h2>
+          <p>After Hours: London brings together founders, operators, and investors in town for Sifted Summit for an evening of cocktails and conversation on Greenwich Peninsula. The night centers on a founder fireside chat, followed by open networking in a relaxed, high-end setting.</p>
+          <p>As a sponsor, your brand is woven into the evening itself: signage and branding on-site, a moment in front of the room, and direct face time with attendees who don't usually take a cold pitch.</p>
+        </div>
+        <div class="detail-card">
+          <div class="detail-row">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><div class="label">Date</div><div class="value">September 30, 2026</div></div>
+          </div>
+          <div class="detail-row">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
+            <div><div class="label">Location</div><div class="value">Greenwich Peninsula, London</div></div>
+          </div>
+          <div class="detail-row">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><div class="label">Audience</div><div class="value">Founders, operators &amp; investors (Sifted Summit)</div></div>
+          </div>
+          <div class="detail-row">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div><div class="label">Sponsor tiers</div><div class="value">&pound;1,000&ndash;&pound;3,000</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-light">
+    <div class="wrap">
+      <span class="eyebrow">Why sponsor this event</span>
+      <h2 class="section-title">Reach the room before it's crowded.</h2>
+      <div class="cards3">
+        <div class="card">
+          <span class="num">01</span>
+          <h3>A captive, curated crowd</h3>
+          <p>Guests are drawn from Sifted Summit's own attendee base: founders, operators, and investors already engaged with Europe's tech scene, not a walk-in crowd.</p>
+        </div>
+        <div class="card">
+          <span class="num">02</span>
+          <h3>Real face time</h3>
+          <p>An intimate evening format, not a trade show floor. Sponsors get genuine conversations and a moment in front of the room during the fireside chat.</p>
+        </div>
+        <div class="card">
+          <span class="num">03</span>
+          <h3>One night, low lift</h3>
+          <p>No booth to staff, no multi-day commitment. Show up, be part of the evening, and follow up on warm conversations afterward.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white" id="tiers">
+    <div class="wrap">
+      <span class="eyebrow">Sponsorship tiers</span>
+      <h2 class="section-title">Pick the level that fits, or talk it through with us first.</h2>
+      <div class="tiers-grid">
+        <div class="tier-card">
+          <div class="tier-name">Friend</div>
+          <div class="tier-price">&pound;1,000</div>
+          <ul>
+            <li>Logo on event signage</li>
+            <li>Mention in event comms</li>
+            <li>2 guest tickets</li>
+          </ul>
+          <a href="/after-hours-london-application" class="btn-primary">Become a Sponsor</a>
+        </div>
+        <div class="tier-card featured">
+          <div class="tier-name">Supporter</div>
+          <div class="tier-price">&pound;2,000</div>
+          <ul>
+            <li>Everything in Friend</li>
+            <li>Branded bar or cocktail moment</li>
+            <li>Verbal shout-out from the stage</li>
+            <li>4 guest tickets</li>
+          </ul>
+          <a href="/after-hours-london-application" class="btn-primary">Become a Sponsor</a>
+        </div>
+        <div class="tier-card">
+          <div class="tier-name">Presenting Sponsor</div>
+          <div class="tier-price">&pound;3,000</div>
+          <ul>
+            <li>Everything in Supporter</li>
+            <li>Named "presented by" billing</li>
+            <li>Speaking moment in the fireside chat</li>
+            <li>8 guest tickets</li>
+          </ul>
+          <a href="/after-hours-london-application" class="btn-primary">Become a Sponsor</a>
         </div>
       </div>
     </div>
@@ -632,7 +582,7 @@
   <section class="section-navy">
     <div class="wrap">
       <span class="eyebrow on-dark">Track record</span>
-      <h2 class="section-title">We already do this: you'd be joining a working system.</h2>
+      <h2 class="section-title">Backed by Joy's sponsor network.</h2>
       <div class="stats-row">
         <div>
           <div class="stat-num">38</div>
@@ -647,83 +597,30 @@
           <div class="stat-label">In sponsorships facilitated</div>
         </div>
       </div>
-      <p class="disclaimer">Figures reflect Joy's sponsor activity over the trailing 12 months.</p>
     </div>
   </section>
 
-  <section class="section-light">
+  <section class="section-light" id="apply">
     <div class="wrap">
-      <span class="eyebrow">Why join</span>
-      <h2 class="section-title">Get early access to the world's most sought-after events.</h2>
-      <div class="cards3">
-        <div class="card">
-          <span class="num">01</span>
-          <h3>Before it goes to market</h3>
-          <p>Tell us who you are once. When an event fits your audience and budget, you hear about it before it's public, not after the good slots are gone.</p>
-        </div>
-        <div class="card">
-          <span class="num">02</span>
-          <h3>Benchmark against your peers</h3>
-          <p>See what audiences, formats, and event types similar brands in your industry are already sponsoring: real signal, not a sales pitch.</p>
-        </div>
-        <div class="card">
-          <span class="num">03</span>
-          <h3>Zero pressure to commit</h3>
-          <p>Joining takes two minutes and commits you to nothing. You'll get a short monthly note on what we've run and what's coming. Skip anything that's not relevant.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-white" id="apply">
-    <div class="wrap">
-      <span class="eyebrow" style="text-align:center;display:block;">Join the network</span>
-      <h2 class="section-title" style="margin:0 auto;text-align:center;max-width:100%;">Join the Sponsor Network</h2>
-      <p style="text-align:center;max-width:460px;margin:14px auto 0;font-size:15px;">Takes about 2 minutes. We'll only reach out when there's a genuine fit.</p>
+      <span class="eyebrow" style="text-align:center;display:block;">Sponsor this event</span>
+      <h2 class="section-title" style="margin:0 auto;text-align:center;max-width:100%;">Become a sponsor of After Hours: London</h2>
+      <p style="text-align:center;max-width:460px;margin:14px auto 0;font-size:15px;">Tell us a bit about you, pick a tier, and we'll grab time on a quick call to lock in the details.</p>
 
       <div class="apply-card-wrap">
         <div class="apply-card">
           <span class="joy-mark">
             <svg viewBox="0 0 148 93" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.6032 71.2595C18.6881 71.0957 18.8298 70.9693 19.0012 70.9043C23.777 68.6141 27.8447 61.652 32.0576 43.6969C32.2661 42.7953 32.9924 39.5851 33.8962 35.5906C35.7475 27.4081 38.3434 15.9345 38.7583 14.2725C42.6262 -2.96803 55.9186 -0.439658 60.0952 1.11767C60.2092 1.16059 60.3111 1.23106 60.3918 1.3229C60.4726 1.41474 60.5298 1.52516 60.5585 1.64449C60.5872 1.76382 60.5864 1.88842 60.5563 2.00739C60.5262 2.12635 60.4676 2.23605 60.3857 2.32689C58.9875 3.92086 57.335 7.89663 55.0833 17.3689C53.8848 22.4073 49.5266 40.5272 47.9468 47.0863C43.3525 66.3423 28.7889 71.6555 19.3644 72.3517C19.183 72.3769 18.9987 72.3337 18.8468 72.2304C18.695 72.1271 18.5862 71.971 18.5412 71.7919C18.4963 71.6128 18.5184 71.4232 18.6032 71.2595Z" fill="currentColor"/><path d="M142.428 19.9888C148.221 21.8576 148.149 28.087 147.295 32.0994C145.796 38.3947 143.399 44.4368 140.177 50.0361C140.09 50.1923 139.951 50.3121 139.785 50.3741C139.619 50.4362 139.436 50.4362 139.27 50.3744C139.103 50.3126 138.964 50.1928 138.877 50.0368C138.791 49.8807 138.762 49.6986 138.797 49.5231C139.807 43.039 138.521 36.4029 135.165 30.7802C130.552 23.1585 138.306 18.6514 142.428 19.9888Z" fill="currentColor"/><path d="M102.751 25.6501C107.145 21.2896 121.945 12.9533 127.302 35.3789C129.423 43.8205 129.315 52.6756 126.989 61.0622C124.664 69.4488 120.201 77.0744 114.046 83.1797C113.926 83.2871 113.775 83.3537 113.616 83.3699C113.456 83.3862 113.296 83.3512 113.157 83.27C113.018 83.1889 112.908 83.0656 112.843 82.9178C112.778 82.77 112.76 82.6052 112.793 82.4468C117.078 66.1956 114.409 27.2991 103.205 26.9326C103.064 26.9194 102.929 26.8657 102.817 26.778C102.705 26.6902 102.62 26.5721 102.573 26.4373C102.525 26.3026 102.517 26.157 102.548 26.0175C102.58 25.8781 102.65 25.7506 102.751 25.6501Z" fill="currentColor"/><path d="M106.165 88.0715C106.336 88.035 106.515 88.0608 106.67 88.1442C106.824 88.2276 106.944 88.3634 107.01 88.5276C107.075 88.6917 107.08 88.8738 107.025 89.0417C106.97 89.2097 106.859 89.3527 106.71 89.4456C103.381 91.9224 99.3102 93.1707 95.1785 92.9817C84.2831 92.487 83.8291 83.8209 87.0251 79.7535C88.7446 77.7368 91.0516 76.3196 93.6168 75.7045C93.7383 75.6907 93.8613 75.7073 93.975 75.7529C94.0886 75.7985 94.1893 75.8716 94.2683 75.9657C94.3473 76.0599 94.402 76.1722 94.4278 76.2928C94.4535 76.4134 94.4494 76.5386 94.4159 76.6572C92.9813 81.4757 96.6676 89.7754 106.165 88.0715Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M61.3845 28.7281C67.3615 23.5257 74.9733 20.6303 82.8667 20.5567C95.1967 20.5567 104.04 28.5083 104.04 40.7104C103.886 45.2095 102.82 49.6292 100.909 53.6971C98.9978 57.765 96.2813 61.395 92.9268 64.3635C87.1036 69.534 79.6194 72.3982 71.8623 72.4249C59.1147 72.4249 50.362 64.3635 50.362 52.0514C50.5649 47.6186 51.6446 43.2716 53.5376 39.2661C55.4306 35.2606 58.0986 31.6777 61.3845 28.7281ZM74.2048 67.6797C80.9237 64.107 85.4635 46.7382 86.208 43.8617C87.1704 40.5272 90.0577 20.4651 80.4334 25.1921C73.9602 28.4489 69.549 44.7978 68.5208 48.6084L68.4121 49.0101C67.1954 53.8469 64.4897 72.7364 74.2048 67.6797Z" fill="currentColor"/><path d="M2.60361 66.0857C2.69221 66.2091 2.81591 66.3024 2.95829 66.3532C3.10066 66.404 3.25498 66.4099 3.40076 66.3701C3.54655 66.3304 3.6769 66.2468 3.77453 66.1306C3.87216 66.0144 3.93244 65.8709 3.94738 65.7193C4.12897 62.6046 7.45208 58.8487 13.1359 59.2701C17.149 59.5816 19.201 53.1507 15.8779 49.7613C11.7739 45.5656 5.67249 47.2146 2.60361 51.5934C-1.64561 57.6578 0.00686236 62.8245 2.60361 66.0857Z" fill="currentColor"/></svg>
           </span>
-          <h3>Welcome to the Joy Sponsor Network Application</h3>
-          <p>Thank you for your interest in joining our sponsor network. Please complete this short application to share your interests and connect with key leaders through sponsored events.</p>
-          <a href="/sponsor-network-application" class="btn-primary">Start Application</a>
-          <div class="meta">⏱ Takes about 2 minutes</div>
+          <h3>Sponsor After Hours: London</h3>
+          <p>Share a few details and pick a tier. We'll follow up to lock in a call and finalize the details before the event.</p>
+          <div class="cta-row">
+            <a href="/after-hours-london-application" class="btn-primary">Start Application</a>
+          </div>
+          <div class="meta">&#9201; Takes about 2 minutes</div>
         </div>
       </div>
 
-      <p class="consent">By submitting, you agree to receive occasional emails from Joy about relevant sponsorship opportunities and a monthly roundup of events. We won't share your details with third parties. You can unsubscribe at any time. Every email includes a one-click unsubscribe link.</p>
-    </div>
-  </section>
-
-  <section class="section-light">
-    <div class="wrap">
-      <span class="eyebrow">Coming up</span>
-      <div class="coming-list">
-        <a class="coming-card" href="/after-hours-london">
-          <div class="coming-text">
-            <h2>After Hours: London</h2>
-            <p>A Sifted Summit after-party: cocktails and a founder fireside chat on Greenwich Peninsula, London.</p>
-            <div class="coming-tier">Sponsor tiers: &pound;1,000&ndash;&pound;3,000</div>
-            <div class="coming-date">September 30, 2026 &middot; London</div>
-          </div>
-          <div class="coming-photo">
-            <img src="https://res.cloudinary.com/irilxier/image/upload/v1787689623/benjamin-davies-Oja2ty_9ZLM-unsplash.jpg" alt="London skyline at night">
-          </div>
-        </a>
-        <a class="coming-card" href="https://withjoy.com/AfterHours" target="_blank" rel="noopener">
-          <div class="coming-text">
-            <h2>After Hours: San Francisco</h2>
-            <p>A TechCrunch Disrupt after-party: cocktails and a founder fireside chat in SoMa, San Francisco.</p>
-            <div class="coming-tier">Sponsor tiers: $1,000&ndash;$3,000</div>
-            <div class="coming-date">October 14, 2026 &middot; San Francisco</div>
-          </div>
-          <div class="coming-photo">
-            <img src="https://res.cloudinary.com/irilxier/image/upload/v1787689623/maarten-van-den-heuvel-gZXx8lKAb7Y-unsplash.jpg" alt="San Francisco skyline at night">
-          </div>
-        </a>
-      </div>
+      <p class="consent">By submitting, you agree to join the Joy Sponsor Network and receive occasional emails about relevant sponsorship opportunities, including this event. We won't share your details with third parties. You can unsubscribe at any time.</p>
     </div>
   </section>
 
@@ -733,24 +630,20 @@
       <h2 class="section-title">Questions, answered.</h2>
       <div class="faq-card" id="faq-card">
         <div class="faq-item">
-          <button class="faq-q" type="button">What happens after I sign up?<span class="plus">+</span></button>
-          <div class="faq-a"><p>We'll review your application and, when an upcoming event fits your audience and budget, reach out directly with the details. If nothing fits right now, you'll hear from us in our monthly note instead.</p></div>
+          <button class="faq-q" type="button">What happens after I apply to sponsor?<span class="plus">+</span></button>
+          <div class="faq-a"><p>We'll review your application and follow up to book a short call to talk through tiers, branding, and logistics before the event.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" type="button">How often will I hear from you?<span class="plus">+</span></button>
-          <div class="faq-a"><p>Only when there's a genuine fit, plus a short monthly roundup of what we've run and what's coming. You can unsubscribe from the monthly note at any time.</p></div>
+          <button class="faq-q" type="button">Can I register as an attendee instead?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes &mdash; use the "Register as Attendee" button above to reserve your spot at the event itself, no sponsorship required.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" type="button">What do sponsorships typically cost?<span class="plus">+</span></button>
-          <div class="faq-a"><p>It varies by event and tier. Recent sponsorships have ranged from around $1,000 for a smaller thought-leadership session to $75,000+ for a flagship summit. We'll share pricing specific to any event we bring to you.</p></div>
+          <button class="faq-q" type="button">What's included at each sponsorship tier?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Tiers range from &pound;1,000 to &pound;3,000 and scale from logo placement up to a presenting-sponsor speaking moment. Full details are in the sponsorship tiers section above, and we're happy to tailor a package on the call.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" type="button">What kinds of events does Joy run?<span class="plus">+</span></button>
-          <div class="faq-a"><p>Executive summits, conferences and awards, thought-leadership sessions, and experiential events. Recent examples include the CIO100 Conference &amp; Awards, the Global CIO Innovation Summit, and the T20 Cricket Finals Premium Event.</p></div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" type="button">Who should sign up?<span class="plus">+</span></button>
-          <div class="faq-a"><p>Any company looking to reach senior technology, business, or industry-specific audiences through event sponsorship, from enterprise brands to fast-growing startups.</p></div>
+          <button class="faq-q" type="button">Does sponsoring this event join me to the wider Joy Sponsor Network?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes. Sponsoring After Hours: London also adds you to Joy's sponsor network, so you'll hear about future events that fit your audience and budget.</p></div>
         </div>
       </div>
     </div>
@@ -766,10 +659,10 @@
       </div>
       <div class="footer-cols">
         <div class="footer-col">
-          <h4>Planning</h4>
-          <a href="https://joy.pro/#highlights">Highlights</a>
-          <a href="https://joy.pro/unlock">Early access</a>
-          <a href="https://calendly.com/d/d3mr-4hx-5wb/joy-pro-demo">Request a demo</a>
+          <h4>Sponsor Network</h4>
+          <a href="/sponsor-network-landing">All events</a>
+          <a href="/after-hours-london-application">Sponsor this event</a>
+          <a href="https://withjoy.com/after-hours-london/registration/7f138a5f-f4f5-4c64-9049-db8e7c86eac1?from=registration" target="_blank" rel="noopener">Register as attendee</a>
         </div>
         <div class="footer-col">
           <h4>With Joy</h4>
@@ -787,32 +680,13 @@
       </div>
     </div>
     <div class="wrap footer-bottom">
-      <span>© 2026 Joy. All Rights Reserved.</span>
+      <span>&copy; 2026 Joy. All Rights Reserved.</span>
       <span>Event planning, guest experience, and Concierge in one place.</span>
       <a href="/crm-login" style="color:rgba(255,255,255,0.35);font-size:12px;">Team Login</a>
     </div>
   </footer>
 
 <script>
-  // Hero photo carousel: auto-rotates, crossfades between slides
-  (function(){
-    var carousel = document.getElementById('eventPhotoCarousel');
-    if(!carousel) return;
-    var slides = carousel.querySelectorAll('.slide');
-    var dots = carousel.querySelectorAll('.dots span');
-    var locText = document.querySelector('#locationTag .loc-text');
-    var index = 0;
-    if(locText && slides[0]) locText.textContent = slides[0].getAttribute('data-location') || '';
-    setInterval(function(){
-      slides[index].classList.remove('active');
-      dots[index].classList.remove('active');
-      index = (index + 1) % slides.length;
-      slides[index].classList.add('active');
-      dots[index].classList.add('active');
-      if(locText) locText.textContent = slides[index].getAttribute('data-location') || '';
-    }, 4000);
-  })();
-
   document.querySelectorAll('.faq-item').forEach(function(item){
     var btn = item.querySelector('.faq-q');
     var ans = item.querySelector('.faq-a');
