@@ -246,24 +246,28 @@
   /* Speakers */
   .speakers-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;
     margin-top:48px;
   }
   .speaker-card{
     background:#fff;
     border:1px solid var(--border);
     border-radius:var(--radius-lg);
-    padding:26px 20px;
+    padding:28px 20px;
     text-align:center;
     box-shadow:var(--shadow-sm);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
   }
   .speaker-photo{
-    width:88px;
-    height:88px;
+    width:200px;
+    height:200px;
     border-radius:50%;
     overflow:hidden;
-    margin:0 auto 16px;
+    margin:0 auto 20px;
     background:var(--bg-light);
     display:flex;
     align-items:center;
@@ -271,13 +275,6 @@
     flex-shrink:0;
   }
   .speaker-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-  .speaker-photo.placeholder{
-    border:2px dashed var(--border);
-    color:var(--muted);
-    font-family:'Inter Tight',sans-serif;
-    font-weight:700;
-    font-size:13px;
-  }
   .speaker-role{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
   .speaker-name{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:4px;}
   .speaker-bio{font-size:13px;color:var(--body-text);margin:0 0 10px;}
@@ -577,12 +574,10 @@
           <a class="speaker-linkedin" href="https://www.linkedin.com/in/vishaljoshi/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
         </div>
         <div class="speaker-card">
-          <div class="speaker-photo placeholder">?</div>
           <div class="speaker-role">Special Guest</div>
           <div class="speaker-name">Coming soon</div>
         </div>
         <div class="speaker-card">
-          <div class="speaker-photo placeholder">?</div>
           <div class="speaker-role">Special Guest</div>
           <div class="speaker-name">Coming soon</div>
         </div>
@@ -612,8 +607,8 @@
         <div class="agenda-item">
           <div class="agenda-time">8:00&ndash;8:15 PM</div>
           <div>
-            <div class="agenda-title">Presenting sponsor spotlight</div>
-            <div class="agenda-desc">3 minutes on stage for our presenting sponsor to talk about their company.</div>
+            <div class="agenda-title">Presenting sponsors spotlight</div>
+            <div class="agenda-desc">3 minutes on stage for each presenting sponsor to talk about their company.</div>
           </div>
         </div>
         <div class="agenda-item">
