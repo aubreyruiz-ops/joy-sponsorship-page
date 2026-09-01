@@ -260,8 +260,9 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
   }
+  .speaker-card.compact{justify-content:center;}
   .speaker-photo{
     width:200px;
     height:200px;
@@ -277,7 +278,7 @@
   .speaker-photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .speaker-role{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
   .speaker-name{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:4px;}
-  .speaker-bio{font-size:13px;color:var(--body-text);margin:0 0 10px;}
+  .speaker-bio{font-size:13px;line-height:1.6;color:var(--body-text);margin:0 0 10px;min-height:42px;display:flex;align-items:center;}
   .speaker-linkedin{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;}
   .speaker-linkedin:hover{text-decoration:underline;}
 
@@ -609,13 +610,14 @@
           <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1788290020/1761478081323.jpg" alt="Richie Mathews"></div>
           <div class="speaker-role">Investor &amp; Board Member</div>
           <div class="speaker-name">Richie Mathews</div>
+          <div class="speaker-bio">&nbsp;</div>
           <a class="speaker-linkedin" href="https://www.linkedin.com/in/richiemathews/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
         </div>
-        <div class="speaker-card">
+        <div class="speaker-card compact">
           <div class="speaker-role">Special Guest</div>
           <div class="speaker-name">Coming soon</div>
         </div>
-        <div class="speaker-card">
+        <div class="speaker-card compact">
           <div class="speaker-role">Special Guest</div>
           <div class="speaker-name">Coming soon</div>
         </div>
