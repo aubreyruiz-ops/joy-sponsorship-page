@@ -98,8 +98,6 @@ For local development: `vercel env pull .env.local` to grab the database env var
 
 ## Notes for whoever picks this up next (Claude Code)
 
-- The confirmation screen still has a placeholder testimonial quote — swap it in once real
-  testimonials come in (`sponsor-network-application.html`, search for "Placeholder quote").
 - The "Forward this page along" link on the confirmation screen opens a `mailto:` with a
   pre-filled subject/body pointing at the live landing page URL; no further wiring needed there.
 - Sponsor logos in `logos/` are the real assets provided; there's no Atomicwork logo file, so
