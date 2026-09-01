@@ -7,14 +7,25 @@ serverless function that writes submissions into Postgres.
 
 - `sponsor-network-landing.html` — public marketing page (`/sponsor-network-landing`, and `/` redirects here)
 - `sponsor-network-application.html` — the general application form (`/sponsor-network-application`), USD budget tiers
-- `after-hours-london.html` — event-specific landing page for After Hours: London (`/after-hours-london`),
-  linked from the "Coming up" tile on the main landing page. Has its own "Become a Sponsor" CTA plus a
-  "Register as Attendee" CTA that links out to the withjoy.com event registration page.
+- `after-hours-london.html` — sponsor-focused event landing page for After Hours: London
+  (`/after-hours-london`), linked from the "Coming up" tile on the main landing page. Speakers, agenda,
+  current sponsors, and tiers, all pointing at the "Become a Sponsor" CTA; attendee registration is only
+  a secondary link (FAQ + footer) to `after-hours-london-attendees.html`, not a competing hero CTA.
+- `after-hours-london-attendees.html` — attendee-facing counterpart (`/after-hours-london-attendees`):
+  same event story, but the CTA goes straight to the withjoy.com registration link, plus attendee FAQs
+  (dress code, venue, getting there). Cross-links back to the sponsor page for anyone who lands here
+  wanting to sponsor instead.
 - `after-hours-london-application.html` — sponsor application form scoped to that event
   (`/after-hours-london-application`): name, email, company, company website, GBP sponsorship tier,
   audience type, and network-agreement consent. On submit it tags the row `event: 'after-hours-london'`
   and shows an inline Calendly embed (see `.env.example`-adjacent note below) so sponsors can book an
   intro call directly.
+- `og-image.png` / `og-after-hours-london.png` / `og-after-hours-london-attendees.png` — Open Graph /
+  Twitter card thumbnails referenced by each page's `<meta>` tags, so shared links unfurl with a
+  branded card instead of nothing or a generic screenshot. Built as plain HTML/CSS mockups matching
+  each page's actual hero styling, then rendered to a real 1200x630 PNG with the Playwright CLI
+  (`npx playwright screenshot --viewport-size=1200,630 <url> <out>.png`) — regenerate the same way if
+  the copy or branding changes.
 - `logos/` — sponsor logo assets used in the landing page marquee
 - `api/submit-application.js` — serverless function both forms POST to; validates and inserts into
   Postgres. Event-specific forms (`event !== 'general'`) require a `tier` instead of `budget`/`event_format`.
