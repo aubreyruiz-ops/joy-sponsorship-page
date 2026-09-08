@@ -20,12 +20,25 @@ serverless function that writes submissions into Postgres.
   audience type, and network-agreement consent. On submit it tags the row `event: 'after-hours-london'`
   and shows an inline Calendly embed (see `.env.example`-adjacent note below) so sponsors can book an
   intro call directly.
-- `og-image.png` / `og-after-hours-london.png` / `og-after-hours-london-attendees.png` — Open Graph /
+- `after-hours-sf.html` / `after-hours-sf-attendees.html` / `after-hours-sf-application.html` — the
+  same three-page pattern as the London event, for After Hours: San Francisco
+  (`/after-hours-sf`, `/after-hours-sf-attendees`, `/after-hours-sf-application`), linked from the
+  "Coming up" tile on the main landing page. USD sponsorship tiers ($1,000 Supporter / $3,000
+  Presenting Sponsor), tags applications `event: 'after-hours-sf'`, and reuses the same Calendly link
+  on its confirmation screen. Speakers are all "Coming soon" placeholders — no names were confirmed
+  when this was built, unlike London's Vishal Joshi / Richie Mathews. The attendee page's "Register to
+  Attend" CTA points at the existing external `https://withjoy.com/AfterHours` registration link
+  (there's no dedicated withjoy.com registration ID for this event yet, unlike London's), and its
+  photo header is a single full-bleed image (only one real SF photo was available) instead of
+  London's 3-photo grid.
+- `og-image.png` / `og-after-hours-london.png` / `og-after-hours-london-attendees.png` /
+  `og-after-hours-sf.png` / `og-after-hours-sf-attendees.png` — Open Graph /
   Twitter card thumbnails referenced by each page's `<meta>` tags, so shared links unfurl with a
   branded card instead of nothing or a generic screenshot. Built as plain HTML/CSS mockups matching
   each page's actual hero styling, then rendered to a real 1200x630 PNG with the Playwright CLI
   (`npx playwright screenshot --viewport-size=1200,630 <url> <out>.png`) — regenerate the same way if
-  the copy or branding changes.
+  the copy or branding changes. If `npx playwright install` can't reach the download CDN, pass
+  `--channel=chrome` to point the CLI at a local Google Chrome install instead of downloading Chromium.
 - `logos/` — sponsor logo assets used in the landing page marquee
 - `api/submit-application.js` — serverless function both forms POST to; validates and inserts into
   Postgres. Event-specific forms (`event !== 'general'`) require a `tier` instead of `budget`/`event_format`.
@@ -120,3 +133,11 @@ For local development: `vercel env pull .env.local` to grab the database env var
   `https://calendly.com/d/dv56-ttm-f5j/joy-sponsor-network`. It's a plain `<script src="https://assets.calendly.com/assets/external/widget.js">`
   + `.calendly-inline-widget` div (standard Calendly inline embed), so it needs a real browser to
   render — it won't show anything in a sandboxed preview that blocks third-party iframes.
+- The After Hours: San Francisco pages reuse the same placeholder pattern as London: USD tier
+  amounts ($1,000 / $3,000) taken from the range already quoted on the main landing page, "Coming
+  soon" for all three speaker slots (no names were provided), October 14, 2026 / 7–9 PM / SoMa as
+  the date-time-venue detail, and the same Calendly link on the confirmation screen. Confirm real
+  speakers, exact venue, and tier pricing before this goes live. The main landing page's "Coming up"
+  tile for this event used to link straight out to `https://withjoy.com/AfterHours`; it now points at
+  `/after-hours-sf` like London's tile does, and the attendee page's own CTA still uses that external
+  link since there's no dedicated withjoy.com registration page for this event.
