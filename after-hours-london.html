@@ -127,7 +127,10 @@
     padding:8px 15px;
     border-radius:var(--radius-pill);
     font-weight:600;
+    text-decoration:none;
+    transition:background .15s ease, border-color .15s ease;
   }
+  a.event-chip:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.4);}
   .event-chip svg{width:14px;height:14px;flex-shrink:0;color:var(--cyan);}
   .hero h1{
     font-size:50px;
@@ -217,9 +220,10 @@
     padding:16px 22px;
     box-shadow:0 18px 40px rgba(10,19,64,0.32);
   }
-  .hstat-location{display:flex;align-items:center;gap:8px;}
+  .hstat-location{display:flex;align-items:center;gap:8px;text-decoration:none;}
   .hstat-location svg{width:14px;height:14px;flex-shrink:0;color:var(--blue);}
   .hstat-location .loc-text{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap;}
+  .hstat-location:hover .loc-text{text-decoration:underline;}
 
   section{padding:80px 0;}
   .section-light{background:var(--bg-light);}
@@ -257,6 +261,8 @@
   .detail-row svg{width:18px;height:18px;flex-shrink:0;color:var(--blue);margin-top:2px;}
   .detail-row .label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
   .detail-row .value{font-size:15px;font-weight:600;color:var(--ink-soft);}
+  .detail-row .value a{color:var(--blue);text-decoration:none;}
+  .detail-row .value a:hover{text-decoration:underline;}
 
   /* Speakers */
   .speakers-grid{
@@ -554,7 +560,7 @@
       <div class="hero-content">
         <div class="event-meta-row">
           <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>September 29, 2026, 7&ndash;9 PM</span>
-          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Shoreditch, London</span>
+          <a class="event-chip" href="https://calloohcallaybar.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Callooh Callay, Shoreditch</a>
         </div>
         <span class="eyebrow on-dark">A Sifted Summit pre-party</span>
         <h1>After Hours: <span class="accent">London</span></h1>
@@ -569,10 +575,10 @@
           <img src="https://res.cloudinary.com/irilxier/image/upload/v1788097309/olga-melnikova-lh1gXjmg4Z0-unsplash.jpg" alt="A red double-decker bus on a London street near Shoreditch">
         </div>
         <div class="hero-stat-float">
-          <div class="hstat-location">
+          <a class="hstat-location" href="https://calloohcallaybar.com/" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
-            <span class="loc-text">Shoreditch, London</span>
-          </div>
+            <span class="loc-text">Callooh Callay</span>
+          </a>
         </div>
       </div>
     </div>
@@ -594,7 +600,7 @@
           </div>
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
-            <div><div class="label">Location</div><div class="value">Shoreditch, London</div></div>
+            <div><div class="label">Location</div><div class="value"><a href="https://calloohcallaybar.com/" target="_blank" rel="noopener">Callooh Callay, Shoreditch</a></div></div>
           </div>
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
