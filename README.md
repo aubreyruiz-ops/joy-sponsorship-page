@@ -141,3 +141,7 @@ For local development: `vercel env pull .env.local` to grab the database env var
   tile for this event used to link straight out to `https://withjoy.com/AfterHours`; it now points at
   `/after-hours-sf` like London's tile does, and the attendee page's own CTA still uses that external
   link since there's no dedicated withjoy.com registration page for this event.
+- The London event pages' decorative photos (hero, gallery, "vibe" strip, attendee header) are London stock
+  shots from Unsplash, loaded straight from `images.unsplash.com` by photo ID (see the `<img>` tags in
+  `after-hours-london.html` and `after-hours-london-attendees.html`). To use your own photos, swap the `src`
+  values; Cloudinary URLs work the same as the speaker headshots.
