@@ -358,7 +358,8 @@
     cursor:pointer;
   }
   .speaker-modal-close:hover{background:var(--border);}
-  .speaker-modal-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 16px;}
+  .speaker-modal-photo-wrap{width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;}
+  .speaker-modal-photo{width:100%;height:100%;object-fit:cover;display:block;}
   .speaker-modal-name{font-size:22px;margin-bottom:6px;}
   .speaker-modal-title{font-size:13.5px;color:var(--muted);margin:0;}
   .speaker-modal-bio{font-size:14.5px;line-height:1.7;color:var(--body-text);text-align:left;margin:20px 0;}
@@ -681,14 +682,16 @@
       <span class="eyebrow">Fireside chat</span>
       <h2 class="section-title">Hear it straight from the people who lived it.</h2>
       <div class="speakers-grid">
-        <div class="speaker-card">
+        <div class="speaker-card has-bio">
           <span class="speaker-badge">Facilitator</span>
           <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1792783398/Anshika.jpg" alt="Anshika Arora" style="transform:scale(1.7);transform-origin:46% 20%;"></div>
           <div class="speaker-name">Anshika Arora</div>
           <div class="speaker-title">Director, New Businesses at Joy. UKWA Advisory Board Member.</div>
           <div class="speaker-links">
             <a class="speaker-linkedin" href="https://www.linkedin.com/in/anshika-arora-ab5021137/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+            <button type="button" class="speaker-bio-btn">Read bio</button>
           </div>
+          <div class="speaker-full-bio" hidden>Anshika Arora is Director, New Businesses at Joy, where she works across the wedding, registry and travel verticals with a focus on growing Joy's European markets. Before Joy, she spent four years building her own startup, Eternity, serving the wedding industry. She speaks regularly on how Gen Z couples choose vendors and on using AI in wedding businesses, and she is a member of the UKWA Advisory Board.</div>
         </div>
         <div class="speaker-card has-bio">
           <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1792783163/image_3.png" alt="Paaras Kantaria"></div>
@@ -700,13 +703,15 @@
           </div>
           <div class="speaker-full-bio" hidden>Paaras' role at Mastercard encompasses both strategic investments and partnerships with cutting-edge startups in emerging and frontier categories, including agentic commerce, enterprise AI, future of compute, consumer payments, fintech and loyalty. Start Path is Mastercard's global engagement program for startups and scale-ups, empowering them to accelerate their growth through tailored expertise, strategic &amp; commercial partnerships, co-innovation, and access to Mastercard's global network. Prior to this, Paaras spent 5 years in Mastercard's Advisors consulting group, supporting fintechs, FIs and merchants across Europe and Asia-Pacific with data-driven innovation and growth strategy.</div>
         </div>
-        <div class="speaker-card">
+        <div class="speaker-card has-bio">
           <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1792783259/Manny.jpg" alt="Manny Singh"></div>
           <div class="speaker-name">Manny Singh</div>
           <div class="speaker-title">Principal, Araya Ventures. Early Stage Tech Investor.</div>
           <div class="speaker-links">
             <a class="speaker-linkedin" href="https://www.linkedin.com/in/manny-singh-584913170" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+            <button type="button" class="speaker-bio-btn">Read bio</button>
           </div>
+          <div class="speaker-full-bio" hidden>Manny Singh is a Principal at Araya Ventures, where he leads pre-seed and seed deals across Europe, the GCC and Asia and supports founders across the portfolio. His investments include Paypercut, Beatpulse Labs, Erad and Comparables.ai. Previously at The Fund Incubator, he sat on the investment committee of more than 25 leading early-stage European funds. He is also an angel investor, a Newton Fellow at London Business School, and a former PwC chartered accountant.</div>
         </div>
       </div>
     </div>
@@ -907,7 +912,7 @@
 <div class="speaker-modal" id="speakerModal" role="dialog" aria-modal="true" aria-labelledby="speakerModalName" hidden>
   <div class="speaker-modal-panel">
     <button type="button" class="speaker-modal-close" aria-label="Close bio">&times;</button>
-    <img class="speaker-modal-photo" src="" alt="">
+    <div class="speaker-modal-photo-wrap"><img class="speaker-modal-photo" src="" alt=""></div>
     <h3 class="speaker-modal-name" id="speakerModalName"></h3>
     <p class="speaker-modal-title"></p>
     <p class="speaker-modal-bio"></p>
@@ -929,6 +934,8 @@
       photo.src = img.src;
       photo.alt = img.alt;
       photo.style.objectPosition = img.style.objectPosition || '';
+      photo.style.transform = img.style.transform || '';
+      photo.style.transformOrigin = img.style.transformOrigin || '';
       modal.querySelector('.speaker-modal-name').textContent = card.querySelector('.speaker-name').textContent;
       modal.querySelector('.speaker-modal-title').textContent = card.querySelector('.speaker-title').textContent;
       modal.querySelector('.speaker-modal-bio').textContent = card.querySelector('.speaker-full-bio').textContent;
