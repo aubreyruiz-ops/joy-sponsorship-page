@@ -267,7 +267,7 @@
   /* Speakers */
   .speakers-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,300px));
     gap:24px;
     margin-top:48px;
   }
@@ -283,7 +283,8 @@
     align-items:center;
     justify-content:flex-start;
   }
-  .speaker-card.compact{justify-content:center;}
+  .speaker-card.has-bio{cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
+  .speaker-card.has-bio:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 14px 30px rgba(51,85,240,0.16);}
   .speaker-photo{
     width:200px;
     height:200px;
@@ -297,11 +298,57 @@
     flex-shrink:0;
   }
   .speaker-photo img{width:100%;height:100%;object-fit:cover;display:block;}
-  .speaker-role{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
-  .speaker-name{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:4px;}
-  .speaker-bio{font-size:13px;line-height:1.6;color:var(--body-text);margin:0 0 10px;min-height:42px;display:flex;align-items:center;}
-  .speaker-linkedin{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;}
-  .speaker-linkedin:hover{text-decoration:underline;}
+  .speaker-name{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:6px;}
+  .speaker-title{font-size:13px;line-height:1.6;color:var(--body-text);margin:0 0 12px;min-height:42px;display:flex;align-items:center;justify-content:center;}
+  .speaker-links{display:flex;align-items:center;justify-content:center;gap:16px;}
+  .speaker-linkedin,.speaker-bio-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;}
+  .speaker-linkedin:hover,.speaker-bio-btn:hover{text-decoration:underline;}
+  .speaker-bio-btn{background:none;border:none;padding:0;cursor:pointer;font-family:inherit;}
+
+  /* Speaker bio modal */
+  .speaker-modal{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:rgba(10,19,64,0.62);
+  }
+  .speaker-modal[hidden]{display:none;}
+  .speaker-modal-panel{
+    position:relative;
+    background:#fff;
+    border-radius:var(--radius-lg);
+    width:100%;
+    max-width:560px;
+    max-height:calc(100vh - 48px);
+    overflow-y:auto;
+    padding:40px 32px 32px;
+    text-align:center;
+    box-shadow:0 30px 70px rgba(10,19,64,0.4);
+  }
+  .speaker-modal-close{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    border:none;
+    background:var(--bg-light);
+    color:var(--ink);
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+  }
+  .speaker-modal-close:hover{background:var(--border);}
+  .speaker-modal-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 16px;}
+  .speaker-modal-name{font-size:22px;margin-bottom:6px;}
+  .speaker-modal-title{font-size:13.5px;color:var(--muted);margin:0;}
+  .speaker-modal-bio{font-size:14.5px;line-height:1.7;color:var(--body-text);text-align:left;margin:20px 0;}
+  .speaker-modal .speaker-linkedin{font-size:13px;}
 
   /* Agenda */
   .agenda-list{margin-top:40px;max-width:640px;}
@@ -620,26 +667,23 @@
       <span class="eyebrow">Fireside chat</span>
       <h2 class="section-title">Hear it straight from the people who lived it.</h2>
       <div class="speakers-grid">
-        <div class="speaker-card">
-          <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1788097309/vishal_speaker_photo.png" alt="Vishal Joshi"></div>
-          <div class="speaker-role">Founder</div>
-          <div class="speaker-name">Vishal Joshi</div>
-          <div class="speaker-bio">Raised $130M+ from GC, Valor, YC, and others.</div>
-          <a class="speaker-linkedin" href="https://www.linkedin.com/in/vishaljoshi/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+        <div class="speaker-card has-bio">
+          <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1792783163/image_3.png" alt="Paaras Kantaria"></div>
+          <div class="speaker-name">Paaras Kantaria</div>
+          <div class="speaker-title">Global Startup Investments &amp; Partnerships, Mastercard Start Path</div>
+          <div class="speaker-links">
+            <a class="speaker-linkedin" href="https://www.linkedin.com/in/paarask/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+            <button type="button" class="speaker-bio-btn">Read bio</button>
+          </div>
+          <div class="speaker-full-bio" hidden>Paaras' role at Mastercard encompasses both strategic investments and partnerships with cutting-edge startups in emerging and frontier categories, including agentic commerce, enterprise AI, future of compute, consumer payments, fintech and loyalty. Start Path is Mastercard's global engagement program for startups and scale-ups, empowering them to accelerate their growth through tailored expertise, strategic &amp; commercial partnerships, co-innovation, and access to Mastercard's global network. Prior to this, Paaras spent 5 years in Mastercard's Advisors consulting group, supporting fintechs, FIs and merchants across Europe and Asia-Pacific with data-driven innovation and growth strategy.</div>
         </div>
         <div class="speaker-card">
-          <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1788290020/1761478081323.jpg" alt="Richie Mathews"></div>
-          <div class="speaker-role">Investor &amp; Board Member</div>
-          <div class="speaker-name">Richie Mathews</div>
-          <div class="speaker-bio">Active investor and advisor to startups in AI, mobility, fintech, and e-commerce.</div>
-          <a class="speaker-linkedin" href="https://www.linkedin.com/in/richiemathews/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
-        </div>
-        <div class="speaker-card">
-          <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1790108515/processed-57EAF1AE-945F-4FED-ADF2-788F88FBA166.jpg" alt="Sima Parekh" style="object-position:center 15%;"></div>
-          <div class="speaker-role">Investor</div>
-          <div class="speaker-name">Sima Parekh</div>
-          <div class="speaker-bio">Senior Associate, Mastercard Start Path, backing fintech startups.</div>
-          <a class="speaker-linkedin" href="https://www.linkedin.com/in/sima-parekh-b11764169/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1792783259/Manny.jpg" alt="Manny Singh"></div>
+          <div class="speaker-name">Manny Singh</div>
+          <div class="speaker-title">Principal, Araya Ventures. Early Stage Tech Investor.</div>
+          <div class="speaker-links">
+            <a class="speaker-linkedin" href="https://www.linkedin.com/in/manny-singh-584913170" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          </div>
         </div>
       </div>
     </div>
@@ -836,6 +880,67 @@
       <a href="/crm-login" style="color:rgba(255,255,255,0.35);font-size:12px;">Team Login</a>
     </div>
   </footer>
+
+<div class="speaker-modal" id="speakerModal" role="dialog" aria-modal="true" aria-labelledby="speakerModalName" hidden>
+  <div class="speaker-modal-panel">
+    <button type="button" class="speaker-modal-close" aria-label="Close bio">&times;</button>
+    <img class="speaker-modal-photo" src="" alt="">
+    <h3 class="speaker-modal-name" id="speakerModalName"></h3>
+    <p class="speaker-modal-title"></p>
+    <p class="speaker-modal-bio"></p>
+    <a class="speaker-linkedin" href="#" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+  </div>
+</div>
+
+<script>
+  (function(){
+    var modal = document.getElementById('speakerModal');
+    if(!modal) return;
+    var closeBtn = modal.querySelector('.speaker-modal-close');
+    var lastTrigger = null;
+
+    function openModal(card){
+      var img = card.querySelector('.speaker-photo img');
+      lastTrigger = card.querySelector('.speaker-bio-btn');
+      var photo = modal.querySelector('.speaker-modal-photo');
+      photo.src = img.src;
+      photo.alt = img.alt;
+      photo.style.objectPosition = img.style.objectPosition || '';
+      modal.querySelector('.speaker-modal-name').textContent = card.querySelector('.speaker-name').textContent;
+      modal.querySelector('.speaker-modal-title').textContent = card.querySelector('.speaker-title').textContent;
+      modal.querySelector('.speaker-modal-bio').textContent = card.querySelector('.speaker-full-bio').textContent;
+      modal.querySelector('.speaker-linkedin').href = card.querySelector('.speaker-linkedin').href;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      closeBtn.focus();
+    }
+
+    function closeModal(){
+      modal.hidden = true;
+      document.body.style.overflow = '';
+      if(lastTrigger) lastTrigger.focus();
+    }
+
+    document.querySelectorAll('.speaker-card.has-bio').forEach(function(card){
+      card.addEventListener('click', function(e){
+        if(e.target.closest('a')) return;
+        openModal(card);
+      });
+    });
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function(e){
+      if(modal.hidden) return;
+      if(e.key === 'Escape'){ closeModal(); return; }
+      if(e.key === 'Tab'){
+        var focusable = [closeBtn, modal.querySelector('.speaker-linkedin')];
+        var first = focusable[0], last = focusable[focusable.length - 1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+  })();
+</script>
 
 <script>
   document.querySelectorAll('.faq-item').forEach(function(item){
