@@ -81,14 +81,11 @@
   /* Photo header banner */
   .photo-header{
     position:relative;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:3px;
-    height:340px;
+    height:420px;
     overflow:hidden;
     background:var(--bg-hero-b);
   }
-  .photo-header img{width:100%;height:100%;object-fit:cover;display:block;}
+  .photo-header img{width:100%;height:100%;object-fit:cover;object-position:center 60%;display:block;}
   .photo-header::after{
     content:'';
     position:absolute;
@@ -347,7 +344,7 @@
     pointer-events:none;
   }
   .band-dark .wrap{position:relative;z-index:1;}
-  .band-dark h2.section-title{color:#fff;}
+  .band-dark h2.section-title{color:#fff;text-wrap:balance;}
   .band-intro{font-size:16px;color:rgba(255,255,255,0.78);max-width:560px;margin:14px 0 0;}
 
   /* Vibe polaroids */
@@ -517,9 +514,7 @@
   </div>
 
   <div class="photo-header">
-    <img src="https://images.unsplash.com/photo-1692376835608-52a1948ee954?auto=format&fit=crop&w=900&q=80" alt="A flower-covered London pub">
-    <img src="https://images.unsplash.com/photo-1514729797186-944d57303199?auto=format&fit=crop&w=900&q=80" alt="Regent Street lights and a red London bus">
-    <img src="https://images.unsplash.com/photo-1503430860474-4a133f3846a8?auto=format&fit=crop&w=900&q=80" alt="A cheerful crowd near the London Eye">
+    <img src="https://images.unsplash.com/photo-1767477130943-c8ccf8e80f27?auto=format&fit=crop&w=2000&q=80" alt="London skyline and the Thames at dusk, with the Houses of Parliament">
   </div>
 
   <div class="hero-info">
@@ -575,20 +570,20 @@
   <section class="band-dark" id="vibe">
     <div class="wrap">
       <span class="eyebrow on-dark">The vibe</span>
-      <h2 class="section-title">Good drinks, great company, very London.</h2>
-      <p class="band-intro">Cocktails, a proper pub, and a city that comes alive after dark. Expect conversation, not a conference.</p>
+      <h2 class="section-title">An evening worth leaving the show floor for.</h2>
+      <p class="band-intro">Cocktails, a fireside chat, and the people worth meeting, in a relaxed London setting.</p>
       <div class="vibe-grid">
         <figure class="polaroid">
           <img src="https://images.unsplash.com/photo-1649798510483-cdaa44328f89?auto=format&fit=crop&w=800&q=80" alt="A bartender pouring drinks" loading="lazy">
-          <figcaption>Cocktails after hours</figcaption>
+          <figcaption>Cocktails and conversation</figcaption>
         </figure>
         <figure class="polaroid">
           <img src="https://images.unsplash.com/photo-1786641816866-bf959129edcb?auto=format&fit=crop&w=800&q=80" alt="People gathered at tables outside a London pub" loading="lazy">
-          <figcaption>Good company</figcaption>
+          <figcaption>Great company</figcaption>
         </figure>
         <figure class="polaroid">
-          <img src="https://images.unsplash.com/photo-1767477130943-c8ccf8e80f27?auto=format&fit=crop&w=800&q=80" alt="London skyline and bridge at dusk" loading="lazy">
-          <figcaption>A London evening</figcaption>
+          <img src="https://images.unsplash.com/photo-1506501139174-099022df5260?auto=format&fit=crop&w=800&q=80" alt="The Thames and St Paul's Cathedral at dusk" loading="lazy">
+          <figcaption>London after dark</figcaption>
         </figure>
       </div>
     </div>
@@ -689,8 +684,8 @@
   <section class="band-dark cta-band" id="register">
     <div class="wrap">
       <span class="eyebrow on-dark">Nov 11, 2026 &middot; The Windjammer, Royal Docks</span>
-      <h2 class="section-title">Come hang out with us.</h2>
-      <p>Free to attend. Space is limited, so grab your spot.</p>
+      <h2 class="section-title">Join us on November 11.</h2>
+      <p>Complimentary entry. Places are limited, so register early to secure yours.</p>
       <div class="cta-row">
         <a href="https://withjoy.com/after-hours-london/registration/7f138a5f-f4f5-4c64-9049-db8e7c86eac1?from=registration" class="btn-hero" target="_blank" rel="noopener">Register to Attend</a>
       </div>
