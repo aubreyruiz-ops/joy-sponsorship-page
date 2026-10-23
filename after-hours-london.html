@@ -282,6 +282,20 @@
     flex-direction:column;
     align-items:center;
     justify-content:flex-start;
+    position:relative;
+  }
+  .speaker-badge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--blue);
+    background:#EEF1FE;
+    padding:4px 8px;
+    border-radius:var(--radius-pill);
   }
   .speaker-card.has-bio{cursor:pointer;transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;}
   .speaker-card.has-bio:hover{transform:translateY(-3px);border-color:var(--blue);box-shadow:0 14px 30px rgba(51,85,240,0.16);}
@@ -667,6 +681,15 @@
       <span class="eyebrow">Fireside chat</span>
       <h2 class="section-title">Hear it straight from the people who lived it.</h2>
       <div class="speakers-grid">
+        <div class="speaker-card">
+          <span class="speaker-badge">Facilitator</span>
+          <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1792783398/Anshika.jpg" alt="Anshika Arora" style="transform:scale(1.7);transform-origin:46% 20%;"></div>
+          <div class="speaker-name">Anshika Arora</div>
+          <div class="speaker-title">Director, New Businesses at Joy. UKWA Advisory Board Member.</div>
+          <div class="speaker-links">
+            <a class="speaker-linkedin" href="https://www.linkedin.com/in/anshika-arora-ab5021137/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+          </div>
+        </div>
         <div class="speaker-card has-bio">
           <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1792783163/image_3.png" alt="Paaras Kantaria"></div>
           <div class="speaker-name">Paaras Kantaria</div>
