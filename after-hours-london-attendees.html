@@ -226,10 +226,12 @@
   /* Speakers */
   .speakers-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,300px));
+    grid-template-columns:repeat(4,minmax(0,1fr));
     gap:24px;
     margin-top:48px;
   }
+  @media (max-width:1040px){.speakers-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:560px){.speakers-grid{grid-template-columns:1fr;}}
   .speaker-card{
     background:#fff;
     border:1px solid var(--border);
@@ -272,7 +274,7 @@
   }
   .speaker-photo img{width:100%;height:100%;object-fit:cover;display:block;}
   .speaker-name{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:17px;color:var(--ink);margin-bottom:6px;}
-  .speaker-title{font-size:13px;line-height:1.6;color:var(--body-text);margin:0 0 12px;min-height:42px;display:flex;align-items:center;justify-content:center;}
+  .speaker-title{font-size:13px;line-height:1.6;color:var(--body-text);margin:0 0 12px;min-height:63px;display:flex;align-items:center;justify-content:center;}
   .speaker-links{display:flex;align-items:center;justify-content:center;gap:16px;}
   .speaker-linkedin,.speaker-bio-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;}
   .speaker-linkedin:hover,.speaker-bio-btn:hover{text-decoration:underline;}
@@ -624,6 +626,16 @@
             <button type="button" class="speaker-bio-btn">Read bio</button>
           </div>
           <div class="speaker-full-bio" hidden>Manny is a Principal at Arāya Ventures, responsible for leading Pre-seed and Seed stage deals across Europe, GCC and Asia. He previously sat on the Investment Committee of 25+ leading early-stage European funds during his time at The Fund Incubator and comes with a breadth of VC and Fund Management experience. He is also an Angel Investor, Newton Fellow at London Business School, and ex-PwC Chartered Accountant.</div>
+        </div>
+        <div class="speaker-card has-bio">
+          <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1793042890/WhatsApp_Image_2026-10-26_at_07.52.48.jpg" alt="Leo Rogers"></div>
+          <div class="speaker-name">Leo Rogers</div>
+          <div class="speaker-title">Co-founder at Curvo</div>
+          <div class="speaker-links">
+            <a class="speaker-linkedin" href="https://www.linkedin.com/in/leo-rogers/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+            <button type="button" class="speaker-bio-btn">Read bio</button>
+          </div>
+          <div class="speaker-full-bio" hidden>Leo is a 3x founder, building Curvo AI, revenue orchestration for sales teams. He previously built a 7-figure UX design agency, launching 100 products in 4 years for SaaS startups from Seed to Series C and shipping to 30M users. He also co-founded a VC-backed influencer marketplace.</div>
         </div>
       </div>
     </div>
