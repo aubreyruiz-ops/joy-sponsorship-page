@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>After Hours: San Francisco | Joy</title>
-<meta name="description" content="Cocktails, conversation, and the stories behind the biggest rounds in the room. A TechCrunch Disrupt after-party in SoMa, San Francisco.">
+<meta name="description" content="Cocktails, conversation, and the stories behind the biggest rounds in the room. An evening at Shack15 in San Francisco's Ferry Building.">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sponsormatch.withjoy.com/after-hours-sf">
 <meta property="og:title" content="After Hours: San Francisco | Joy">
-<meta property="og:description" content="Cocktails, conversation, and the stories behind the biggest rounds in the room. A TechCrunch Disrupt after-party in SoMa, San Francisco.">
+<meta property="og:description" content="Cocktails, conversation, and the stories behind the biggest rounds in the room. An evening at Shack15 in San Francisco's Ferry Building.">
 <meta property="og:image" content="https://sponsormatch.withjoy.com/og-after-hours-sf.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="After Hours: San Francisco | Joy">
-<meta name="twitter:description" content="Cocktails, conversation, and the stories behind the biggest rounds in the room. A TechCrunch Disrupt after-party in SoMa, San Francisco.">
+<meta name="twitter:description" content="Cocktails, conversation, and the stories behind the biggest rounds in the room. An evening at Shack15 in San Francisco's Ferry Building.">
 <meta name="twitter:image" content="https://sponsormatch.withjoy.com/og-after-hours-sf.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -127,7 +127,10 @@
     padding:8px 15px;
     border-radius:var(--radius-pill);
     font-weight:600;
+    text-decoration:none;
+    transition:background .15s ease, border-color .15s ease;
   }
+  a.event-chip:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.4);}
   .event-chip svg{width:14px;height:14px;flex-shrink:0;color:var(--cyan);}
   .hero h1{
     font-size:50px;
@@ -217,9 +220,10 @@
     padding:16px 22px;
     box-shadow:0 18px 40px rgba(10,19,64,0.32);
   }
-  .hstat-location{display:flex;align-items:center;gap:8px;}
+  .hstat-location{display:flex;align-items:center;gap:8px;text-decoration:none;}
   .hstat-location svg{width:14px;height:14px;flex-shrink:0;color:var(--blue);}
   .hstat-location .loc-text{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap;}
+  .hstat-location:hover .loc-text{text-decoration:underline;}
 
   section{padding:80px 0;}
   .section-light{background:var(--bg-light);}
@@ -257,6 +261,8 @@
   .detail-row svg{width:18px;height:18px;flex-shrink:0;color:var(--blue);margin-top:2px;}
   .detail-row .label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
   .detail-row .value{font-size:15px;font-weight:600;color:var(--ink-soft);}
+  .detail-row .value a{color:var(--blue);text-decoration:none;}
+  .detail-row .value a:hover{text-decoration:underline;}
 
   /* Speakers */
   .speakers-grid{
@@ -296,6 +302,53 @@
   .speaker-bio{font-size:13px;line-height:1.6;color:var(--body-text);margin:0 0 10px;min-height:42px;display:flex;align-items:center;}
   .speaker-linkedin{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--blue);text-decoration:none;}
   .speaker-linkedin:hover{text-decoration:underline;}
+
+  /* Hero photo inset */
+  .hero-photo-inset{
+    position:absolute;
+    right:-16px;
+    bottom:-30px;
+    z-index:3;
+    width:42%;
+    aspect-ratio:4/3;
+    border-radius:16px;
+    overflow:hidden;
+    border:4px solid #fff;
+    box-shadow:0 18px 40px rgba(10,19,64,0.38);
+  }
+  .hero-photo-inset img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* Setting gallery */
+  .event-gallery{
+    display:grid;
+    grid-template-columns:1.35fr 1fr;
+    grid-template-rows:1fr 1fr;
+    gap:18px;
+    margin-top:44px;
+    height:440px;
+  }
+  .gallery-item{position:relative;margin:0;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);background:var(--bg-light);}
+  .gallery-item.tall{grid-row:1 / span 2;}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+  .gallery-item:hover img{transform:scale(1.04);}
+  .gallery-item figcaption{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    padding:36px 18px 14px;
+    font-size:13px;
+    font-weight:600;
+    color:#fff;
+    background:linear-gradient(180deg, rgba(10,19,64,0) 0%, rgba(10,19,64,0.72) 100%);
+  }
+  .gallery-intro{font-size:16px;max-width:560px;margin:14px 0 0;}
+  @media (max-width:860px){
+    .hero-photo-inset{right:-6px;bottom:-24px;width:46%;}
+    .event-gallery{grid-template-columns:1fr;grid-template-rows:none;height:auto;}
+    .gallery-item.tall{grid-row:auto;}
+    .gallery-item{aspect-ratio:4/3;}
+  }
 
   /* Agenda */
   .agenda-list{margin-top:40px;max-width:640px;}
@@ -553,13 +606,13 @@
     <div class="wrap hero-grid">
       <div class="hero-content">
         <div class="event-meta-row">
-          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>October 14, 2026, 7&ndash;9 PM</span>
-          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>SoMa, San Francisco</span>
+          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>December 10, 2026, 7&ndash;9 PM</span>
+          <a class="event-chip" href="https://www.shack15.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Shack15, San Francisco</a>
         </div>
-        <span class="eyebrow on-dark">A TechCrunch Disrupt after-party</span>
+        <span class="eyebrow on-dark">An evening at Shack15</span>
         <h1>After Hours: <span class="accent">San Francisco</span></h1>
         <p class="tagline">Cocktails, conversation, and the stories behind the biggest rounds in the room.</p>
-        <p class="lead">One hour of real stories from the founders and investors behind them, one hour to meet the people who could fund or build with you next. Founders, operators and investors, cocktails in SoMa.</p>
+        <p class="lead">One hour of real stories from the founders and investors behind them, one hour to meet the people who could fund or build with you next. Founders, operators and investors, cocktails at Shack15.</p>
         <div class="cta-row">
           <a href="/after-hours-sf-application" class="btn-hero">Become a Sponsor</a>
         </div>
@@ -568,11 +621,12 @@
         <div class="hero-photo">
           <img src="https://res.cloudinary.com/irilxier/image/upload/v1787689623/maarten-van-den-heuvel-gZXx8lKAb7Y-unsplash.jpg" alt="San Francisco skyline at night">
         </div>
+        <div class="hero-photo-inset"><img src="https://images.unsplash.com/photo-1670382393835-6b61e932ca5b?auto=format&fit=crop&w=700&q=80" alt="The Ferry Building clock tower at night"></div>
         <div class="hero-stat-float">
-          <div class="hstat-location">
+          <a class="hstat-location" href="https://www.shack15.com" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
-            <span class="loc-text">SoMa, San Francisco</span>
-          </div>
+            <span class="loc-text">Shack15</span>
+          </a>
         </div>
       </div>
     </div>
@@ -583,22 +637,22 @@
       <div class="about-grid">
         <div>
           <span class="eyebrow">About the event</span>
-          <h2 class="section-title">An after-party built for the TechCrunch Disrupt crowd.</h2>
-          <p>After Hours: San Francisco lands during TechCrunch Disrupt week, bringing together founders, operators, and investors in SoMa for an evening of cocktails and conversation. The night centers on a founder fireside chat, followed by open networking in a relaxed, high-end setting.</p>
+          <h2 class="section-title">An evening built for the Bay Area founder crowd.</h2>
+          <p>After Hours: San Francisco brings together founders, operators, and investors at <a href="https://www.shack15.com" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;">Shack15</a>, the Ferry Building's community hub for entrepreneurs, for an evening of cocktails and conversation. The night centers on a founder fireside chat, followed by open networking in a relaxed, high-end setting.</p>
           <p>As a sponsor, your brand is woven into the evening itself: signage and branding on-site, a moment in front of the room, and direct face time with attendees who don't usually take a cold pitch.</p>
         </div>
         <div class="detail-card">
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <div><div class="label">Date</div><div class="value">October 14, 2026, 7&ndash;9 PM</div></div>
+            <div><div class="label">Date</div><div class="value">December 10, 2026, 7&ndash;9 PM</div></div>
           </div>
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
-            <div><div class="label">Location</div><div class="value">SoMa, San Francisco</div></div>
+            <div><div class="label">Location</div><div class="value"><a href="https://www.shack15.com" target="_blank" rel="noopener">Shack15</a>, Ferry Building</div></div>
           </div>
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <div><div class="label">Audience</div><div class="value">Founders, operators &amp; investors (TechCrunch Disrupt)</div></div>
+            <div><div class="label">Audience</div><div class="value">Bay Area founders, operators &amp; investors</div></div>
           </div>
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -675,7 +729,7 @@
         <div class="card">
           <span class="num">01</span>
           <h3>A captive, curated crowd</h3>
-          <p>Guests are drawn from TechCrunch Disrupt's own attendee base: founders, operators, and investors already engaged with the startup and venture scene, not a walk-in crowd.</p>
+          <p>Guests are drawn from the Bay Area's founder and investor community, gathered in a venue built for it, not a walk-in crowd.</p>
         </div>
         <div class="card">
           <span class="num">02</span>
@@ -687,6 +741,28 @@
           <h3>One night, low lift</h3>
           <p>No booth to staff, no multi-day commitment. Show up, be part of the evening, and follow up on warm conversations afterward.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-white" id="setting">
+    <div class="wrap">
+      <span class="eyebrow">The setting</span>
+      <h2 class="section-title">San Francisco, after hours.</h2>
+      <p class="gallery-intro">The Embarcadero, the Bay Bridge, and a skyline worth lingering over.</p>
+      <div class="event-gallery">
+        <figure class="gallery-item tall">
+          <img src="https://images.unsplash.com/photo-1577829498563-785a4ba91c96?auto=format&fit=crop&w=1200&q=80" alt="The Bay Bridge at dusk over San Francisco Bay" loading="lazy">
+          <figcaption>The Bay Bridge at dusk</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1683949805549-631f9cb8740f?auto=format&fit=crop&w=900&q=80" alt="The Ferry Building and Embarcadero waterfront at dusk" loading="lazy">
+          <figcaption>The Ferry Building, on the Embarcadero</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1672279410716-c676739163e9?auto=format&fit=crop&w=900&q=80" alt="The San Francisco skyline at dusk" loading="lazy">
+          <figcaption>The city skyline after dark</figcaption>
+        </figure>
       </div>
     </div>
   </section>

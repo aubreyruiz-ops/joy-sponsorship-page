@@ -133,14 +133,16 @@ For local development: `vercel env pull .env.local` to grab the database env var
   `https://calendly.com/d/dv56-ttm-f5j/joy-sponsor-network`. It's a plain `<script src="https://assets.calendly.com/assets/external/widget.js">`
   + `.calendly-inline-widget` div (standard Calendly inline embed), so it needs a real browser to
   render — it won't show anything in a sandboxed preview that blocks third-party iframes.
-- The After Hours: San Francisco pages reuse the same placeholder pattern as London: USD tier
-  amounts ($1,000 / $3,000) taken from the range already quoted on the main landing page, "Coming
-  soon" for all three speaker slots (no names were provided), October 14, 2026 / 7–9 PM / SoMa as
-  the date-time-venue detail, and the same Calendly link on the confirmation screen. Confirm real
-  speakers, exact venue, and tier pricing before this goes live. The main landing page's "Coming up"
-  tile for this event used to link straight out to `https://withjoy.com/AfterHours`; it now points at
-  `/after-hours-sf` like London's tile does, and the attendee page's own CTA still uses that external
-  link since there's no dedicated withjoy.com registration page for this event.
+- The After Hours: San Francisco pages follow the same structure as London, with the same small touches
+  (hero inset photo + "The setting" gallery on the sponsor page; "The vibe" polaroid strip and closing
+  "Come hang out with us" band on the attendee page). Event details: December 10, 2026, 7-9 PM at
+  [Shack15](https://www.shack15.com), 1 Ferry Building, Suite 201. The 7-9 PM time and the USD tier amounts
+  ($1,000 / $3,000) are carried over from the original build, and all three speaker slots are "Coming soon"
+  placeholders, so confirm those before this goes live. The attendee page's "Register to Attend" CTA still
+  points at the external `https://withjoy.com/AfterHours` page (there's no dedicated registration ID like
+  London's), so make sure that page shows the December 10 date. The decorative SF photos (Ferry Building,
+  Bay Bridge, skyline, cocktails, crowd) are Unsplash stock loaded by photo ID, except the Golden Gate hero,
+  which is the Cloudinary photo originally supplied for this event.
 - The London event pages' decorative photos (hero, gallery, "vibe" strip, attendee header) are London stock
   shots from Unsplash, loaded straight from `images.unsplash.com` by photo ID (see the `<img>` tags in
   `after-hours-london.html` and `after-hours-london-attendees.html`). To use your own photos, swap the `src`
