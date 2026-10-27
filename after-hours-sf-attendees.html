@@ -90,7 +90,15 @@
     padding:7px 14px;border-radius:var(--radius-pill);margin-bottom:16px;
     box-shadow:0 6px 18px rgba(215,38,61,0.35);
   }
-  .holiday-badge svg{width:13px;height:13px;flex-shrink:0;}
+  .holiday-badge svg{flex-shrink:0;}
+  /* String lights */
+  .lights{position:absolute;top:0;left:0;right:0;height:66px;z-index:3;pointer-events:none;overflow:hidden;}
+  .lights svg{display:block;width:100%;height:100%;}
+  .lights .lt-a{animation:lt 3.6s ease-in-out infinite;}
+  .lights .lt-b{animation:lt 3.6s ease-in-out infinite;animation-delay:-1.8s;}
+  @keyframes lt{0%,100%{opacity:1;}50%{opacity:0.6;}}
+  .hero .topbar,.hero-info .topbar{padding-top:50px;}
+  @media (prefers-reduced-motion:reduce){.lights .lt-a,.lights .lt-b{animation:none;}}
   .snow{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 
   /* Hero info */
@@ -484,7 +492,13 @@
     color:rgba(255,255,255,0.45);
   }
   @media (max-width:860px){
-    .wrap.footer-bottom{padding:24px 20px 72px;flex-direction:column;gap:10px;}
+    footer{padding-top:56px;}
+    .wrap.footer-top{gap:32px;padding:0 20px 32px;}
+    .footer-brand p{margin-top:16px;}
+    .footer-cols{display:grid;grid-template-columns:1fr 1fr;gap:32px 24px;width:100%;}
+    .footer-col h4{margin-bottom:8px;}
+    .footer-col a{margin:0;padding:6px 0;}
+    .wrap.footer-bottom{padding:24px 20px 72px;flex-direction:column;gap:8px;}
   }
 
   @media (max-width:860px){
@@ -495,12 +509,51 @@
     h2.section-title{font-size:27px;}
     .footer-cols{gap:40px;}
   }
+
+  /* Rhythm & mobile polish: one spacing scale (8 / 16 / 24 / 32 / 48 / 64) */
+  :root{--s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;}
+  .eyebrow{margin-bottom:var(--s2);}
+  h2.section-title + p,h2.section-title + .gallery-intro,h2.section-title + .band-intro{margin-top:var(--s2);}
+  .holiday-badge svg{width:20px;height:20px;margin:-3px 0;}
+  @media (max-width:860px){
+    section{padding:56px 0;}
+    .hero-grid{padding-top:var(--s3);gap:var(--s5);}
+    .event-meta-row{gap:var(--s1);margin-bottom:var(--s3);}
+    .event-chip{font-size:12px;padding:7px 12px;}
+    .holiday-badge{font-size:10px;padding:6px 12px;margin-bottom:var(--s2);}
+    .hero h1,.hero-info h1{font-size:34px;margin-bottom:var(--s2);}
+    .hero p.tagline,.hero-info p.tagline{font-size:17px;margin-bottom:var(--s2);}
+    .hero p.tagline br,.hero-info p.tagline br{display:none;}
+    .hero p.tagline,.hero-info p.tagline{text-wrap:balance;}
+    .hero p.lead,.hero-info p.lead{font-size:15px;margin-bottom:var(--s4);}
+    .about-grid{gap:var(--s4);margin-top:var(--s4);}
+    .detail-card{padding:var(--s3);}
+    .cards3,.tiers-grid,.speakers-grid{gap:var(--s2);margin-top:var(--s4);}
+    .tiers-grid{gap:var(--s3);}
+    .vibe-grid{gap:var(--s3);margin-top:var(--s4);}
+    .card{padding:var(--s3);}
+    .faq-q{padding:var(--s2) var(--s3);font-size:15px;}
+    .faq-a p{padding:0 var(--s3) var(--s3);}
+  }
+  @media (max-width:640px){
+    .speaker-card,.speaker-card.compact,.speaker-card.tba{display:grid;grid-template-columns:88px 1fr;column-gap:var(--s2);row-gap:0;align-items:center;text-align:left;padding:var(--s2);}
+    .speaker-photo,.tba-photo{grid-row:1 / span 4;grid-column:1;width:88px;height:88px;margin:0;}
+    .tba-photo svg{width:32px;height:32px;}
+    .speaker-card > :not(.speaker-photo){grid-column:2;}
+    .speaker-role{margin-bottom:2px;}
+    .speaker-name{margin-bottom:4px;}
+    .speaker-bio{min-height:0;margin:0 0 var(--s1);justify-content:flex-start;text-align:left;font-size:12.5px;}
+    .speaker-links{justify-content:flex-start;}
+    .agenda-item{gap:var(--s2);}
+    .polaroid{max-width:320px;margin-left:auto;margin-right:auto;}
+  }
 </style>
 </head>
 <body>
 
   <div class="hero-info">
     <div class="snow" aria-hidden="true"></div>
+    <div class="lights" aria-hidden="true"></div>
     <div class="topbar">
       <div class="wrap">
         <a href="/sponsor-network-landing" class="joy-mark on-dark">
@@ -516,10 +569,10 @@
           <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>December 10, 2026, 7&ndash;9 PM</span>
           <a class="event-chip" href="https://www.shack15.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Shack15, San Francisco</a>
         </div>
-        <span class="holiday-badge"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2v20M3.3 7l17.4 10M20.7 7 3.3 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'Twas the Night Before the Pitch</span>
+        <span class="holiday-badge"><svg viewBox="-10 -10 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0L9.20 0.00M3.00 0.00L4.40 -2.42M3.00 0.00L4.40 2.42M5.40 0.00L6.65 -2.17M5.40 0.00L6.65 2.17M7.60 0.00L8.40 -1.39M7.60 0.00L8.40 1.39M0 0L4.60 7.97M1.50 2.60L4.30 2.60M1.50 2.60L0.10 5.02M2.70 4.68L5.20 4.68M2.70 4.68L1.45 6.84M3.80 6.58L5.40 6.58M3.80 6.58L3.00 7.97M0 0L-4.60 7.97M-1.50 2.60L-0.10 5.02M-1.50 2.60L-4.30 2.60M-2.70 4.68L-1.45 6.84M-2.70 4.68L-5.20 4.68M-3.80 6.58L-3.00 7.97M-3.80 6.58L-5.40 6.58M0 0L-9.20 0.00M-3.00 0.00L-4.40 2.42M-3.00 0.00L-4.40 -2.42M-5.40 0.00L-6.65 2.17M-5.40 0.00L-6.65 -2.17M-7.60 0.00L-8.40 1.39M-7.60 0.00L-8.40 -1.39M0 0L-4.60 -7.97M-1.50 -2.60L-4.30 -2.60M-1.50 -2.60L-0.10 -5.02M-2.70 -4.68L-5.20 -4.68M-2.70 -4.68L-1.45 -6.84M-3.80 -6.58L-5.40 -6.58M-3.80 -6.58L-3.00 -7.97M0 0L4.60 -7.97M1.50 -2.60L0.10 -5.02M1.50 -2.60L4.30 -2.60M2.70 -4.68L1.45 -6.84M2.70 -4.68L5.20 -4.68M3.80 -6.58L3.00 -7.97M3.80 -6.58L5.40 -6.58" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/><circle r="1.7" fill="currentColor"/></svg>'Twas the Night Before the Pitch</span>
         <span class="eyebrow on-dark">An evening at Shack15</span>
         <h1>After Hours: <span class="accent">San Francisco</span></h1>
-        <p class="tagline">'Twas the night before the pitch, and all through the room,<br>founders met investors, and deals started to bloom.</p>
+        <p class="tagline">'Twas the night before the pitch, and all through the room, <br>founders met investors, and deals started to bloom.</p>
         <p class="lead">One hour of real stories from the founders and investors behind them, one hour to meet the people who could fund or build with you next. Founders, operators and investors, cocktails at Shack15.</p>
         <div class="cta-row">
           <a href="https://withjoy.com/AfterHours" class="btn-hero" target="_blank" rel="noopener">Register to Attend</a>
@@ -872,16 +925,33 @@
           flakes.push({x:Math.random()*w,y:Math.random()*h,d:d,r:2+d*10,v:12+d*44,amp:6+d*22,f:0.3+Math.random()*0.5,ph:Math.random()*6.28,rot:Math.random()*6.28,rs:(Math.random()-0.5)*0.8});
         }
       }
+      var avoid=[];
+      function measure(){
+        avoid=[]; var host=box.parentElement, br=box.getBoundingClientRect();
+        host.querySelectorAll('h1,h2,p,.event-meta-row,.cta-row,.holiday-badge,.eyebrow,.sponsor-nudge,.topbar a,.btn-hero').forEach(function(e){
+          if(box.contains(e)) return; var r=e.getBoundingClientRect(); if(!r.width||!r.height) return;
+          avoid.push({l:r.left-br.left-10,t:r.top-br.top-10,r:r.right-br.left+10,b:r.bottom-br.top+10});
+        });
+      }
+      function fade(x,y){
+        var m=1;
+        for(var i=0;i<avoid.length;i++){
+          var r=avoid[i], dx=Math.max(r.l-x,0,x-r.r), dy=Math.max(r.t-y,0,y-r.b), d=Math.sqrt(dx*dx+dy*dy);
+          if(d<34) m=Math.min(m,0.04+0.96*(d/34));
+        }
+        return m;
+      }
       function size(){
         var r=box.getBoundingClientRect(); w=r.width; h=r.height;
-        cv.width=Math.max(1,w*dpr); cv.height=Math.max(1,h*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); make(); draw(0);
+        cv.width=Math.max(1,w*dpr); cv.height=Math.max(1,h*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); measure(); make(); draw(0);
       }
       function draw(t){
         ctx.clearRect(0,0,w,h);
         flakes.forEach(function(f){
           var x=f.x+Math.sin(t*f.f+f.ph)*f.amp, y=f.y;
           var big=f.r>8.5;
-          ctx.globalAlpha=big?0.34:0.35+f.d*0.5;
+          var k=fade(x,y); if(k<0.06) return;
+          ctx.globalAlpha=(big?0.34:0.35+f.d*0.5)*k;
           if(f.r<3.4){ ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x,y,f.r*0.5,0,6.283); ctx.fill(); return; }
           ctx.save(); ctx.translate(x,y); ctx.rotate(f.rot); ctx.scale(f.r,f.r);
           ctx.strokeStyle='#fff'; ctx.lineCap='round'; ctx.lineWidth=Math.max(0.9,f.r*0.15)/f.r;
@@ -903,11 +973,65 @@
       function stop(){ if(raf){ cancelAnimationFrame(raf); raf=0; } }
       if('ResizeObserver' in window) new ResizeObserver(size).observe(box); else { window.addEventListener('resize',size); }
       size();
+      window.addEventListener('load',function(){ measure(); });
+      setTimeout(measure,800);
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(es){ visible=es[0].isIntersecting; visible?start():stop(); }).observe(box);
       } else start();
     }
     document.querySelectorAll('.snow').forEach(init);
+  })();
+</script>
+
+<script>
+  /* String lights: drooping wire swags with glass bulbs, rebuilt to fit the width */
+  (function(){
+    var NS='http://www.w3.org/2000/svg';
+    var COLORS=[['#FFE7A6','#FFC95C'],['#FF6B6B','#D7263D'],['#FFE7A6','#FFC95C'],['#6BE3A4','#1F9D63'],['#FFE7A6','#FFC95C'],['#8FD3FF','#3D8FE0'],['#FFD36B','#F59E0B']];
+    function el(n,a,p){ var e=document.createElementNS(NS,n); for(var k in a) e.setAttribute(k,a[k]); if(p) p.appendChild(e); return e; }
+    function build(host){
+      var W=host.clientWidth, H=host.clientHeight; if(!W) return;
+      host.innerHTML='';
+      var svg=el('svg',{viewBox:'0 0 '+W+' '+H,'aria-hidden':'true'},host);
+      var defs=el('defs',{},svg);
+      COLORS.forEach(function(c,i){
+        var g=el('radialGradient',{id:'bg'+i,cx:'.38',cy:'.35',r:'.75'},defs);
+        el('stop',{offset:'0'},g).setAttribute('stop-color','#fff');
+        el('stop',{offset:'.35'},g).setAttribute('stop-color',c[0]);
+        el('stop',{offset:'1'},g).setAttribute('stop-color',c[1]);
+        var gl=el('radialGradient',{id:'gl'+i},defs);
+        var s0=el('stop',{offset:'0'},gl); s0.setAttribute('stop-color',c[0]); s0.setAttribute('stop-opacity','.7');
+        var s1=el('stop',{offset:'1'},gl); s1.setAttribute('stop-color',c[1]); s1.setAttribute('stop-opacity','0');
+      });
+      var n=Math.max(3,Math.round(W/(W<700?95:130))), span=W/n, y0=7, sag=W<700?17:22, bulbs=0;
+      for(var i=0;i<n;i++){
+        var x0=i*span, x1=(i+1)*span, cx=(x0+x1)/2, cy=y0+sag*2;
+        el('path',{d:'M'+x0+' '+y0+' Q'+cx+' '+cy+' '+x1+' '+y0,stroke:'#0A0F3C','stroke-opacity':'.85','stroke-width':'1.7',fill:'none','stroke-linecap':'round'},svg);
+        el('path',{d:'M'+x0+' '+(y0-0.8)+' Q'+cx+' '+(cy-0.8)+' '+x1+' '+(y0-0.8),stroke:'#fff','stroke-opacity':'.14','stroke-width':'.7',fill:'none'},svg);
+        el('circle',{cx:x0,cy:y0,r:'2.6',fill:'#0A0F3C'},svg);
+        var count=Math.max(3,Math.round(span/(W<700?22:26)));
+        for(var j=1;j<count;j++){
+          var t=j/count, px=(1-t)*(1-t)*x0+2*(1-t)*t*cx+t*t*x1, py=(1-t)*(1-t)*y0+2*(1-t)*t*cy+t*t*y0;
+          var tx=2*(1-t)*(cx-x0)+2*t*(x1-cx), ty=2*(1-t)*(cy-y0)+2*t*(y0-cy);
+          var rot=Math.atan2(ty,tx)*180/Math.PI*0.35;
+          var ci=bulbs%COLORS.length, ph=(bulbs%2)?'lt-b':'lt-a'; bulbs++;
+          var g=el('g',{transform:'translate('+px.toFixed(1)+' '+(py+0.5).toFixed(1)+') rotate('+rot.toFixed(1)+')'},svg);
+          el('rect',{x:'-2.8',y:'0',width:'5.6',height:'5.2',rx:'1.2',fill:'#1B2060',stroke:'#0A0F3C','stroke-width':'.6'},g);
+          el('path',{d:'M-2.8 1.6H2.8M-2.8 3.4H2.8',stroke:'#3A4090','stroke-width':'.7'},g);
+          var lit=el('g',{'class':ph},g);
+          el('circle',{cx:'0',cy:'12.5',r:'15',fill:'url(#gl'+ci+')'},lit);
+          el('path',{d:'M0 5C-5.6 5.6-6.6 14.4-2.2 18.2 -1 19.2 1 19.2 2.2 18.2 6.6 14.4 5.6 5.6 0 5Z',fill:'url(#bg'+ci+')'},lit);
+          el('ellipse',{cx:'-1.9',cy:'10',rx:'1.2',ry:'2.6',fill:'#fff','fill-opacity':'.55',transform:'rotate(14 -1.9 10)'},lit);
+        }
+      }
+      el('circle',{cx:W,cy:y0,r:'2.6',fill:'#0A0F3C'},svg);
+    }
+    document.querySelectorAll('.lights').forEach(function(host){
+      var last=0;
+      function go(){ var w=host.clientWidth; if(w&&w!==last){ last=w; build(host); } }
+      if('ResizeObserver' in window) new ResizeObserver(go).observe(host); else { window.addEventListener('resize',go); }
+      go();
+    });
   })();
 </script>
 
