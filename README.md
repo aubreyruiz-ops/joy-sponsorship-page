@@ -23,10 +23,11 @@ serverless function that writes submissions into Postgres.
 - `after-hours-sf.html` / `after-hours-sf-attendees.html` / `after-hours-sf-application.html` — the
   same three-page pattern as the London event, for After Hours: San Francisco
   (`/after-hours-sf`, `/after-hours-sf-attendees`, `/after-hours-sf-application`), linked from the
-  "Coming up" tile on the main landing page. USD sponsorship tiers ($1,000 Supporter / $3,000
-  Presenting Sponsor), tags applications `event: 'after-hours-sf'`, and reuses the same Calendly link
-  on its confirmation screen. Speakers are all "Coming soon" placeholders — no names were confirmed
-  when this was built, unlike London's Vishal Joshi / Richie Mathews. The attendee page's "Register to
+  "Coming up" tile on the main landing page. USD sponsorship tiers ($3,000 Supporter / $5,000
+  Partner / $10,000 Presenting Sponsor, the top tier adding a panel seat), tags applications `event: 'after-hours-sf'`, and reuses the same Calendly link
+  on its confirmation screen. Speakers: Vishal Joshi (founder) and Richie Mathews (investor), reusing the same photos/short bios as the
+  original London lineup, each with a click-for-bio modal (the longer bios are short placeholders built only from
+  those one-liners, so swap in real copy), plus a "Special Guest" Coming soon placeholder. The attendee page's "Register to
   Attend" CTA points at the existing external `https://withjoy.com/AfterHours` registration link
   (there's no dedicated withjoy.com registration ID for this event yet, unlike London's), and its
   photo header is a single full-bleed image (only one real SF photo was available) instead of
@@ -136,9 +137,12 @@ For local development: `vercel env pull .env.local` to grab the database env var
 - The After Hours: San Francisco pages follow the same structure as London, with the same small touches
   (hero inset photo + "The setting" gallery on the sponsor page; "The vibe" polaroid strip and closing
   "Come hang out with us" band on the attendee page). Event details: December 10, 2026, 7-9 PM at
-  [Shack15](https://www.shack15.com), 1 Ferry Building, Suite 201. The 7-9 PM time and the USD tier amounts
-  ($1,000 / $3,000) are carried over from the original build, and all three speaker slots are "Coming soon"
-  placeholders, so confirm those before this goes live. The attendee page's "Register to Attend" CTA still
+  [Shack15](https://www.shack15.com), 1 Ferry Building, Suite 201. The 7-9 PM time and the 2/3/5 attendee-ticket counts
+  per tier are placeholders, and the Special Guest slot is a "Coming soon"
+  placeholder, so confirm those before this goes live. The event has a "'Twas the Night Before the Pitch" holiday theme (a verse couplet tagline and closing CTA kept deliberately light, with plain headings elsewhere; candy-cane top
+  stripe, twinkling lights and falling snow in the heroes, cranberry "Holiday Edition" badge, gold accent
+  instead of cyan, festive copy, and holiday-styled OG cards); the effects are pure CSS and respect
+  `prefers-reduced-motion`. The dress-code FAQ now invites festive attire, so confirm that wording. The attendee page's "Register to Attend" CTA still
   points at the external `https://withjoy.com/AfterHours` page (there's no dedicated registration ID like
   London's), so make sure that page shows the December 10 date. The decorative SF photos (Ferry Building,
   Bay Bridge, skyline, cocktails, crowd) are Unsplash stock loaded by photo ID, except the Golden Gate hero,

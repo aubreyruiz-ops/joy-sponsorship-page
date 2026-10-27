@@ -39,6 +39,8 @@
     --shadow:0 10px 30px rgba(20,22,60,0.10);
   }
   *{box-sizing:border-box;}
+  :root{--cranberry:#D7263D;}
+  body::before{content:'';display:block;height:6px;background:repeating-linear-gradient(135deg,var(--cranberry) 0 12px,#fff 12px 24px);}
   body{
     margin:0;
     font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
@@ -220,7 +222,7 @@
       <!-- Intro -->
       <div class="step active" data-step="intro">
         <div class="center-card">
-          <span class="event-badge">After Hours: San Francisco &middot; Dec 10, 2026</span>
+          <span class="event-badge">After Hours SF &middot; 'Twas the Night Before the Pitch &middot; Dec 10, 2026</span>
           <h1>Sponsor After Hours: San Francisco</h1>
           <p>A few quick questions, then we'll get a call on the calendar to talk through the details before the event.</p>
           <button type="button" class="btn-primary" id="startBtn">Start Application</button>
@@ -269,8 +271,9 @@
         <span class="step-count">Question 4 of 6</span>
         <h2>Which sponsorship tier interests you?</h2>
         <div class="options" id="tierOptions">
-          <label class="option radio"><input type="radio" name="tier" value="Presenting Sponsor ($3,000)"><span class="box"></span>Presenting Sponsor <span class="tier-sub">$3,000, 3 minutes on stage to talk about your company, logo on event swag, 3 attendee tickets</span></label>
-          <label class="option radio"><input type="radio" name="tier" value="Supporter ($1,000)"><span class="box"></span>Supporter <span class="tier-sub">$1,000, post-event email blast + sponsor drinks/appetizers with a stage shoutout, 2 attendee tickets</span></label>
+          <label class="option radio"><input type="radio" name="tier" value="Presenting Sponsor ($10,000)"><span class="box"></span>Presenting Sponsor <span class="tier-sub">$10,000, everything in Partner plus a speaking seat on the panel, 5 attendee tickets</span></label>
+          <label class="option radio"><input type="radio" name="tier" value="Partner ($5,000)"><span class="box"></span>Partner <span class="tier-sub">$5,000, everything in Supporter plus 3 minutes on stage to talk about your company, logo on event swag, 3 attendee tickets</span></label>
+          <label class="option radio"><input type="radio" name="tier" value="Supporter ($3,000)"><span class="box"></span>Supporter <span class="tier-sub">$3,000, post-event email blast + sponsor drinks/appetizers with a stage shoutout, 2 attendee tickets</span></label>
           <label class="option radio"><input type="radio" name="tier" value="Not sure yet, want to discuss"><span class="box"></span>Not sure yet <span class="tier-sub">Let's talk it through on the call</span></label>
         </div>
         <div class="btn-row">
