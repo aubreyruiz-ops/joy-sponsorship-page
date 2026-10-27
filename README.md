@@ -142,10 +142,10 @@ For local development: `vercel env pull .env.local` to grab the database env var
   placeholder, so confirm those before this goes live. The event has a "'Twas the Night Before the Pitch" holiday theme (a verse couplet tagline and closing CTA kept deliberately light, with plain headings elsewhere; candy-cane top
   stripe, twinkling lights and falling snow in the heroes, cranberry "Holiday Edition" badge, gold accent
   instead of cyan, festive copy, and holiday-styled OG cards); the effects are pure CSS and respect
-  `prefers-reduced-motion`. The dress-code FAQ now invites festive attire, so confirm that wording. The attendee page's "Register to Attend" CTA still
+  `prefers-reduced-motion`. The dress-code FAQ now invites festive attire, so confirm that wording. The About paragraph on both pages explains the fireside chat's focus (how a round came together, what investors look for, what each side wishes they'd known) and why Joy hosts After Hours, with matching FAQs. That focus is drafted from the existing "stories behind the biggest rounds" framing and the founder/investor lineup, so confirm it matches the real plan, and that sponsors helping keep the event free to attend is accurate. The attendee page's "Register to Attend" CTA still
   points at the external `https://withjoy.com/AfterHours` page (there's no dedicated registration ID like
   London's), so make sure that page shows the December 10 date. The decorative SF photos (Ferry Building,
-  Bay Bridge, skyline, cocktails, crowd) are Unsplash stock loaded by photo ID, except the Golden Gate hero,
+  Union Square holiday tree, festive toasts) are Unsplash stock loaded by photo ID, except the Golden Gate hero,
   which is the Cloudinary photo originally supplied for this event.
 - The London event pages' decorative photos (hero, gallery, "vibe" strip, attendee header) are London stock
   shots from Unsplash, loaded straight from `images.unsplash.com` by photo ID (see the `<img>` tags in
