@@ -30,8 +30,7 @@ serverless function that writes submissions into Postgres.
   those one-liners, so swap in real copy), plus a "Special Guest" Coming soon placeholder. The attendee page's "Register to
   Attend" CTA points at the existing external `https://withjoy.com/AfterHours` registration link
   (there's no dedicated withjoy.com registration ID for this event yet, unlike London's), and its
-  photo header is a single full-bleed image (only one real SF photo was available) instead of
-  London's 3-photo grid.
+  hero is centered text under a full-width illustrated banner (`sf-holiday-banner.svg`), a wide variant of the sponsor page's illustration, instead of London's 3-photo grid
 - `og-image.png` / `og-after-hours-london.png` / `og-after-hours-london-attendees.png` /
   `og-after-hours-sf.png` / `og-after-hours-sf-attendees.png` — Open Graph /
   Twitter card thumbnails referenced by each page's `<meta>` tags, so shared links unfurl with a
@@ -145,7 +144,7 @@ For local development: `vercel env pull .env.local` to grab the database env var
   `prefers-reduced-motion`. The dress-code FAQ now invites festive attire, so confirm that wording. The About paragraph on both pages explains the fireside chat's focus (how a round came together, what investors look for, what each side wishes they'd known) and why Joy hosts After Hours, with matching FAQs. That focus is drafted from the existing "stories behind the biggest rounds" framing and the founder/investor lineup, so confirm it matches the real plan, and that sponsors helping keep the event free to attend is accurate. The attendee page's "Register to Attend" CTA still
   points at the external `https://withjoy.com/AfterHours` page (there's no dedicated registration ID like
   London's), so make sure that page shows the December 10 date. The decorative SF photos (Ferry Building,
-  Union Square holiday tree, festive toasts) are Unsplash stock loaded by photo ID, except the dusk Golden Gate photo (Cloudinary, kyler-boone) used as the hero/header on both pages, the landing tile, and the sponsor share card. The originally supplied Cloudinary Golden Gate photo is no longer used.
+  Union Square holiday tree, festive toasts) are Unsplash stock loaded by photo ID, except the main hero art, which is a custom holiday illustration of SF (Golden Gate strung with lights, skyline, cable car, tree). It lives in `sf-holiday-illustration.svg` (4:3, sponsor hero frame, landing tile, share cards) and `sf-holiday-banner.svg` (wide, attendee header). They are plain hand-editable SVGs with a few CSS animations (twinkling lights, falling snow) that respect `prefers-reduced-motion`. The originally supplied Cloudinary Golden Gate photo is no longer used.
 - The London event pages' decorative photos (hero, gallery, "vibe" strip, attendee header) are London stock
   shots from Unsplash, loaded straight from `images.unsplash.com` by photo ID (see the `<img>` tags in
   `after-hours-london.html` and `after-hours-london-attendees.html`). To use your own photos, swap the `src`
