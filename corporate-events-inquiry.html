@@ -284,8 +284,10 @@
           <label class="option checkbox"><input type="checkbox" name="services" value="On-site event staff"><span class="box"></span>On-site event staff</label>
           <label class="option checkbox"><input type="checkbox" name="services" value="Hotels & accommodations"><span class="box"></span>Hotels &amp; accommodations</label>
           <label class="option checkbox"><input type="checkbox" name="services" value="Sponsorship"><span class="box"></span>Finding sponsors for the event</label>
+          <label class="option checkbox"><input type="checkbox" name="services" value="Other"><span class="box"></span>Other</label>
           <label class="option checkbox"><input type="checkbox" name="services" value="Not sure yet"><span class="box"></span>Not sure yet</label>
         </div>
+        <input type="text" id="q_services_other" class="other-input" placeholder="Tell us what else you need..." style="display:none;">
         <div class="btn-row">
           <button type="button" class="btn-secondary" data-back>Back</button>
           <button type="button" class="btn-primary" data-next disabled>Next</button>
@@ -301,6 +303,14 @@
           <label class="option radio"><input type="radio" name="guest_count" value="50-150"><span class="box"></span>50&ndash;150</label>
           <label class="option radio"><input type="radio" name="guest_count" value="150-500"><span class="box"></span>150&ndash;500</label>
           <label class="option radio"><input type="radio" name="guest_count" value="500+"><span class="box"></span>500+</label>
+        </div>
+        <span class="field-label" style="margin-bottom:8px;">What's your approximate budget?</span>
+        <div class="options grid" id="budgetOptions">
+          <label class="option radio"><input type="radio" name="budget" value="Under $25,000"><span class="box"></span>Under $25,000</label>
+          <label class="option radio"><input type="radio" name="budget" value="$25,000-$75,000"><span class="box"></span>$25,000&ndash;$75,000</label>
+          <label class="option radio"><input type="radio" name="budget" value="$75,000-$200,000"><span class="box"></span>$75,000&ndash;$200,000</label>
+          <label class="option radio"><input type="radio" name="budget" value="$200,000+"><span class="box"></span>$200,000+</label>
+          <label class="option radio"><input type="radio" name="budget" value="Not sure yet"><span class="box"></span>Not sure yet</label>
         </div>
         <span class="field-label">When is it? <span style="font-weight:400;color:var(--muted);">(optional)</span></span>
         <input type="text" id="q_timing" placeholder="e.g. March 2027, or flexible">
@@ -345,15 +355,13 @@
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script>
   // Calendly scheduling link shown after the form is submitted.
-  // TODO: swap in the corporate events team's own Calendly link. This is the
-  // sponsor network link, used as a placeholder until there's a dedicated one.
-  var CALENDLY_URL = 'https://calendly.com/d/dv56-ttm-f5j/joy-sponsor-network';
+  var CALENDLY_URL = 'https://calendly.com/d/d4ns-sms-vsg/joy-event-planning-connect-call';
   document.getElementById('calendlyWidget').setAttribute('data-url', CALENDLY_URL);
 
   // ---- Form state ----
   var formData = {
     name: '', email: '', company: '', website: '',
-    event_type: '', services: [], guest_count: '',
+    event_type: '', services: [], guest_count: '', budget: '',
     timing: '', location: '', notes: '', consent: false
   };
 
@@ -429,24 +437,35 @@
   });
 
   // Q5 services (checkbox, at least one)
-  document.querySelectorAll('#serviceOptions input').forEach(function(cb){
-    cb.addEventListener('change', function(){
-      stepNext(5).disabled = document.querySelectorAll('#serviceOptions input:checked').length === 0;
-    });
-  });
+  var qServicesOther = document.getElementById('q_services_other');
+  function checkStep5(){
+    var checked = document.querySelectorAll('#serviceOptions input:checked');
+    var otherOn = !!document.querySelector('#serviceOptions input[value="Other"]:checked');
+    qServicesOther.style.display = otherOn ? 'block' : 'none';
+    stepNext(5).disabled = checked.length === 0 || (otherOn && qServicesOther.value.trim().length === 0);
+  }
+  document.querySelectorAll('#serviceOptions input').forEach(function(cb){ cb.addEventListener('change', checkStep5); });
+  qServicesOther.addEventListener('input', checkStep5);
+  onEnter(qServicesOther, stepNext(5));
   stepNext(5).addEventListener('click', function(){
-    formData.services = Array.from(document.querySelectorAll('#serviceOptions input:checked')).map(function(i){ return i.value; });
+    formData.services = Array.from(document.querySelectorAll('#serviceOptions input:checked')).map(function(i){
+      return i.value === 'Other' ? 'Other: ' + qServicesOther.value.trim() : i.value;
+    });
     goNext();
   });
 
-  // Q6 guest count (required), timing + location (optional)
-  document.querySelectorAll('#guestOptions input').forEach(function(r){
-    r.addEventListener('change', function(){ stepNext(6).disabled = false; });
+  // Q6 guest count + budget (required), timing + location (optional)
+  function checkStep6(){
+    stepNext(6).disabled = !(document.querySelector('#guestOptions input:checked') && document.querySelector('#budgetOptions input:checked'));
+  }
+  document.querySelectorAll('#guestOptions input, #budgetOptions input').forEach(function(r){
+    r.addEventListener('change', checkStep6);
   });
   onEnter(document.getElementById('q_timing'), stepNext(6));
   onEnter(document.getElementById('q_location'), stepNext(6));
   stepNext(6).addEventListener('click', function(){
     formData.guest_count = document.querySelector('#guestOptions input:checked').value;
+    formData.budget = document.querySelector('#budgetOptions input:checked').value;
     formData.timing = document.getElementById('q_timing').value.trim();
     formData.location = document.getElementById('q_location').value.trim();
     goNext();

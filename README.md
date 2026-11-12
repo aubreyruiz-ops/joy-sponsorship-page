@@ -38,19 +38,27 @@ serverless function that writes submissions into Postgres.
   hero is centered text under a full-width illustrated banner (`sf-holiday-banner.svg`), a wide variant of the sponsor page's illustration, instead of London's 3-photo grid
 - `corporate-events.html` — corporate event planning page (`/corporate-events`), linked from the main landing
   page's top bar, an "Also from Joy" band above the FAQs, and the footer. Same branding as the landing page:
-  hero + photo carousel, "What we do" (venues, vendors, logistics, on-site, hotels & accommodations, sponsors),
-  the same trailing-12-month stats, a 3-step "How it works", an "Our work" portfolio, a CTA card, FAQs, and a
-  cross-link back to the Sponsor Network. **Portfolio content is placeholder:** CIO100, Global CIO Innovation
-  Summit, and T20 Cricket Finals are built only from the names/types already on the landing page FAQ (gradient
-  covers, "Event details coming soon"), and After Hours London/SF link to their own pages. To add a real event, copy
-  an `.event-card` block in the `.portfolio` grid (swap the `.event-cover.art` div for an `<img>` for photo covers;
-  the grid centers a partial last row). The 3-photo strip under the cards reuses the hero carousel's Cloudinary shots.
+  centered text hero (no photo), "What we do" (venues, vendors, logistics, on-site, hotels & accommodations, sponsors),
+  a 3-step "How it works", an "Our work" portfolio, a CTA card, FAQs, and a
+  cross-link back to the Sponsor Network. **Portfolio:** events are grouped by type into `.category` blocks (Summits & conferences, Offsites & retreats,
+  Expos & trade shows, Premium experiences, Networking & customer events), with
+  a chip nav (`.cat-nav`) that jumps to each. To move an event, cut its `.event-card` block into another category's
+  `.portfolio` div; to add a category, copy a `.category` block and add a chip to `.cat-nav` (update the "N events"
+  count by hand). Every event shows a `Hosted by` line (`.event-host`) and a one-sentence description of what Joy handled, written from the client and the expense categories in the team's event tracker (no amounts). Only events with photos get a big `.event-card` (in the category's `.portfolio` div). Events without photos are small
+  `.event-chip` tiles (name, month, city) in a `.portfolio-chips` row below it, so visitors still see the work. When photos
+  arrive for a chip, delete it and add an `.event-card` to `.portfolio` (copy the Dubai card), starting with
+  `<div class="event-cover"><img ...></div>`. Put several `<img>` tags in one `.event-cover` (first one `loading="eager"`, the
+  rest `lazy`) and the script adds prev/next arrows, a counter and swipe automatically (Dubai and Sri Lanka are examples).
+  Cloudinary photos should keep the `w_1000,q_auto,f_auto/` transform in the URL (originals are huge; it also converts HEIC). Built from the team's internal event list, showing **only name, month, and city**:
+  never publish the spend/commission/surplus figures or the unpaid/waived billing tags from that source. The
+  category assignments are a first guess (Effortless especially; London Offsite is confirmed as an offsite), and
+  the retreat, Shared Services & Outsourcing Week, and Effortless names should be confirmed OK to show publicly if any are client engagements. CIO100
+  isn't in the cards but is still named on the landing page FAQ.
 - `corporate-events-inquiry.html` — "Plan your event" form (`/corporate-events-inquiry`), same step-by-step
   pattern as the sponsor application forms: name, work email, company (+ optional website), event type, services
-  needed, guest count (+ optional timing/location), optional notes + consent. POSTs to
+  needed, guest count and budget range (+ optional timing/location), optional notes + consent. The services question has an "Other" option with a free-text field. POSTs to
   `api/submit-event-inquiry.js` (writes to the separate `event_inquiries` table), then shows an inline Calendly
-  embed. **The `CALENDLY_URL` at the top of its script is the sponsor network link as a placeholder**; swap in the
-  corporate events team's own scheduling link so meetings don't land on the sponsor calendar.
+  embed. The Calendly link is the `CALENDLY_URL` constant at the top of its script (the corporate events "Connect Call" link).
 - `crm-event-inquiries.html` / `api/event-inquiries.js` — the CRM's "Event inquiries" tab (`/crm-event-inquiries`),
   listing `event_inquiries` rows. The original CRM tab is now labeled "Sponsor contacts". Inquiries are not synced
   to Apollo and have no template-send tracking (that stays sponsor-only for now). Re-run `schema.sql` to create

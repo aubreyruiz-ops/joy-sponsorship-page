@@ -75,5 +75,6 @@ create table if not exists event_inquiries (
   created_at    timestamptz not null default now()
 );
 
+alter table event_inquiries add column if not exists budget text default '';
 create index if not exists idx_event_inquiries_email on event_inquiries (email);
 create index if not exists idx_event_inquiries_created_at on event_inquiries (created_at desc);

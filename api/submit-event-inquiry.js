@@ -24,6 +24,7 @@ export default async function handler(req, res) {
       ? body.services.map((s) => clean(s, 120)).filter(Boolean).slice(0, 20)
       : [];
     const guestCount = clean(body.guest_count, 120);
+    const budget = clean(body.budget, 120);
     const timing = clean(body.timing, 300);
     const location = clean(body.location, 300);
     const notes = clean(body.notes, 4000);
@@ -44,10 +45,10 @@ export default async function handler(req, res) {
 
     await sql`
       INSERT INTO event_inquiries
-        (name, email, company, website, event_type, services, guest_count, timing, location, notes, consent)
+        (name, email, company, website, event_type, services, guest_count, budget, timing, location, notes, consent)
       VALUES
         (${name}, ${email}, ${company}, ${website}, ${eventType}, ${JSON.stringify(services)}::jsonb,
-         ${guestCount}, ${timing}, ${location}, ${notes}, ${consent})
+         ${guestCount}, ${budget}, ${timing}, ${location}, ${notes}, ${consent})
     `;
 
     return res.status(200).json({ ok: true });

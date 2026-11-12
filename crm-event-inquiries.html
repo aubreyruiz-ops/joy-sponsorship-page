@@ -67,7 +67,7 @@
   }
   .panel-head{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
   .table-scroll{overflow-x:auto;}
-  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1100px;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:1200px;}
   th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);vertical-align:top;white-space:nowrap;}
   th{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);font-weight:700;}
   tr:last-child td{border-bottom:none;}
@@ -224,6 +224,7 @@
           '<td class="wrap-cell"><span class="tag tag-' + tagColorIndex(q.event_type) + '">' + esc(q.event_type) + '</span></td>' +
           '<td class="wrap-cell">' + renderTags(q.services) + '</td>' +
           '<td>' + esc(q.guest_count) + '</td>' +
+          '<td>' + (q.budget ? esc(q.budget) : '<span class="muted">\u2014</span>') + '</td>' +
           '<td class="wrap-cell">' + where + '</td>' +
           '<td class="wrap-cell">' + notes + '</td>' +
           '<td>' + esc(fmtDate(q.created_at)) + '</td>' +
@@ -235,7 +236,7 @@
     content.innerHTML =
       '<table>' +
         '<thead><tr>' +
-          '<th>Name</th><th>Email</th><th>Company</th><th>Event type</th><th>Help needed</th><th>Guests</th><th>When / where</th><th>Notes</th><th>Submitted</th>' +
+          '<th>Name</th><th>Email</th><th>Company</th><th>Event type</th><th>Help needed</th><th>Guests</th><th>Budget</th><th>When / where</th><th>Notes</th><th>Submitted</th>' +
         '</tr></thead>' +
         '<tbody>' + rows + '</tbody>' +
       '</table>';
