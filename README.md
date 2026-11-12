@@ -38,7 +38,7 @@ serverless function that writes submissions into Postgres.
   hero is centered text under a full-width illustrated banner (`sf-holiday-banner.svg`), a wide variant of the sponsor page's illustration, instead of London's 3-photo grid
 - `corporate-events.html` — corporate event planning page (`/corporate-events`), linked from the main landing
   page's top bar, an "Also from Joy" band above the FAQs, and the footer. Same branding as the landing page:
-  centered text hero (no photo), "What we do" (venues, vendors, logistics, on-site, hotels & accommodations, sponsors),
+  light left-aligned hero with a "nine yards" services card (deliberately different from the Sponsor Network's blue hero; no photo), "What we do" (venues, vendors, logistics, on-site, hotels & accommodations, sponsors),
   a 3-step "How it works", an "Our work" portfolio, a CTA card, FAQs, and a
   cross-link back to the Sponsor Network. **Portfolio:** events are grouped by type into `.category` blocks (Summits & conferences, Offsites & retreats,
   Expos & trade shows, Premium experiences, Networking & customer events), with
