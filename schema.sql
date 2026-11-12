@@ -55,3 +55,25 @@ create table if not exists application_template_sends (
   primary key (application_id, template_id)
 );
 alter table application_template_sends add column if not exists source text not null default 'manual';
+
+-- Corporate event planning inquiries (the "Plan your event" form on
+-- /corporate-events-inquiry). Kept separate from sponsor_applications so the
+-- CRM can show them on their own "Event inquiries" tab.
+create table if not exists event_inquiries (
+  id            bigserial primary key,
+  name          text not null,
+  email         text not null,
+  company       text not null,
+  website       text default '',
+  event_type    text not null,
+  services      jsonb not null default '[]'::jsonb,
+  guest_count   text not null,
+  timing        text default '',
+  location      text default '',
+  notes         text default '',
+  consent       boolean not null default false,
+  created_at    timestamptz not null default now()
+);
+
+create index if not exists idx_event_inquiries_email on event_inquiries (email);
+create index if not exists idx_event_inquiries_created_at on event_inquiries (created_at desc);

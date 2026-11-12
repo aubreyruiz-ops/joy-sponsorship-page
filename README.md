@@ -36,6 +36,26 @@ serverless function that writes submissions into Postgres.
   Attend" CTA points at the existing external `https://withjoy.com/AfterHours` registration link
   (there's no dedicated withjoy.com registration ID for this event yet, unlike London's), and its
   hero is centered text under a full-width illustrated banner (`sf-holiday-banner.svg`), a wide variant of the sponsor page's illustration, instead of London's 3-photo grid
+- `corporate-events.html` — corporate event planning page (`/corporate-events`), linked from the main landing
+  page's top bar, an "Also from Joy" band above the FAQs, and the footer. Same branding as the landing page:
+  hero + photo carousel, "What we do" (venues, vendors, logistics, on-site, hotels & accommodations, sponsors),
+  the same trailing-12-month stats, a 3-step "How it works", an "Our work" portfolio, a CTA card, FAQs, and a
+  cross-link back to the Sponsor Network. **Portfolio content is placeholder:** CIO100, Global CIO Innovation
+  Summit, and T20 Cricket Finals are built only from the names/types already on the landing page FAQ (gradient
+  covers, "Event details coming soon"), and After Hours London/SF link to their own pages. To add a real event, copy
+  an `.event-card` block in the `.portfolio` grid (swap the `.event-cover.art` div for an `<img>` for photo covers;
+  the grid centers a partial last row). The 3-photo strip under the cards reuses the hero carousel's Cloudinary shots.
+- `corporate-events-inquiry.html` — "Plan your event" form (`/corporate-events-inquiry`), same step-by-step
+  pattern as the sponsor application forms: name, work email, company (+ optional website), event type, services
+  needed, guest count (+ optional timing/location), optional notes + consent. POSTs to
+  `api/submit-event-inquiry.js` (writes to the separate `event_inquiries` table), then shows an inline Calendly
+  embed. **The `CALENDLY_URL` at the top of its script is the sponsor network link as a placeholder**; swap in the
+  corporate events team's own scheduling link so meetings don't land on the sponsor calendar.
+- `crm-event-inquiries.html` / `api/event-inquiries.js` — the CRM's "Event inquiries" tab (`/crm-event-inquiries`),
+  listing `event_inquiries` rows. The original CRM tab is now labeled "Sponsor contacts". Inquiries are not synced
+  to Apollo and have no template-send tracking (that stays sponsor-only for now). Re-run `schema.sql` to create
+  the new table.
+- `og-corporate-events.png` — share card for the two corporate events pages (same Playwright recipe as below).
 - `og-image.png` / `og-after-hours-london.png` / `og-after-hours-london-attendees.png` /
   `og-after-hours-sf.png` / `og-after-hours-sf-attendees.png` — Open Graph /
   Twitter card thumbnails referenced by each page's `<meta>` tags, so shared links unfurl with a
