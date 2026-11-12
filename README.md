@@ -7,6 +7,11 @@ serverless function that writes submissions into Postgres.
 
 - `sponsor-network-landing.html` — public marketing page (`/sponsor-network-landing`, and `/` redirects here)
 - `sponsor-network-application.html` — the general application form (`/sponsor-network-application`), USD budget tiers
+- **After Hours: London is a past event (took place Nov 11, 2026).** Its three pages are kept as a recap, but every
+  registration path is closed: the sponsor and attendee pages show "closed" pills instead of CTAs, the application
+  page shows a closed message, `api/submit-application.js` rejects `event: 'after-hours-london'` with a 410, and the
+  main landing page lists it under "Past events" instead of "Coming up". The external withjoy.com registration
+  page is no longer linked, but it is not closed from this repo, so close it in the withjoy.com planner too.
 - `after-hours-london.html` — sponsor-focused event landing page for After Hours: London
   (`/after-hours-london`), linked from the "Coming up" tile on the main landing page. Speakers, agenda,
   current sponsors, and tiers, all pointing at the "Become a Sponsor" CTA; attendee registration is only

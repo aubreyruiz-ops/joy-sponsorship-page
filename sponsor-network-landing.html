@@ -443,6 +443,18 @@
     margin-bottom:8px;
   }
   .coming-date{color:var(--muted);font-weight:500;font-size:14px;}
+  .past-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--muted);
+    background:#EEF0F6;
+    padding:5px 12px;
+    border-radius:var(--radius-pill);
+  }
+  .past-card .coming-photo img{filter:grayscale(0.4);}
   .coming-photo{
     position:relative;
     display:block;
@@ -726,17 +738,6 @@
     <div class="wrap">
       <span class="eyebrow">Coming up</span>
       <div class="coming-list">
-        <a class="coming-card" href="/after-hours-london">
-          <div class="coming-text">
-            <h2>After Hours: London</h2>
-            <p>An Event Tech Live after-party: cocktails and a founder fireside chat near ExCeL London.</p>
-            <div class="coming-tier">Sponsor tiers: &pound;1,000&ndash;&pound;3,000</div>
-            <div class="coming-date">November 11, 2026 &middot; London</div>
-          </div>
-          <div class="coming-photo">
-            <img src="https://images.unsplash.com/photo-1706630810491-b4bbaa8c45b3?auto=format&fit=crop&w=1400&q=80" alt="London at dusk with Tower Bridge and the Shard">
-          </div>
-        </a>
         <a class="coming-card" href="/after-hours-sf">
           <div class="coming-text">
             <h2>After Hours: San Francisco</h2>
@@ -746,6 +747,21 @@
           </div>
           <div class="coming-photo">
             <img src="/sf-holiday-illustration.svg" alt="Illustration of San Francisco at night with the Golden Gate Bridge strung with holiday lights">
+          </div>
+        </a>
+      </div>
+
+      <span class="eyebrow" style="display:block;margin-top:56px;">Past events</span>
+      <div class="coming-list">
+        <a class="coming-card past-card" href="/after-hours-london">
+          <div class="coming-text">
+            <span class="past-tag">Past event</span>
+            <h2>After Hours: London</h2>
+            <p>An Event Tech Live after-party at The Windjammer: cocktails and a founder fireside chat.</p>
+            <div class="coming-date">November 11, 2026 &middot; London</div>
+          </div>
+          <div class="coming-photo">
+            <img src="https://images.unsplash.com/photo-1706630810491-b4bbaa8c45b3?auto=format&fit=crop&w=1400&q=80" alt="London at dusk with Tower Bridge and the Shard">
           </div>
         </a>
       </div>

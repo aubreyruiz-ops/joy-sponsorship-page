@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sponsor After Hours: London | Joy</title>
-<meta name="description" content="Become a sponsor of After Hours: London, an Event Tech Live after-party near ExCeL London. Takes about 2 minutes.">
+<title>Sponsorships closed: After Hours: London | Joy</title>
+<meta name="description" content="Sponsorships for After Hours: London are closed. The event took place on November 11, 2026.">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sponsormatch.withjoy.com/after-hours-london-application">
 <meta property="og:title" content="Sponsor After Hours: London | Joy">
-<meta property="og:description" content="Become a sponsor of After Hours: London, an Event Tech Live after-party near ExCeL London. Takes about 2 minutes.">
+<meta property="og:description" content="Sponsorships for After Hours: London are closed. The event took place on November 11, 2026.">
 <meta property="og:image" content="https://sponsormatch.withjoy.com/og-after-hours-london.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sponsor After Hours: London | Joy">
-<meta name="twitter:description" content="Become a sponsor of After Hours: London, an Event Tech Live after-party near ExCeL London. Takes about 2 minutes.">
+<meta name="twitter:description" content="Sponsorships for After Hours: London are closed. The event took place on November 11, 2026.">
 <meta name="twitter:image" content="https://sponsormatch.withjoy.com/og-after-hours-london.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -221,10 +221,10 @@
       <div class="step active" data-step="intro">
         <div class="center-card">
           <span class="event-badge">After Hours: London &middot; Nov 11, 2026</span>
-          <h1>Sponsor After Hours: London</h1>
-          <p>A few quick questions, then we'll get a call on the calendar to talk through the details before the event.</p>
-          <button type="button" class="btn-primary" id="startBtn">Start Application</button>
-          <div class="meta-time">⏱ Takes about 2 minutes</div>
+          <h1>Sponsorships are closed</h1>
+          <p>After Hours: London took place on November 11, 2026, so we're no longer taking sponsor applications for it. Join the Joy Sponsor Network to hear about upcoming events.</p>
+          <a href="/sponsor-network-application" class="btn-primary" style="display:inline-block;text-decoration:none;">Join the Sponsor Network</a>
+          <div class="meta-time"><a href="/sponsor-network-landing" style="color:var(--muted);">See upcoming events</a></div>
         </div>
       </div>
 
@@ -355,7 +355,8 @@
   function goNext(){ if(currentIndex < steps.length - 1) showStep(currentIndex + 1); }
   function goBack(){ if(currentIndex > 0) showStep(currentIndex - 1); }
 
-  document.getElementById('startBtn').addEventListener('click', goNext);
+  var startBtn = document.getElementById('startBtn');
+  if (startBtn) startBtn.addEventListener('click', goNext);
   document.querySelectorAll('[data-back]').forEach(function(btn){ btn.addEventListener('click', goBack); });
 
   // Text-input steps: enable Next only when filled, allow Enter to advance

@@ -32,6 +32,11 @@ export default async function handler(req, res) {
     // instead of a free-text budget and event format list.
     const isEventForm = event !== 'general';
 
+    // After Hours: London took place on 2026-11-11; its sponsor applications are closed.
+    if (event === 'after-hours-london') {
+      return res.status(410).json({ error: 'Sponsorships for After Hours: London are closed.' });
+    }
+
     // Required-field validation mirrors the required questions on the form.
     if (!name || !email || !company || !website) {
       return res.status(400).json({ error: 'Missing required fields.' });
