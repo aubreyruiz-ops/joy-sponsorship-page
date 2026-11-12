@@ -48,7 +48,7 @@ serverless function that writes submissions into Postgres.
   `.event-chip` tiles (name, month, city) in a `.portfolio-chips` row below it, so visitors still see the work. When photos
   arrive for a chip, delete it and add an `.event-card` to `.portfolio` (copy the Dubai card), starting with
   `<div class="event-cover"><img ...></div>`. Put several `<img>` tags in one `.event-cover` (first one `loading="eager"`, the
-  rest `lazy`) and the script adds prev/next arrows, a counter and swipe automatically. Clicking any `div.event-card` that has photos opens a larger popup (lightbox) with the same photos, the event's name, host and description, arrow/keyboard/swipe navigation and Esc to close; it loads the Cloudinary `w_1000` URL as `w_1800` for the popup, and link cards (After Hours) are left alone (Dubai and Sri Lanka are examples).
+  rest `lazy`) and the script adds prev/next arrows, a counter and swipe automatically. Clicking any `div.event-card` that has photos opens a larger popup (a white card over a dimmed, blurred page) with the same photos, the event's name, host and description, arrow/keyboard/swipe navigation and Esc to close; it loads the Cloudinary `w_1000` URL as `w_1800` for the popup, and link cards (After Hours) are left alone (Dubai and Sri Lanka are examples).
   Cloudinary photos should keep the `w_1000,q_auto,f_auto/` transform in the URL (originals are huge; it also converts HEIC). Built from the team's internal event list, showing **only name, month, and city**:
   never publish the spend/commission/surplus figures or the unpaid/waived billing tags from that source. The
   category assignments are a first guess (Effortless especially; London Offsite is confirmed as an offsite), and

@@ -379,43 +379,55 @@
   div.event-card.has-photos:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
   .lb{
     position:fixed;inset:0;z-index:1000;
-    background:rgba(10,19,64,0.92);
+    background:rgba(10,19,64,0.62);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
     display:none;align-items:center;justify-content:center;
     padding:24px;
   }
   .lb.open{display:flex;}
-  .lb-panel{width:100%;max-width:1100px;max-height:100%;display:flex;flex-direction:column;gap:18px;color:#fff;}
-  .lb-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:0;}
-  .lb-stage img{max-width:100%;max-height:70vh;object-fit:contain;border-radius:14px;display:block;background:rgba(255,255,255,0.06);}
+  .lb-panel{
+    position:relative;
+    width:100%;max-width:820px;max-height:100%;
+    background:#fff;color:var(--ink);
+    border-radius:24px;
+    box-shadow:0 30px 80px rgba(10,19,64,0.45);
+    overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .lb-stage{position:relative;background:#EEF1FE;display:flex;align-items:center;justify-content:center;min-height:0;flex:1 1 auto;}
+  .lb-stage img{width:100%;height:auto;max-height:56vh;object-fit:contain;display:block;}
   .lb-btn{
     position:absolute;border:0;padding:0;cursor:pointer;
-    width:46px;height:46px;border-radius:50%;
-    background:rgba(255,255,255,0.94);color:var(--ink);
+    width:42px;height:42px;border-radius:50%;
+    background:rgba(255,255,255,0.95);color:var(--ink);
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 8px 22px rgba(0,0,0,0.35);
+    box-shadow:0 6px 18px rgba(10,19,64,0.28);
     transition:background .15s ease, color .15s ease;
   }
   .lb-btn:hover{background:var(--blue);color:#fff;}
-  .lb-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;}
-  .lb-btn svg{width:22px;height:22px;}
-  .lb-prev{left:10px;top:50%;transform:translateY(-50%);}
-  .lb-next{right:10px;top:50%;transform:translateY(-50%);}
-  .lb-close{position:fixed;top:18px;right:18px;z-index:2;}
+  .lb-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+  .lb-btn svg{width:20px;height:20px;}
+  .lb-prev{left:14px;top:50%;transform:translateY(-50%);}
+  .lb-next{right:14px;top:50%;transform:translateY(-50%);}
+  .lb-close{top:14px;right:14px;z-index:2;}
   .lb-count{
-    position:absolute;right:12px;bottom:12px;
+    position:absolute;right:14px;bottom:14px;
     background:rgba(10,19,64,0.75);color:#fff;
-    font-family:'Inter Tight',sans-serif;font-weight:700;font-size:13px;
-    padding:5px 12px;border-radius:var(--radius-pill);
+    font-family:'Inter Tight',sans-serif;font-weight:700;font-size:12px;
+    padding:4px 11px;border-radius:var(--radius-pill);
   }
-  .lb-info h3{color:#fff;font-size:22px;margin:0 0 4px;}
-  .lb-info .lb-host{font-size:13px;font-weight:600;color:var(--cyan);margin-bottom:8px;}
-  .lb-info p{color:rgba(255,255,255,0.82);font-size:15px;margin:0 0 8px;max-width:760px;}
-  .lb-info .lb-meta{font-size:13px;color:rgba(255,255,255,0.62);}
+  .lb-info{padding:22px 28px 26px;overflow:auto;}
+  .lb-info h3{font-size:22px;margin:0 0 4px;}
+  .lb-info .lb-host{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:10px;}
+  .lb-info p{font-size:15px;margin:0 0 10px;max-width:640px;}
+  .lb-info .lb-meta{font-size:13px;font-weight:500;color:var(--muted);}
   body.lb-lock{overflow:hidden;}
   @media (max-width:600px){
     .lb{padding:14px;}
-    .lb-stage img{max-height:60vh;}
-    .lb-btn{width:40px;height:40px;}
+    .lb-panel{border-radius:20px;}
+    .lb-stage img{max-height:48vh;}
+    .lb-info{padding:18px 20px 22px;}
+    .lb-btn{width:38px;height:38px;}
   }
 
   /* Event photo carousels: any .event-cover with 2+ <img> gets arrows (see script) */
@@ -1033,8 +1045,8 @@
     lb.setAttribute('aria-modal', 'true');
     lb.setAttribute('aria-label', 'Event photos');
     lb.innerHTML =
-      '<button type="button" class="lb-btn lb-close" aria-label="Close">' + xIcon + '</button>' +
       '<div class="lb-panel">' +
+        '<button type="button" class="lb-btn lb-close" aria-label="Close">' + xIcon + '</button>' +
         '<div class="lb-stage">' +
           '<img alt="">' +
           '<button type="button" class="lb-btn lb-prev" aria-label="Previous photo">' + arrowL + '</button>' +
@@ -1102,7 +1114,7 @@
     prev.addEventListener('click', function(){ go(idx - 1); });
     next.addEventListener('click', function(){ go(idx + 1); });
     closeBtn.addEventListener('click', close);
-    lb.addEventListener('click', function(e){ if(e.target === lb || e.target.classList.contains('lb-panel') || e.target.classList.contains('lb-stage')) close(); });
+    lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
     document.addEventListener('keydown', function(e){
       if(!lb.classList.contains('open')) return;
       if(e.key === 'Escape') close();
