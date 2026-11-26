@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>After Hours: San Francisco, 'Twas the Night Before the Pitch | Joy</title>
-<meta name="description" content="&#39;Twas the night before the pitch: holiday cocktails and the stories behind the biggest rounds in the room. A festive evening at Shack15 in San Francisco's Ferry Building.">
+<title>After Hours: San Francisco, The 2027 Funding Forecast | Joy</title>
+<meta name="description" content="Early spring or long winter? Two founders and an investor call the 2027 funding market on Groundhog Day, February 2, at Shack15 in San Francisco&#39;s Ferry Building.">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sponsormatch.withjoy.com/after-hours-sf">
-<meta property="og:title" content="After Hours: San Francisco, &#39;Twas the Night Before the Pitch | Joy">
-<meta property="og:description" content="&#39;Twas the night before the pitch: holiday cocktails and the stories behind the biggest rounds in the room. A festive evening at Shack15 in San Francisco's Ferry Building.">
+<meta property="og:title" content="After Hours: San Francisco, The 2027 Funding Forecast | Joy">
+<meta property="og:description" content="Early spring or long winter? Two founders and an investor call the 2027 funding market on Groundhog Day, February 2, at Shack15 in San Francisco&#39;s Ferry Building.">
 <meta property="og:image" content="https://sponsormatch.withjoy.com/og-after-hours-sf.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="After Hours: San Francisco, &#39;Twas the Night Before the Pitch | Joy">
-<meta name="twitter:description" content="&#39;Twas the night before the pitch: holiday cocktails and the stories behind the biggest rounds in the room. A festive evening at Shack15 in San Francisco's Ferry Building.">
+<meta name="twitter:title" content="After Hours: San Francisco, The 2027 Funding Forecast | Joy">
+<meta name="twitter:description" content="Early spring or long winter? Two founders and an investor call the 2027 funding market on Groundhog Day, February 2, at Shack15 in San Francisco&#39;s Ferry Building.">
 <meta name="twitter:image" content="https://sponsormatch.withjoy.com/og-after-hours-sf.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,7 +86,7 @@
     position:relative;
     background:
       radial-gradient(circle at 18% 8%, rgba(255,255,255,0.16), transparent 45%),
-      radial-gradient(circle at 86% 82%, rgba(215,38,61,0.26), transparent 42%),
+      radial-gradient(circle at 86% 82%, rgba(255,178,102,0.24), transparent 42%),
       linear-gradient(135deg, var(--bg-hero-a) 0%, var(--bg-hero-b) 100%);
     padding:0 0 96px;
     overflow:hidden;
@@ -391,27 +391,50 @@
   }
 
 
-  /* Holiday edition */
-  :root{--cranberry:#D7263D;--holly:#1F8A5B;--gold:#F6C85F;}
-  body::before{content:'';display:block;height:6px;background:repeating-linear-gradient(135deg,var(--cranberry) 0 12px,#fff 12px 24px);}
+  /* Funding Forecast theme */
+  :root{--gold:#F6C85F;}
   .eyebrow.on-dark{color:var(--gold);}
-  .holiday-badge{
-    display:inline-flex;align-items:center;gap:7px;
-    background:var(--cranberry);color:#fff;
+  .forecast-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:linear-gradient(90deg,#A9D6FF,#FFD27A);color:#0A1340;
     font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;
     padding:7px 14px;border-radius:var(--radius-pill);margin-bottom:16px;
-    box-shadow:0 6px 18px rgba(215,38,61,0.35);
+    box-shadow:0 6px 18px rgba(255,190,110,0.28);
   }
-  .holiday-badge svg{flex-shrink:0;}
-  /* String lights */
-  .lights{position:absolute;top:0;left:0;right:0;height:66px;z-index:3;pointer-events:none;overflow:hidden;}
-  .lights svg{display:block;width:100%;height:100%;}
-  .lights .lt-a{animation:lt 3.6s ease-in-out infinite;}
-  .lights .lt-b{animation:lt 3.6s ease-in-out infinite;animation-delay:-1.8s;}
-  @keyframes lt{0%,100%{opacity:1;}50%{opacity:0.6;}}
-  .hero .topbar,.hero-info .topbar{padding-top:50px;}
-  @media (prefers-reduced-motion:reduce){.lights .lt-a,.lights .lt-b{animation:none;}}
-  .snow{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+  .forecast-badge svg{width:16px;height:16px;flex-shrink:0;}
+  .forecast-intro{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  .forecast-intro p{font-size:16px;line-height:1.7;margin:0 0 16px;}
+  .forecast-intro p:last-child{margin-bottom:0;}
+  .seasons{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px;}
+  .season{border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border);}
+  .season.winter{background:linear-gradient(160deg,#E9F1FF,#fff 65%);}
+  .season.spring{background:linear-gradient(160deg,#FFF3DB,#fff 65%);}
+  .season-tag{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;}
+  .season-tag svg{width:18px;height:18px;flex-shrink:0;}
+  .season.winter .season-tag{color:#3D6FD1;}
+  .season.spring .season-tag{color:#B96F0C;}
+  .season h3{font-size:24px;margin-bottom:6px;}
+  .season .lede{font-size:15px;margin:0 0 18px;color:var(--body-text);}
+  .season ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  .season li{display:flex;gap:12px;font-size:14.5px;line-height:1.5;color:var(--body-text);}
+  .season li::before{content:'';flex:0 0 8px;height:8px;border-radius:50%;margin-top:7px;}
+  .season.winter li::before{background:#6FA3F0;}
+  .season.spring li::before{background:#F2A93B;}
+  .season-note{text-align:center;margin:32px auto 0;max-width:560px;font-family:'Inter Tight',sans-serif;font-weight:700;font-size:20px;line-height:1.35;color:var(--ink);}
+  .section-navy .season{border-color:rgba(255,255,255,0.16);}
+  .section-navy .season.winter{background:linear-gradient(160deg,rgba(143,190,255,0.18),rgba(255,255,255,0.04) 65%);}
+  .section-navy .season.spring{background:linear-gradient(160deg,rgba(255,200,110,0.2),rgba(255,255,255,0.04) 65%);}
+  .section-navy .season h3,.section-navy .season-note{color:#fff;}
+  .section-navy .season .lede,.section-navy .season li{color:rgba(255,255,255,0.78);}
+  .section-navy .season.winter .season-tag{color:#A9D1FF;}
+  .section-navy .season.spring .season-tag{color:#FFD27A;}
+  .section-navy .forecast-intro p{color:rgba(255,255,255,0.78);}
+  @media (max-width:860px){
+    .forecast-intro{grid-template-columns:1fr;gap:16px;}
+    .seasons{grid-template-columns:1fr;margin-top:32px;}
+    .season{padding:24px;}
+    .season-note{font-size:18px;margin-top:24px;}
+  }
 
   /* Agenda */
   .agenda-list{margin-top:40px;max-width:860px;}
@@ -669,13 +692,13 @@
   :root{--s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;}
   .eyebrow{margin-bottom:var(--s2);}
   h2.section-title + p,h2.section-title + .gallery-intro,h2.section-title + .band-intro{margin-top:var(--s2);}
-  .holiday-badge svg{width:20px;height:20px;margin:-3px 0;}
+  .forecast-badge svg{width:20px;height:20px;margin:-3px 0;}
   @media (max-width:860px){
     section{padding:56px 0;}
     .hero-grid{padding-top:var(--s3);gap:var(--s5);}
     .event-meta-row{gap:var(--s1);margin-bottom:var(--s3);}
     .event-chip{font-size:12px;padding:7px 12px;}
-    .holiday-badge{font-size:10px;padding:6px 12px;margin-bottom:var(--s2);}
+    .forecast-badge{font-size:10px;padding:6px 12px;margin-bottom:var(--s2);}
     .hero h1,.hero-info h1{font-size:34px;margin-bottom:var(--s2);}
     .hero p.tagline,.hero-info p.tagline{font-size:17px;margin-bottom:var(--s2);}
     .hero p.tagline br,.hero-info p.tagline br{display:none;}
@@ -703,13 +726,16 @@
     .tiers-grid{margin-top:var(--s5);}
     .gallery-item{aspect-ratio:16/10;}
   }
+  /* The forecast title is the headline of the hero */
+  .hero p.tagline{font-size:24px;max-width:560px;line-height:1.3;}
+  .hero-info p.tagline{font-size:26px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.3;}
+  .hero p.tagline,.hero-info p.tagline{text-wrap:balance;}
+  @media (max-width:860px){.hero p.tagline,.hero-info p.tagline{font-size:20px;}}
 </style>
 </head>
 <body>
 
   <div class="hero">
-    <div class="snow" aria-hidden="true"></div>
-    <div class="lights" aria-hidden="true"></div>
     <div class="topbar">
       <div class="wrap">
         <a href="/sponsor-network-landing" class="joy-mark on-dark">
@@ -722,21 +748,21 @@
     <div class="wrap hero-grid">
       <div class="hero-content">
         <div class="event-meta-row">
-          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>December 10, 2026, 7&ndash;9 PM</span>
+          <span class="event-chip"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Tue, Feb 2, 2027, 7&ndash;9 PM</span>
           <a class="event-chip" href="https://www.shack15.com" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>Shack15, San Francisco</a>
         </div>
-        <span class="holiday-badge"><svg viewBox="-10 -10 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0L9.20 0.00M3.00 0.00L4.40 -2.42M3.00 0.00L4.40 2.42M5.40 0.00L6.65 -2.17M5.40 0.00L6.65 2.17M7.60 0.00L8.40 -1.39M7.60 0.00L8.40 1.39M0 0L4.60 7.97M1.50 2.60L4.30 2.60M1.50 2.60L0.10 5.02M2.70 4.68L5.20 4.68M2.70 4.68L1.45 6.84M3.80 6.58L5.40 6.58M3.80 6.58L3.00 7.97M0 0L-4.60 7.97M-1.50 2.60L-0.10 5.02M-1.50 2.60L-4.30 2.60M-2.70 4.68L-1.45 6.84M-2.70 4.68L-5.20 4.68M-3.80 6.58L-3.00 7.97M-3.80 6.58L-5.40 6.58M0 0L-9.20 0.00M-3.00 0.00L-4.40 2.42M-3.00 0.00L-4.40 -2.42M-5.40 0.00L-6.65 2.17M-5.40 0.00L-6.65 -2.17M-7.60 0.00L-8.40 1.39M-7.60 0.00L-8.40 -1.39M0 0L-4.60 -7.97M-1.50 -2.60L-4.30 -2.60M-1.50 -2.60L-0.10 -5.02M-2.70 -4.68L-5.20 -4.68M-2.70 -4.68L-1.45 -6.84M-3.80 -6.58L-5.40 -6.58M-3.80 -6.58L-3.00 -7.97M0 0L4.60 -7.97M1.50 -2.60L0.10 -5.02M1.50 -2.60L4.30 -2.60M2.70 -4.68L1.45 -6.84M2.70 -4.68L5.20 -4.68M3.80 -6.58L3.00 -7.97M3.80 -6.58L5.40 -6.58" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/><circle r="1.7" fill="currentColor"/></svg>'Twas the Night Before the Pitch</span>
+        <span class="forecast-badge"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Groundhog Day &middot; Feb 2</span>
         <span class="eyebrow on-dark">An evening at Shack15</span>
         <h1>After Hours: <span class="accent">San Francisco</span></h1>
-        <p class="tagline">'Twas the night before the pitch, and all through the room, <br>founders met investors, and deals started to bloom.</p>
-        <p class="lead">One hour of real stories from the founders and investors behind them, one hour to meet the people who could fund or build with you next. Founders, operators and investors, cocktails at Shack15.</p>
+        <p class="tagline">The 2027 Funding Forecast: Early Spring or Long Winter?</p>
+        <p class="lead">Is 2027 a good year to raise? On Groundhog Day at Shack15, two founders and one investor make their calls. The room votes first, and at the end of the night we check who called it.</p>
         <div class="cta-row">
           <a href="/after-hours-sf-application" class="btn-hero">Become a Sponsor</a>
         </div>
       </div>
       <div class="hero-photo-wrap">
         <div class="hero-photo">
-          <img src="/sf-holiday-illustration.svg" alt="Illustration of San Francisco at night: the Golden Gate Bridge strung with holiday lights, the skyline, a cable car and a Christmas tree in the snow">
+          <img src="/sf-forecast-illustration.svg" alt="Illustration of San Francisco at sunrise: winter snow and flurries on the left give way to spring blossoms on the right, with a groundhog peeking out of its burrow in front of the Golden Gate Bridge">
         </div>
         <div class="hero-stat-float">
           <a class="hstat-location" href="https://www.shack15.com" target="_blank" rel="noopener">
@@ -754,13 +780,13 @@
         <div>
           <span class="eyebrow">About the event</span>
           <h2 class="section-title">An evening built for the Bay Area founder crowd.</h2>
-          <p>After Hours: San Francisco brings together founders, operators, and investors at <a href="https://www.shack15.com" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;">Shack15</a>, the Ferry Building's community hub for entrepreneurs, for an evening of cocktails and conversation. Fundraising usually gets talked about after the fact, so we wanted the real conversation: a founder and an investor on stage for an honest fireside chat about how a round came together, what investors look for, and what each side wishes they'd known. Open networking follows in a relaxed, high-end setting.</p>
+          <p>After Hours: San Francisco brings together founders, operators, and investors at <a href="https://www.shack15.com" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;">Shack15</a>, the Ferry Building's community hub for entrepreneurs, for an evening of cocktails and conversation. This one lands on Groundhog Day and asks the question everyone raising capital is asking: is 2027 an early spring or a long winter for fundraising? Two founders and one investor make their calls on stage, the room votes, and we check the predictions at the end. Open networking follows in a relaxed, high-end setting.</p>
           <p>Joy plans corporate events year-round, and After Hours is where that work gets personal: a small, curated room where the brands backing the night meet the founders, operators, and investors they want to know. As a sponsor, your brand is woven into the evening itself: signage and branding on-site, a moment in front of the room, and direct face time with attendees who don't usually take a cold pitch.</p>
         </div>
         <div class="detail-card">
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2v4M16 2v4M3.5 9h17M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <div><div class="label">Date</div><div class="value">December 10, 2026, 7&ndash;9 PM</div></div>
+            <div><div class="label">Date</div><div class="value">Tuesday, February 2, 2027, 7&ndash;9 PM</div></div>
           </div>
           <div class="detail-row">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s7-7.05 7-12a7 7 0 1 0-14 0c0 4.95 7 12 7 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.8"/></svg>
@@ -779,10 +805,46 @@
     </div>
   </section>
 
+  <section class="section-navy" id="forecast">
+    <div class="wrap">
+      <span class="eyebrow">The forecast</span>
+      <div class="forecast-intro">
+        <h2 class="section-title">Is 2027 a good year to raise?</h2>
+        <div>
+          <p>Every founder planning a raise is asking the same thing. If the groundhog sees its shadow, it&rsquo;s six more weeks of winter; if it doesn&rsquo;t, spring comes early. Fundraising has its own version of that forecast, and &ldquo;funding winter&rdquo; is already how founders and investors describe a tight market.</p>
+          <p>Early February is when many investors have set their plans for the year and founders are gearing up to raise, so it&rsquo;s the right moment to ask which season 2027 will be.</p>
+        </div>
+      </div>
+      <div class="seasons">
+        <div class="season winter">
+          <div class="season-tag"><svg viewBox="-10 -10 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0L9.20 0.00M3.00 0.00L4.40 -2.42M3.00 0.00L4.40 2.42M5.40 0.00L7.90 -2.17M5.40 0.00L7.90 2.17M7.60 0.00L9.20 -1.39M7.60 0.00L9.20 1.39M0 0L4.60 7.97M1.50 2.60L0.10 5.03M1.50 2.60L3.90 3.07M2.70 4.68L2.58 7.12M2.70 4.68L5.00 5.80M3.80 6.58L3.80 8.20M3.80 6.58L5.40 7.50M0 0L-4.60 7.97M-1.50 2.60L-3.90 3.07M-1.50 2.60L-0.10 5.03M-2.70 4.68L-5.00 5.80M-2.70 4.68L-2.58 7.12M-3.80 6.58L-5.40 7.50M-3.80 6.58L-3.80 8.20M0 0L-9.20 0.00M-3.00 0.00L-4.40 2.42M-3.00 0.00L-4.40 -2.42M-5.40 0.00L-7.90 2.17M-5.40 0.00L-7.90 -2.17M-7.60 0.00L-9.20 1.39M-7.60 0.00L-9.20 -1.39M0 0L-4.60 -7.97M-1.50 -2.60L-0.10 -5.03M-1.50 -2.60L-3.90 -3.07M-2.70 -4.68L-2.58 -7.12M-2.70 -4.68L-5.00 -5.80M-3.80 -6.58L-3.80 -8.20M-3.80 -6.58L-5.40 -7.50M0 0L4.60 -7.97M1.50 -2.60L3.90 -3.07M1.50 -2.60L0.10 -5.03M2.70 -4.68L5.00 -5.80M2.70 -4.68L2.58 -7.12M3.80 -6.58L5.40 -7.50M3.80 -6.58L3.80 -8.20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle r="1.7" fill="currentColor"/></svg>If the groundhog sees its shadow</div>
+          <h3>A long winter</h3>
+          <p class="lede">Capital stays cautious and the bar keeps rising.</p>
+          <ul>
+            <li>Rounds stay smaller and take longer to close</li>
+            <li>Valuations stay flat or slip while investors ask for more proof</li>
+            <li>Funding concentrates in a handful of sectors</li>
+          </ul>
+        </div>
+        <div class="season spring">
+          <div class="season-tag"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>If it doesn&rsquo;t</div>
+          <h3>An early spring</h3>
+          <p class="lede">Confidence returns and capital starts moving again.</p>
+          <ul>
+            <li>Rounds get bigger and close faster</li>
+            <li>Valuations begin to recover as competition returns</li>
+            <li>Investors widen their search to new sectors</li>
+          </ul>
+        </div>
+      </div>
+      <p class="season-note">Which will 2027 be? That&rsquo;s the question for the night.</p>
+    </div>
+  </section>
+
   <section class="section-light" id="speakers">
     <div class="wrap">
-      <span class="eyebrow">Fireside chat</span>
-      <h2 class="section-title">Hear it straight from the people who lived it.</h2>
+      <span class="eyebrow">The panel</span>
+      <h2 class="section-title">Two founders and an investor make the call.</h2>
       <div class="speakers-grid">
         <div class="speaker-card has-bio">
           <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1788097309/vishal_speaker_photo.png" alt="Vishal Joshi"></div>
@@ -793,7 +855,7 @@
             <a class="speaker-linkedin" href="https://www.linkedin.com/in/vishaljoshi/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
             <button type="button" class="speaker-bio-btn">Read bio</button>
           </div>
-          <div class="speaker-full-bio" hidden>Vishal Joshi is a founder who has raised $130M+ from investors including GC, Valor, and YC. At After Hours: San Francisco, Vishal joins the fireside chat to share the stories behind those rounds.</div>
+          <div class="speaker-full-bio" hidden>Vishal Joshi is a founder who has raised $130M+ from investors including GC, Valor, and YC. At After Hours: San Francisco, Vishal joins the panel to give a founder&rsquo;s call on the 2027 funding market.</div>
         </div>
         <div class="speaker-card has-bio">
           <div class="speaker-photo"><img src="https://res.cloudinary.com/irilxier/image/upload/v1788290020/1761478081323.jpg" alt="Richie Mathews"></div>
@@ -804,13 +866,13 @@
             <a class="speaker-linkedin" href="https://www.linkedin.com/in/richiemathews/" target="_blank" rel="noopener">LinkedIn &#8599;</a>
             <button type="button" class="speaker-bio-btn">Read bio</button>
           </div>
-          <div class="speaker-full-bio" hidden>Richie Mathews is an active investor and advisor to startups in AI, mobility, fintech, and e-commerce. At After Hours: San Francisco, Richie joins the fireside chat from the investor side of the table.</div>
+          <div class="speaker-full-bio" hidden>Richie Mathews is an active investor and advisor to startups in AI, mobility, fintech, and e-commerce. At After Hours: San Francisco, Richie joins the panel to give the investor&rsquo;s call on where funding is headed in 2027.</div>
         </div>
         <div class="speaker-card tba">
           <div class="speaker-photo tba-photo"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3.5l1.9 4.9 5.1.5-3.9 3.4 1.2 5.1L12 14.6 7.7 17.4l1.2-5.1L5 8.9l5.1-.5L12 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
-          <div class="speaker-role">Special Guest</div>
+          <div class="speaker-role">Founder</div>
           <div class="speaker-name">Coming soon</div>
-          <div class="speaker-bio">One more voice joining the conversation. Stay tuned.</div>
+          <div class="speaker-bio">A second founder joining the panel. Stay tuned.</div>
         </div>
       </div>
     </div>
@@ -825,28 +887,28 @@
           <div class="agenda-time">7:00 PM</div>
           <div>
             <div class="agenda-title">Welcome</div>
-            <div class="agenda-desc">Doors open, festive drinks, and networking as guests arrive.</div>
+            <div class="agenda-desc">Doors open, drinks, and networking as guests arrive. Cast your vote: early spring or long winter?</div>
           </div>
         </div>
         <div class="agenda-item">
-          <div class="agenda-time">7:30&ndash;8:00 PM</div>
+          <div class="agenda-time">7:30&ndash;8:15 PM</div>
           <div>
-            <div class="agenda-title">Founder fireside chat</div>
-            <div class="agenda-desc">A founder and an investor on stage for an honest conversation about raising money: how the round came together, what investors look for, and what each side wishes they'd known.</div>
+            <div class="agenda-title">The 2027 Funding Forecast panel</div>
+            <div class="agenda-desc">Two founders and an investor make their calls on rounds, valuations, sectors, and what it takes to raise this year.</div>
           </div>
         </div>
         <div class="agenda-item">
-          <div class="agenda-time">8:00&ndash;8:15 PM</div>
+          <div class="agenda-time">8:15&ndash;8:30 PM</div>
           <div>
             <div class="agenda-title">Sponsor spotlight</div>
             <div class="agenda-desc">3 minutes on stage for each Partner and Presenting sponsor to talk about their company.</div>
           </div>
         </div>
         <div class="agenda-item">
-          <div class="agenda-time">8:15&ndash;9:00 PM</div>
+          <div class="agenda-time">8:30&ndash;9:00 PM</div>
           <div>
-            <div class="agenda-title">Networking</div>
-            <div class="agenda-desc">Cocktails, cheer, and conversation continue on the floor.</div>
+            <div class="agenda-title">The verdict &amp; networking</div>
+            <div class="agenda-desc">We compare the room&rsquo;s poll to the panel&rsquo;s calls, then the conversation continues on the floor.</div>
           </div>
         </div>
       </div>
@@ -866,12 +928,12 @@
         <div class="card">
           <span class="num">02</span>
           <h3>Real face time</h3>
-          <p>An intimate evening format, not a trade show floor. Sponsors get genuine conversations and a moment in front of the room during the fireside chat.</p>
+          <p>An intimate evening format, not a trade show floor. Sponsors get genuine conversations and a moment in front of the room during the panel.</p>
         </div>
         <div class="card">
           <span class="num">03</span>
           <h3>One night, low lift</h3>
-          <p>No booth to staff, no multi-day commitment, no tinsel to untangle. Show up, be part of the festive evening, and follow up on warm conversations in the new year.</p>
+          <p>No booth to staff, no multi-day commitment. Show up, be part of the evening, and follow up on warm conversations afterward.</p>
         </div>
       </div>
     </div>
@@ -880,20 +942,20 @@
   <section class="section-white" id="setting">
     <div class="wrap">
       <span class="eyebrow">The setting</span>
-      <h2 class="section-title">San Francisco, all lit up.</h2>
-      <p class="gallery-intro">A giant Union Square tree, the Embarcadero waterfront, and a city that does the holidays right.</p>
+      <h2 class="section-title">San Francisco, after hours.</h2>
+      <p class="gallery-intro">The Embarcadero, the Bay Bridge, and a skyline worth lingering over.</p>
       <div class="event-gallery">
         <figure class="gallery-item tall">
-          <img src="https://images.unsplash.com/photo-1765956004324-cbe9aa79838a?auto=format&fit=crop&w=1200&q=80" alt="The giant Christmas tree outside Macy's in Union Square at night" loading="lazy">
-          <figcaption>Union Square, all aglow</figcaption>
+          <img src="https://images.unsplash.com/photo-1577829498563-785a4ba91c96?auto=format&fit=crop&w=1200&q=80" alt="The Bay Bridge at dusk over San Francisco Bay" loading="lazy">
+          <figcaption>The Bay Bridge at dusk</figcaption>
         </figure>
         <figure class="gallery-item">
           <img src="https://images.unsplash.com/photo-1683949805549-631f9cb8740f?auto=format&fit=crop&w=900&q=80" alt="The Ferry Building and Embarcadero waterfront at dusk" loading="lazy">
           <figcaption>The Ferry Building, on the Embarcadero</figcaption>
         </figure>
         <figure class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1576764894677-aac83a1d285e?auto=format&fit=crop&w=900&q=80" alt="Union Square and its holiday tree from above" loading="lazy">
-          <figcaption>The Union Square tree and ice rink</figcaption>
+          <img src="https://images.unsplash.com/photo-1672279410716-c676739163e9?auto=format&fit=crop&w=900&q=80" alt="The San Francisco skyline at dusk" loading="lazy">
+          <figcaption>The city skyline after dark</figcaption>
         </figure>
       </div>
     </div>
@@ -985,8 +1047,16 @@
       <h2 class="section-title">Questions, answered.</h2>
       <div class="faq-card" id="faq-card">
         <div class="faq-item">
-          <button class="faq-q" type="button">What is the fireside chat about?<span class="plus">+</span></button>
-          <div class="faq-a"><p>Fundraising, from both sides of the table. A founder and an investor talk through how a round actually came together, what investors look for, and what each side wishes they'd known. It's a conversation, not a pitch session, so expect candid answers.</p></div>
+          <button class="faq-q" type="button">What&rsquo;s the panel about?<span class="plus">+</span></button>
+          <div class="faq-a"><p>The 2027 funding market: is it an early spring or a long winter for raising capital? Two founders and one investor share their calls on round sizes, valuations, which sectors will get funded, and what a founder raising in the next 90 days should do now. We open with an audience poll on the same question and compare it to the panel&rsquo;s calls at the end.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">Why Groundhog Day?<span class="plus">+</span></button>
+          <div class="faq-a"><p>It&rsquo;s a fun hook for a real question. If the groundhog sees its shadow, it&rsquo;s six more weeks of winter, and &ldquo;funding winter&rdquo; is already a familiar phrase. February 2 also falls when many investors have set their plans for the year and founders are gearing up to raise.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">Will there be a recap?<span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes. After the event we&rsquo;ll send a recap of the predictions, so you can see how the panel&rsquo;s calls and the room&rsquo;s poll hold up as the year unfolds.</p></div>
         </div>
         <div class="faq-item">
           <button class="faq-q" type="button">Why is Joy hosting After Hours?<span class="plus">+</span></button>
@@ -1133,143 +1203,7 @@
   })();
 </script>
 
-<script>
-  /* Falling snow: real six-armed crystals in parallax layers, canvas-drawn */
-  (function(){
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var unit = new Path2D();
-    for(var k=0;k<6;k++){
-      var a=k*Math.PI/3, c=Math.cos(a), s=Math.sin(a);
-      unit.moveTo(0,0); unit.lineTo(c,s);
-      [0.42,0.7].forEach(function(t,i){
-        var bx=c*t, by=s*t, L=i?0.2:0.3;
-        [-1,1].forEach(function(sg){
-          var b=a+sg*0.96;
-          unit.moveTo(bx,by); unit.lineTo(bx+Math.cos(b)*L, by+Math.sin(b)*L);
-        });
-      });
-    }
-    function init(box){
-      var cv=document.createElement('canvas');
-      cv.style.cssText='position:absolute;inset:0;width:100%;height:100%;display:block;';
-      box.appendChild(cv);
-      var ctx=cv.getContext('2d'), w=0, h=0, dpr=Math.min(window.devicePixelRatio||1,2), flakes=[], raf=0, last=0, visible=true;
-      function make(){
-        var n=Math.round(Math.max(26,Math.min(64,w*h/24000))); flakes=[];
-        for(var i=0;i<n;i++){
-          var d=Math.pow(Math.random(),1.6);
-          flakes.push({x:Math.random()*w,y:Math.random()*h,d:d,r:2+d*10,v:12+d*44,amp:6+d*22,f:0.3+Math.random()*0.5,ph:Math.random()*6.28,rot:Math.random()*6.28,rs:(Math.random()-0.5)*0.8});
-        }
-      }
-      var avoid=[];
-      function measure(){
-        avoid=[]; var host=box.parentElement, br=box.getBoundingClientRect();
-        host.querySelectorAll('h1,h2,p,.event-meta-row,.cta-row,.holiday-badge,.eyebrow,.sponsor-nudge,.topbar a,.btn-hero').forEach(function(e){
-          if(box.contains(e)) return; var r=e.getBoundingClientRect(); if(!r.width||!r.height) return;
-          avoid.push({l:r.left-br.left-10,t:r.top-br.top-10,r:r.right-br.left+10,b:r.bottom-br.top+10});
-        });
-      }
-      function fade(x,y){
-        var m=1;
-        for(var i=0;i<avoid.length;i++){
-          var r=avoid[i], dx=Math.max(r.l-x,0,x-r.r), dy=Math.max(r.t-y,0,y-r.b), d=Math.sqrt(dx*dx+dy*dy);
-          if(d<34) m=Math.min(m,0.04+0.96*(d/34));
-        }
-        return m;
-      }
-      function size(){
-        var r=box.getBoundingClientRect(); w=r.width; h=r.height;
-        cv.width=Math.max(1,w*dpr); cv.height=Math.max(1,h*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); measure(); make(); draw(0);
-      }
-      function draw(t){
-        ctx.clearRect(0,0,w,h);
-        flakes.forEach(function(f){
-          var x=f.x+Math.sin(t*f.f+f.ph)*f.amp, y=f.y;
-          var big=f.r>8.5;
-          var k=fade(x,y); if(k<0.06) return;
-          ctx.globalAlpha=(big?0.34:0.35+f.d*0.5)*k;
-          if(f.r<3.4){ ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(x,y,f.r*0.5,0,6.283); ctx.fill(); return; }
-          ctx.save(); ctx.translate(x,y); ctx.rotate(f.rot); ctx.scale(f.r,f.r);
-          ctx.strokeStyle='#fff'; ctx.lineCap='round'; ctx.lineWidth=Math.max(0.9,f.r*0.15)/f.r;
-          if(big && 'filter' in ctx) ctx.filter='blur(1.4px)';
-          ctx.stroke(unit); ctx.restore();
-        });
-        ctx.globalAlpha=1;
-      }
-      function tick(ts){
-        raf=requestAnimationFrame(tick);
-        var dt=Math.min(0.05,(ts-last)/1000||0.016); last=ts;
-        flakes.forEach(function(f){
-          f.y+=f.v*dt; f.rot+=f.rs*dt;
-          if(f.y-f.r>h){ f.y=-f.r; f.x=Math.random()*w; }
-        });
-        draw(ts/1000);
-      }
-      function start(){ if(!raf && !reduce && visible){ last=performance.now(); raf=requestAnimationFrame(tick); } }
-      function stop(){ if(raf){ cancelAnimationFrame(raf); raf=0; } }
-      if('ResizeObserver' in window) new ResizeObserver(size).observe(box); else { window.addEventListener('resize',size); }
-      size();
-      window.addEventListener('load',function(){ measure(); });
-      setTimeout(measure,800);
-      if('IntersectionObserver' in window){
-        new IntersectionObserver(function(es){ visible=es[0].isIntersecting; visible?start():stop(); }).observe(box);
-      } else start();
-    }
-    document.querySelectorAll('.snow').forEach(init);
-  })();
-</script>
 
-<script>
-  /* String lights: drooping wire swags with glass bulbs, rebuilt to fit the width */
-  (function(){
-    var NS='http://www.w3.org/2000/svg';
-    var COLORS=[['#FFE7A6','#FFC95C'],['#FF6B6B','#D7263D'],['#FFE7A6','#FFC95C'],['#6BE3A4','#1F9D63'],['#FFE7A6','#FFC95C'],['#8FD3FF','#3D8FE0'],['#FFD36B','#F59E0B']];
-    function el(n,a,p){ var e=document.createElementNS(NS,n); for(var k in a) e.setAttribute(k,a[k]); if(p) p.appendChild(e); return e; }
-    function build(host){
-      var W=host.clientWidth, H=host.clientHeight; if(!W) return;
-      host.innerHTML='';
-      var svg=el('svg',{viewBox:'0 0 '+W+' '+H,'aria-hidden':'true'},host);
-      var defs=el('defs',{},svg);
-      COLORS.forEach(function(c,i){
-        var g=el('radialGradient',{id:'bg'+i,cx:'.38',cy:'.35',r:'.75'},defs);
-        el('stop',{offset:'0'},g).setAttribute('stop-color','#fff');
-        el('stop',{offset:'.35'},g).setAttribute('stop-color',c[0]);
-        el('stop',{offset:'1'},g).setAttribute('stop-color',c[1]);
-        var gl=el('radialGradient',{id:'gl'+i},defs);
-        var s0=el('stop',{offset:'0'},gl); s0.setAttribute('stop-color',c[0]); s0.setAttribute('stop-opacity','.7');
-        var s1=el('stop',{offset:'1'},gl); s1.setAttribute('stop-color',c[1]); s1.setAttribute('stop-opacity','0');
-      });
-      var n=Math.max(3,Math.round(W/(W<700?95:130))), span=W/n, y0=7, sag=W<700?17:22, bulbs=0;
-      for(var i=0;i<n;i++){
-        var x0=i*span, x1=(i+1)*span, cx=(x0+x1)/2, cy=y0+sag*2;
-        el('path',{d:'M'+x0+' '+y0+' Q'+cx+' '+cy+' '+x1+' '+y0,stroke:'#0A0F3C','stroke-opacity':'.85','stroke-width':'1.7',fill:'none','stroke-linecap':'round'},svg);
-        el('path',{d:'M'+x0+' '+(y0-0.8)+' Q'+cx+' '+(cy-0.8)+' '+x1+' '+(y0-0.8),stroke:'#fff','stroke-opacity':'.14','stroke-width':'.7',fill:'none'},svg);
-        el('circle',{cx:x0,cy:y0,r:'2.6',fill:'#0A0F3C'},svg);
-        var count=Math.max(3,Math.round(span/(W<700?22:26)));
-        for(var j=1;j<count;j++){
-          var t=j/count, px=(1-t)*(1-t)*x0+2*(1-t)*t*cx+t*t*x1, py=(1-t)*(1-t)*y0+2*(1-t)*t*cy+t*t*y0;
-          var tx=2*(1-t)*(cx-x0)+2*t*(x1-cx), ty=2*(1-t)*(cy-y0)+2*t*(y0-cy);
-          var rot=Math.atan2(ty,tx)*180/Math.PI*0.35;
-          var ci=bulbs%COLORS.length, ph=(bulbs%2)?'lt-b':'lt-a'; bulbs++;
-          var g=el('g',{transform:'translate('+px.toFixed(1)+' '+(py+0.5).toFixed(1)+') rotate('+rot.toFixed(1)+')'},svg);
-          el('rect',{x:'-2.8',y:'0',width:'5.6',height:'5.2',rx:'1.2',fill:'#1B2060',stroke:'#0A0F3C','stroke-width':'.6'},g);
-          el('path',{d:'M-2.8 1.6H2.8M-2.8 3.4H2.8',stroke:'#3A4090','stroke-width':'.7'},g);
-          var lit=el('g',{'class':ph},g);
-          el('circle',{cx:'0',cy:'12.5',r:'15',fill:'url(#gl'+ci+')'},lit);
-          el('path',{d:'M0 5C-5.6 5.6-6.6 14.4-2.2 18.2 -1 19.2 1 19.2 2.2 18.2 6.6 14.4 5.6 5.6 0 5Z',fill:'url(#bg'+ci+')'},lit);
-          el('ellipse',{cx:'-1.9',cy:'10',rx:'1.2',ry:'2.6',fill:'#fff','fill-opacity':'.55',transform:'rotate(14 -1.9 10)'},lit);
-        }
-      }
-      el('circle',{cx:W,cy:y0,r:'2.6',fill:'#0A0F3C'},svg);
-    }
-    document.querySelectorAll('.lights').forEach(function(host){
-      var last=0;
-      function go(){ var w=host.clientWidth; if(w&&w!==last){ last=w; build(host); } }
-      if('ResizeObserver' in window) new ResizeObserver(go).observe(host); else { window.addEventListener('resize',go); }
-      go();
-    });
-  })();
-</script>
 
 </body>
 </html>

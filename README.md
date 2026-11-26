@@ -26,16 +26,17 @@ serverless function that writes submissions into Postgres.
   and shows an inline Calendly embed (see `.env.example`-adjacent note below) so sponsors can book an
   intro call directly.
 - `after-hours-sf.html` / `after-hours-sf-attendees.html` / `after-hours-sf-application.html` — the
-  same three-page pattern as the London event, for After Hours: San Francisco
-  (`/after-hours-sf`, `/after-hours-sf-attendees`, `/after-hours-sf-application`), linked from the
-  "Coming up" tile on the main landing page. USD sponsorship tiers ($3,000 Supporter / $5,000
-  Partner / $10,000 Presenting Sponsor, the top tier adding a panel seat), tags applications `event: 'after-hours-sf'`, and reuses the same Calendly link
-  on its confirmation screen. Speakers: Vishal Joshi (founder) and Richie Mathews (investor), reusing the same photos/short bios as the
-  original London lineup, each with a click-for-bio modal (the longer bios are short placeholders built only from
-  those one-liners, so swap in real copy), plus a "Special Guest" Coming soon placeholder. The attendee page's "Register to
-  Attend" CTA points at the existing external `https://withjoy.com/AfterHours` registration link
-  (there's no dedicated withjoy.com registration ID for this event yet, unlike London's), and its
-  hero is centered text under a full-width illustrated banner (`sf-holiday-banner.svg`), a wide variant of the sponsor page's illustration, instead of London's 3-photo grid
+  same three-page pattern as the London event, for After Hours: San Francisco, "The 2027 Funding
+  Forecast: Early Spring or Long Winter?" on Groundhog Day (`/after-hours-sf`, `/after-hours-sf-attendees`,
+  `/after-hours-sf-application`), linked from the "Coming up" tile on the main landing page. USD sponsorship
+  tiers ($3,000 Supporter / $5,000 Partner / $10,000 Presenting Sponsor, the top tier adding a panel seat),
+  tags applications `event: 'after-hours-sf'`, and reuses the same Calendly link on its confirmation screen.
+  Panel: Vishal Joshi (founder) and Richie Mathews (investor) with click-for-bio modals, plus a "Founder,
+  coming soon" placeholder. The attendee page's "Register to Attend" CTA points at the existing external
+  `https://withjoy.com/AfterHours` registration link (no dedicated withjoy.com registration ID yet, unlike
+  London's). Hero art is a custom illustration (`sf-forecast-illustration.svg` in the sponsor hero frame,
+  the landing tile and the share cards; `sf-forecast-banner.svg` as the wide banner across the top of the
+  attendee page) instead of London's photo grid.
 - `corporate-events.html` — corporate event planning page (`/corporate-events`), linked from the main landing
   page's top bar, an "Also from Joy" band above the FAQs, and the footer. Same branding as the landing page:
   light left-aligned hero with a "nine yards" services card (deliberately different from the Sponsor Network's blue hero; no photo), "What we do" (venues, vendors, logistics, on-site, hotels & accommodations, sponsors),
@@ -166,19 +167,24 @@ For local development: `vercel env pull .env.local` to grab the database env var
   `https://calendly.com/d/dv56-ttm-f5j/joy-sponsor-network`. It's a plain `<script src="https://assets.calendly.com/assets/external/widget.js">`
   + `.calendly-inline-widget` div (standard Calendly inline embed), so it needs a real browser to
   render — it won't show anything in a sandboxed preview that blocks third-party iframes.
-- The After Hours: San Francisco pages follow the same structure as London, with the same small touches
-  (hero inset photo + "The setting" gallery on the sponsor page; "The vibe" polaroid strip and closing
-  "Come hang out with us" band on the attendee page). Event details: December 10, 2026, 7-9 PM at
-  [Shack15](https://www.shack15.com), 1 Ferry Building, Suite 201. The 7-9 PM time and the 2/3/5 attendee-ticket counts
-  per tier are placeholders, and the Special Guest slot is a "Coming soon"
-  placeholder, so confirm those before this goes live. The event has a "'Twas the Night Before the Pitch" holiday theme (a verse couplet tagline and closing CTA kept deliberately light, with plain headings elsewhere; candy-cane top
-  stripe, a script-built string of lights across the top (wire swags with glass bulbs, rebuilt to fit the width),
-  falling snow in the heroes (it fades out wherever it would cross text), cranberry "'Twas the Night Before the Pitch" badge, gold accent
-  instead of cyan, festive copy, and holiday-styled OG cards); the snow is a small inline canvas script (real six-armed crystals in parallax layers, paused offscreen) that respects
-  `prefers-reduced-motion`. The dress-code FAQ now invites festive attire, so confirm that wording. The About paragraph on both pages explains the fireside chat's focus (how a round came together, what investors look for, what each side wishes they'd known) and why Joy hosts After Hours, with matching FAQs. That focus is drafted from the existing "stories behind the biggest rounds" framing and the founder/investor lineup, so confirm it matches the real plan, and that sponsors helping keep the event free to attend is accurate. The attendee page's "Register to Attend" CTA still
-  points at the external `https://withjoy.com/AfterHours` page (there's no dedicated registration ID like
-  London's), so make sure that page shows the December 10 date. The decorative SF photos (Ferry Building,
-  Union Square holiday tree, festive toasts) are Unsplash stock loaded by photo ID, except the main hero art, which is a custom holiday illustration of SF (layered skyline and hills, Golden Gate strung with warm lights, Painted Ladies, cable car, tree and crystal snowflakes; cable car, tree). It lives in `sf-holiday-illustration.svg` (4:3, sponsor hero frame, landing tile, share cards) and `sf-holiday-banner.svg` (wide, attendee header). A few lit windows on the Salesforce Tower spell "SF" (slightly brighter than their neighbors) as a subtle easter egg. They are plain hand-editable SVGs with a few CSS animations (twinkling lights, falling snow) that respect `prefers-reduced-motion`. The originally supplied Cloudinary Golden Gate photo is no longer used.
+- After Hours: San Francisco (Tuesday, February 2, 2027 at [Shack15](https://www.shack15.com), 1 Ferry
+  Building, Suite 201) is themed around the "2027 Funding Forecast" and Groundhog Day: is 2027 an early
+  spring or a long winter for raising money? The night is an opening audience poll, a panel of two founders
+  and one investor making their calls on rounds, valuations, sectors and how to prepare to raise, a verdict comparing the poll to the panel's calls, and a recap of the predictions sent afterward.
+  The forecast section's claim that early February is when many investors have set their plans and founders
+  are gearing up to raise comes from the organizer's own research, so confirm it before launch. The 7-9 PM
+  time, the agenda timings, the 2/3/5 attendee-ticket counts per tier, the short Vishal and Richie bios, and
+  the "sponsors help keep it free to attend" line are placeholders to confirm. The $10,000 tier's "speaking
+  seat on the panel" may need rewording since the panel is already two founders and one investor. The
+  attendee page's "Register to Attend" link goes to `https://withjoy.com/AfterHours`; make sure that page
+  shows February 2, 2027.
+- The SF art direction: the hero illustration (`sf-forecast-illustration.svg`, `sf-forecast-banner.svg`) is a
+  plain hand-editable SVG, cold winter on the left (snow, flurries, bare trees) and warm spring on the right
+  (sunrise, blossoms, flowers), with a groundhog at its burrow in the middle and a few Salesforce Tower windows
+  that spell "SF". Its flurries, petals and twinkles are CSS animations that respect `prefers-reduced-motion`.
+  The other SF photos (Bay Bridge, Ferry Building, skyline, cocktails, crowd) are Unsplash stock loaded by
+  photo ID. The earlier Dec 10 holiday version (candy-cane stripe, string lights, canvas snow, Christmas
+  imagery) lives in git history (commits 523e92f through 892e2c4) if it is ever needed again.
 - The London event pages' decorative photos (hero, gallery, "vibe" strip, attendee header) are London stock
   shots from Unsplash, loaded straight from `images.unsplash.com` by photo ID (see the `<img>` tags in
   `after-hours-london.html` and `after-hours-london-attendees.html`). To use your own photos, swap the `src`
